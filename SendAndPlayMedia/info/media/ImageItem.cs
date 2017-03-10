@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Test.info.media
 {
-    class ImageItem : MediaItem
+    class ImageItem:MediaItem
     {
         public string width { set; get; }
         public string height { set; get; }

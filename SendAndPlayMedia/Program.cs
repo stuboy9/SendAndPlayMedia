@@ -34,7 +34,14 @@ namespace SendAndPlayMedia
             pro.StartInfo.FileName = @"F:\VS2015WorkSpace\SendAndPlayMedia\StartProjection\bin\Debug\StartProjection.exe";
             pro.Start();
             MediaFunction media = new MediaFunction();
-            media.Start();
+            foreach (string library in media.GetMediaLibrary())
+            {
+                Console.WriteLine(library);
+                media.GetImageFromVideo(library);
+            }
+            Console.WriteLine("finish");
+            media.AddSourceToHTTP(media.GetLibraryTemp());
+            
             DLNA dlna = new DLNA();
 
             Phone phone = new Phone();

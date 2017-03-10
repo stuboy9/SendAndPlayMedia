@@ -28,6 +28,8 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -64,11 +66,16 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MediaInfo.DotNetWrapper, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediaInfo.DotNetWrapper.1.0.2.0\lib\net40\MediaInfo.DotNetWrapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -84,7 +91,6 @@
     <Compile Include="function\app\Applacation.cs" />
     <Compile Include="command\Command.cs" />
     <Compile Include="function\dlna\DLNA.cs" />
-    <Compile Include="function\media\VideoFunction.cs" />
     <Compile Include="function\Phone.cs" />
     <Compile Include="function\tv\TVFunction.cs" />
     <Compile Include="info\applacation\ApplacationItem.cs" />
@@ -93,7 +99,7 @@
     <Compile Include="info\media\AudioItem.cs" />
     <Compile Include="info\media\MediaItem.cs" />
     <Compile Include="info\media\MediaLibrary.cs" />
-    <Compile Include="info\media\Picture.cs" />
+    <Compile Include="info\media\ImageItem.cs" />
     <Compile Include="info\media\VideoItem.cs" />
     <Compile Include="info\miracast\MiracastLibrary.cs" />
     <Compile Include="info\miracast\Screen.cs" />
@@ -128,6 +134,13 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MediaInfo.Native.0.7.93\build\MediaInfo.Native.targets" Condition="Exists('..\packages\MediaInfo.Native.0.7.93\build\MediaInfo.Native.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MediaInfo.Native.0.7.93\build\MediaInfo.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MediaInfo.Native.0.7.93\build\MediaInfo.Native.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

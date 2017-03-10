@@ -51,7 +51,6 @@ namespace SendAndPlayMedia.command
                 WindowControl wc = new WindowControl();
                 Applacation app = new Applacation();
                 MediaFunction media = new MediaFunction();
-                media.Start();
                 Response response = null;
 
                 switch (name)

@@ -1,9 +1,13 @@
 ﻿using Newtonsoft.Json;
+using SendAndPlayMedia.command;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -23,8 +27,8 @@ namespace SendAndPlayMedia
         private List<string> video = new List<string>();
         private List<string> audio = new List<string>();
         private List<string> picture = new List<string>();
+
         private string mediaConf = System.IO.Directory.GetCurrentDirectory() + "medias.txt";
-        private static Boolean flag = false;
         private string medias = null;
         private string[] paths = null;
         public string videoAPP { get; set; }
@@ -37,305 +41,109 @@ namespace SendAndPlayMedia
         /// <returns></returns>
         public string getMedias()
         {
-            if (medias == null)
+            return "";
+        }
+        public MediaJson getMediasByPath(string type,string dir)
+        {
+            string currDir = dir;
+            string[] subDirs = null;
+            if (type == "root")
             {
-                string path = System.IO.Directory.GetCurrentDirectory();
-                if (File.Exists(path + "\\medias.txt"))
+                new MediaJson(type, new List<string>(GetMediaLibrary()), new List<MediaItem>());
+            }
+            List<MediaItem> vlist = new List<MediaItem>();
+                try
                 {
-                    medias = File.ReadAllText(path + "\\medias.txt");
-                    return medias;
+                    subDirs = System.IO.Directory.GetDirectories(currDir);
                 }
-                else
+                catch (System.UnauthorizedAccessException e)
                 {
-                    FileStream fs = null;
-                    StreamWriter sw = null;
-                    string json = null;
+                    Console.WriteLine(e.Message);
+                }
+                catch (System.IO.DirectoryNotFoundException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                string[] files = null;
+                try
+                {
+                    files = System.IO.Directory.GetFiles(currDir);
+                }
+                catch (System.UnauthorizedAccessException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                catch (System.IO.DirectoryNotFoundException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+            string videoRegex = "(\\.mp4|\\.mkv|\\.rmvb|\\.mov|\\.flv|\\.avi|\\.mpg|\\.wmv|\\.mpeg)$";
+            string audioRegex = "(\\.mp3|\\.wma)$";
+            string pictureRegex = "(\\.jpg|\\.bmp|\\.png|\\.tiff|\\.tif|\\.gif)$";
+            foreach (string file in files)
+                {
                     try
                     {
-                        fs = new FileStream(mediaConf, FileMode.Create);
-                        sw = new StreamWriter(fs);
+                        System.IO.FileInfo fi = new System.IO.FileInfo(file);
 
-                        MediaLibrary mediaLibrary = new MediaLibrary(new Dictionary<string, List<MediaItem>>());
-
-                        mediaLibrary.value.Add("video", new List<MediaItem>());
-                        mediaLibrary.value.Add("audio", new List<MediaItem>());
-                        mediaLibrary.value.Add("picture", new List<MediaItem>());
-                        json = JsonConvert.SerializeObject(mediaLibrary);
-                        medias = json;
-                        sw.WriteLine(json);
-                    }
-                    catch (Exception e)
+                    Regex r;
+                    if (type == "video")
                     {
-                        Console.WriteLine(e.Message);
+                         r= new Regex(videoRegex, RegexOptions.IgnoreCase);
+                        if (r.IsMatch(fi.Extension)) vlist.Add(new VideoItem(fi.FullName));
                     }
-                    finally
+                    else if(type == "audio")
                     {
-                        sw.Close();
-                        fs.Close();
+                        r = new Regex(audioRegex, RegexOptions.IgnoreCase);
+                        if (r.IsMatch(fi.Extension)) vlist.Add(new AudioItem(fi.FullName));
                     }
-                    
-                    //StringWriter sw = new StringWriter();
-                    //JsonWriter writer = new JsonTextWriter(sw);
-                    //writer.WriteStartObject();
-                    //writer.WritePropertyName("mediasLibrary");
-
-                    //writer.WriteStartArray();
-
-                    //writer.WriteStartObject();
-                    //writer.WritePropertyName("video");
-                    //writer.WriteStartArray();
-                    //writer.WriteEndArray();
-                    //writer.WriteEndObject();
-
-                    //writer.WriteStartObject();
-                    //writer.WritePropertyName("autio");
-                    //writer.WriteStartArray();
-                    //writer.WriteEndArray();
-                    //writer.WriteEndObject();
-
-                    //writer.WriteStartObject();
-                    //writer.WritePropertyName("picture");
-                    //writer.WriteStartArray();
-                    //writer.WriteEndArray();
-                    //writer.WriteEndObject();
-
-                    //writer.WriteEndArray();
-
-                    //writer.WriteEndObject();
-                    return json;
+                    else if(type == "image")
+                    {
+                        r = new Regex(pictureRegex, RegexOptions.IgnoreCase);
+                        if (r.IsMatch(fi.Extension)) vlist.Add(new ImageItem(fi.FullName));
+                    }
+                    }
+                    catch (System.IO.FileNotFoundException e)
+                    {
+                        //Console.WriteLine(e.Message);
+                        continue;
+                    }
                 }
-            }
-            else
-            {
-                return medias;
-            }
+
+            MediaJson mj = new MediaJson(type, new List<string>(subDirs), vlist);
+            return mj;
         }
-        /// <summary>
-        /// 从配置文件中移除媒体库路径
-        /// </summary>
-        /// <param name="path">路径</param>
-        public void RemovePath(string path)
-        {
-            string currentPath = System.IO.Directory.GetCurrentDirectory();
-            FileStream fs = null;
-            if (!File.Exists(currentPath + "\\Configuration.txt"))
-            {
-                return;
-            }
-            else
-            {
-                fs = new FileStream(currentPath + "\\Configuration.txt", FileMode.Append);
-            }
-        }
-        /// <summary>
-        /// 向配置文件中添加path媒体库文件路径，如果重复则跳过
-        /// </summary>
-        /// <param name="path">路径</param>
         public void AddPath(string path)
         {
-            string currentPath = System.IO.Directory.GetCurrentDirectory();
-            FileStream fs = null;
-            if (!File.Exists(currentPath + "\\Configuration.txt"))
-            {
-                fs = new FileStream(currentPath + "\\Configuration.txt", FileMode.Create);
-            }
-            else
-            {
-                fs = new FileStream(currentPath + "\\Configuration.txt", FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                string line = null;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    if (path.Equals(line))
-                    {
-                        sr.Close();
-                        fs.Close();
-                        return;
-                    }
-                }
-                sr.Close();
-                fs.Close();
-                fs = new FileStream(currentPath + "\\Configuration.txt", FileMode.Append);
-            }
-
-            StreamWriter sw = new StreamWriter(fs);
-            sw.WriteLine(path);
-            sw.Flush();
-            sw.Close();
-            fs.Close();
-        }
-        /// <summary>
-        /// 开始线程Run
-        /// </summary>
-        public void Start()
-        {
-            if (!flag)
-            {
-                flag = true;
-                new Thread(Run).Start();
-            }
             
+        
+            //获取Configuration对象
+            Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //根据Key读取<add>元素的Value
+            string name = config.AppSettings.Settings["mediaConfig"].Value;
+            //写入<add>元素的Value
+            config.AppSettings.Settings["name"].Value = name+path+";";
+            //一定要记得保存，写不带参数的config.Save()也可以
+            config.Save(ConfigurationSaveMode.Modified);
+            //刷新，否则程序读取的还是之前的值（可能已装入内存）
+            System.Configuration.ConfigurationManager.RefreshSection("appSettings");
         }
         /// <summary>
-        /// 初始化参数，检测是否存在Configuration.txt，如果存在，从中读取媒体库文件目录，否则写入初始值，并初始化paths
+        /// 获取配置文件中媒体库文件夹
         /// </summary>
-        public MediaFunction()
+        /// <returns>媒体库文件夹</returns>
+        public string[] GetMediaLibrary()
         {
-            videoAPP = @"E:\software\PotPlayer\PotPlayerMini.exe";
-            audioAPP = @"E:\software\PotPlayer\PotPlayerMini.exe";
-            pictureAPP = @"E:\software\PotPlayer\PotPlayerMini.exe";
-            string currentPath = System.IO.Directory.GetCurrentDirectory();
-            if (!File.Exists(currentPath + "\\Configuration.txt"))
-            {
-                string[] drives = Directory.GetLogicalDrives();
-                foreach (string drive in drives)
-                {
-                    if (drive.Equals(@"C:\", StringComparison.CurrentCultureIgnoreCase)) continue;
-                    AddPath(drive + "mediasLibrary\\video");
-                    AddPath(drive + "mediasLibrary\\music");
-                    AddPath(drive + "mediasLibrary\\image");
-                }
-            }
-
-            string path = "";
-            string s = null;
-            lock (objConf)
-            {
-                FileStream fs = new FileStream(currentPath + "\\Configuration.txt", FileMode.Open);
-                StreamReader sr = new StreamReader(fs);
-                
-                while ((s = sr.ReadLine()) != null)
-                {
-                    path += s + ";";
-                }
-                sr.Close();
-                fs.Close();
-            }
-            paths = path.TrimEnd(';').Split(';');
-
+            //获取Configuration对象
+            Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //根据Key读取<add>元素的Value
+            string name = config.AppSettings.Settings["mediaConfig"].Value;
+            return name.Split(';');
         }
-        /// <summary>
-        /// 关闭run线程
-        /// </summary>
-        public void Close()
+        public string GetLibraryTemp()
         {
-            flag = false;
-        }
-        /// <summary>
-        /// 作为一个线程启动，每五分钟遍历一次path中目录，将获取的媒体文件以json格式更新到medias.txt
-        /// </summary>
-        public void Run()
-        {
-            Console.WriteLine("线程启动");
-            video.Clear();
-            audio.Clear();
-            picture.Clear();
-            //TraverseTree(@"G:\");
-            foreach (string drive in paths)
-            {
-                Console.WriteLine(drive);
-                TraverseTree(drive);
-            }
-
-            MediaLibrary mediaLibrary = new MediaLibrary(new Dictionary<string, List<MediaItem>>());
-            mediaLibrary.value.Add("video", new List<MediaItem>());
-            mediaLibrary.value.Add("audio", new List<MediaItem>());
-            mediaLibrary.value.Add("image", new List<MediaItem>());
-
-            foreach (string v in video)
-            {
-                VideoItem item = new VideoItem(new FileInfo(v).Name,v);
-                mediaLibrary.value["video"].Add(item);
-            }
-
-            foreach (string a in audio)
-            {
-                AudioItem item = new AudioItem(new FileInfo(a).Name, a);
-                mediaLibrary.value["audio"].Add(item);
-            }
-
-            foreach (string v in picture)
-            {
-                PictureItem item = new PictureItem(new FileInfo(v).Name, v);
-                mediaLibrary.value["image"].Add(item);
-            }
-            string json = JsonConvert.SerializeObject(mediaLibrary);
-
-
-            //StringWriter sw = new StringWriter();
-            //JsonWriter writer = new JsonTextWriter(sw);
-            //writer.WriteStartObject();
-            //writer.WritePropertyName("mediasLibrary");
-            //writer.WriteStartArray();
-
-            //writer.WriteStartObject();
-            //writer.WritePropertyName("name");
-            //writer.WriteValue("video");
-            //writer.WritePropertyName("value");
-            //writer.WriteStartArray();
-            //foreach (string v in video)
-            //{
-            //    writer.WriteStartObject();
-            //    writer.WritePropertyName("path");
-            //    writer.WriteValue(v);
-            //    writer.WritePropertyName("name");
-            //    writer.WriteValue(new FileInfo(v).Name);
-            //    writer.WriteEndObject();
-            //}
-            //writer.WriteEndArray();
-            //writer.WriteEndObject();
-
-            //writer.WriteStartObject();
-            //writer.WritePropertyName("name");
-            //writer.WriteValue("audio");
-            //writer.WritePropertyName("value");
-            //writer.WriteStartArray();
-            //foreach (string a in audio)
-            //{
-            //    writer.WriteStartObject();
-            //    writer.WritePropertyName("path");
-            //    writer.WriteValue(a);
-            //    writer.WritePropertyName("name");
-            //    writer.WriteValue(new FileInfo(a).Name);
-            //    writer.WriteEndObject();
-            //}
-            //writer.WriteEndArray();
-            //writer.WriteEndObject();
-
-            //writer.WriteStartObject();
-            //writer.WritePropertyName("name");
-            //writer.WriteValue("picture");
-            //writer.WritePropertyName("value");
-            //writer.WriteStartArray();
-            //foreach (string p in picture)
-            //{
-            //    writer.WriteStartObject();
-            //    writer.WritePropertyName("path");
-            //    writer.WriteValue(p);
-            //    writer.WritePropertyName("name");
-            //    writer.WriteValue(new FileInfo(p).Name);
-            //    writer.WriteEndObject();
-            //}
-            //writer.WriteEndArray();
-            //writer.WriteEndObject();
-
-            //writer.WriteEndArray();
-            //writer.WriteEndObject();
-            //writer.Flush();
-
-            medias = json;
-            string path = System.IO.Directory.GetCurrentDirectory();
-            FileStream fs = new FileStream(path + "\\medias.txt", FileMode.Create);
-            StreamWriter w = new StreamWriter(fs);
-            w.Write(medias.ToCharArray());
-            w.Flush();
-            w.Close();
-            fs.Close();
-            if (flag)
-            {
-                Thread.Sleep(1000 * 60 * 5);
-                new Thread(Run).Start();
-            }
+            return System.Environment.CurrentDirectory+ "\\MediaLibraryTemp";
         }
         /// <summary>
         /// 传入文件目录，判断文件类型，使用设置好的软件打开
@@ -467,6 +275,165 @@ namespace SendAndPlayMedia
                 foreach (string str in subDirs)
                     dirs.Push(str);
             }
+            
+        }
+        /// <summary>
+        /// 从指定路径提取视频文件缩略图
+        /// </summary>
+        /// <param name="sourcePath">视频路径</param>
+        /// <param name="dstPath">存放图片路径</param>
+        public void GetImageFromVideo(string sourcePath,string dstPath = @"./MediaLibraryTemp")
+        {
+            try
+            {
+                if (!System.IO.Directory.Exists(dstPath))
+                {
+                    System.IO.Directory.CreateDirectory(dstPath);
+                }
+                string[] dsts = System.IO.Directory.GetFiles(dstPath);
+                for(int i = 0; i < dsts.Length; i++)
+                {
+                    dsts[i] = dsts[i].Substring(dsts[i].LastIndexOf("\\")+1);
+                }
+                
+                Stack <string> dirs = new Stack<string>(200);
+
+                if (!System.IO.Directory.Exists(sourcePath))
+                {
+                    throw new ArgumentException();
+                }
+                dirs.Push(sourcePath);
+                while (dirs.Count > 0)
+                {
+                    string currDir = dirs.Pop();
+                    string[] subDirs;
+
+                    try
+                    {
+                        subDirs = System.IO.Directory.GetDirectories(currDir);
+                    }
+                    catch (System.UnauthorizedAccessException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        continue;
+                    }
+                    catch (System.IO.DirectoryNotFoundException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        continue;
+                    }
+
+                    string[] files = null;
+                    try
+                    {
+                        files = System.IO.Directory.GetFiles(currDir);
+                    }
+                    catch (System.UnauthorizedAccessException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        continue;
+                    }
+                    catch (System.IO.DirectoryNotFoundException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        continue;
+                    }
+
+                    foreach (string file in files)
+                    {
+                        try
+                        {
+                            System.IO.FileInfo fi = new System.IO.FileInfo(file);
+                            string videoRegex = "(\\.mp4|\\.mkv|\\.rmvb|\\.mov|\\.flv|\\.avi|\\.mpg|\\.wmv|\\.mpeg)$";
+                            //string audioRegex = "(\\.mp3|\\.wma)$";
+                            //string pictureRegex = "(\\.jpg|\\.bmp|\\.png|\\.tiff|\\.tif|\\.gif)$";
+
+                            Regex r = new Regex(videoRegex, RegexOptions.IgnoreCase);
+                            if (r.IsMatch(fi.Extension))
+                            {
+                                VideoItem vi = new VideoItem(file);
+                                if (dsts.Contains(vi.name + vi.duration.Trim() + ".jpg"))
+                                {
+                                    Console.WriteLine(vi);
+                                    continue;
+                                }
+                                vi.GetImageFromVedio(dstPath);
+                                Console.WriteLine(vi);
+                            }
+                        }
+                        catch (System.IO.FileNotFoundException e)
+                        {
+                            //Console.WriteLine(e.Message);
+                            continue;
+                        }
+                    }
+
+                    foreach (string str in subDirs)
+                        dirs.Push(str);
+                }
+            }
+            catch(IOException e)
+            {
+                Console.WriteLine(e);
+            }
+            catch(ArgumentException e)
+            {
+                return;
+            }
+            
+
+
+        }
+        /// <summary>
+        /// 添加文件夹资源到http服务器
+        /// </summary>
+        /// <param name="dirPath">文件夹路径</param>
+        public void AddSourceToHTTP(string dirPath,Boolean isDir=true)
+        {
+            try
+            {
+                Dictionary<string, string> param = null;
+                Command command = null;
+                if (isDir == false)
+                {
+                    param = new Dictionary<string, string>();
+                    param.Add("file", dirPath);
+                    command = new Command("PC", "AddFileHTTP", param);
+                }
+                else
+                {
+                    param = new Dictionary<string, string>();
+                    param.Add("dir", dirPath);
+                    command = new Command("PC", "AddDirHTTP", param);
+                }
+                IPAddress ip = IPAddress.Parse("127.0.0.1");
+                Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                serverSocket.Connect(new IPEndPoint(ip, 9816));
+                Console.WriteLine("连接成功");
+                byte[] result = new byte[1024];
+                serverSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(command)));
+                int receiveNumber = serverSocket.Receive(result);
+                string rev = Encoding.UTF8.GetString(result, 0, receiveNumber);
+                Console.WriteLine(rev);
+                serverSocket.Close();
+            }
+            catch(SocketException e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+    }
+    class MediaJson
+    {
+        public string name { set; get; }
+        public List<string> dirs { set; get; }
+        public List<MediaItem> videos { set; get; }
+        public MediaJson(string name,List<string> dirs,List<MediaItem> videos)
+        {
+            this.name = name;
+            this.dirs = dirs;
+            this.videos = videos;
         }
     }
 }
