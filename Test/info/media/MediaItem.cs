@@ -19,6 +19,7 @@ namespace Test.info.media
         public string fileExtension = "";
         public string fileSize = "";
         public string fileCreationDate = "";
+        public string thumbnailurl { set; get; }
         public MediaItem(string name, string path, string location, string url, string fileExtension, string fileSize, string fileCreationDate)
         {
             this.name = name;
@@ -28,6 +29,7 @@ namespace Test.info.media
             this.fileExtension = fileExtension;
             this.fileSize = fileSize;
             this.fileCreationDate = fileCreationDate;
+            this.thumbnailurl = "";
         }
         public MediaItem(string fileName)
         {
@@ -42,6 +44,7 @@ namespace Test.info.media
                 this.fileSize = mediaInfo.Get(StreamKind.General, 0, "FileSize/String");
                 this.fileCreationDate = mediaInfo.Get(StreamKind.General, 0, "File_Created_Date");
                 mediaInfo.Close();
+                thumbnailurl = "";
             }
         }
         public override string ToString()

@@ -22,7 +22,7 @@ namespace SendAndPlayMedia.function.tv
         public void Connect()
         {
             byte[] result = new byte[1024];
-            IPAddress ip = IPAddress.Parse("192.168.1.126");
+           
             Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(new IPEndPoint(IPAddress.Any, 9752));  //绑定IP地址：端口  
             serverSocket.Listen(10);    //设定最多10个排队连接请求  
@@ -43,9 +43,24 @@ namespace SendAndPlayMedia.function.tv
                     TVInfo tv =  JsonConvert.DeserializeObject<TVInfo>(rev);
                     lock (MyInfo.locker)
                     {
-                        MyInfo.tvLibrary.value.Add(tv);
+                        DLNA get_dlna = new DLNA();
+                        command.Command c = new command.Command("DLNALIST","GET",new Dictionary<string, string>());
+                        c.name = command.CommandName.DLNALIST;
+                        List<string> device_list = JsonConvert.DeserializeObject<List<string>>(get_dlna.SendToJava(JsonConvert.SerializeObject(c)));
+                        
+                        if (!MyInfo.tvLibrary.value.Exists(x => x.name == tv.name))
+                            {
+                                if (!device_list.Exists(y => y == tv.name))
+                                {
+                                    tv.dlnaOk = false;
+                                }
+                            tv.dlnaOk = false;
+                            Console.WriteLine("当前tv{0}是否支持dlna：{1}",tv.name,tv.dlnaOk);
+                            MyInfo.tvLibrary.value.Add(tv);
+                        }
+                        
                     }
-                    Console.WriteLine(tv.name +" "+tv.uuid);
+                    
                 }
                 catch (Exception ex)
                 {

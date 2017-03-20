@@ -33,11 +33,12 @@ namespace SendAndPlayMedia
             Process pro = new Process();
             pro.StartInfo.FileName = @"F:\VS2015WorkSpace\SendAndPlayMedia\StartProjection\bin\Debug\StartProjection.exe";
             pro.Start();
+
             MediaFunction media = new MediaFunction();
             foreach (string library in media.GetMediaLibrary())
             {
                 Console.WriteLine(library);
-                media.GetImageFromVideo(library);
+                media.GetThumbnail(library);
             }
             Console.WriteLine("finish");
             media.AddSourceToHTTP(media.GetLibraryTemp());
@@ -59,7 +60,7 @@ namespace SendAndPlayMedia
             //通过Clientsoket发送数据  
             while (true)
             {
-               // Console.WriteLine("等待连接");
+               Console.WriteLine("等待连接");
                 Socket myClientSocket = serverSocket.Accept();
                 Console.WriteLine("{0}使用端口{1}连接成功",((System.Net.IPEndPoint)myClientSocket.RemoteEndPoint).Address, ((System.Net.IPEndPoint)myClientSocket.RemoteEndPoint).Port);
                 try

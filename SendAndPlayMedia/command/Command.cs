@@ -27,7 +27,7 @@ namespace SendAndPlayMedia.command
         public const string MEDIALIST = "MEDIALIST";
         public const string APPLIST = "APPLIST";
         public const string DEVICELIST = "DEVICELIST";
-
+        public const string DLNALIST = "DLNALIST";
 
 
     }
@@ -57,9 +57,11 @@ namespace SendAndPlayMedia.command
                 {
                     case CommandName.MEDIALIST:
                         Console.WriteLine("medias mengmeng:get");
-                        MediaLibrary mediaLirary = JsonConvert.DeserializeObject<MediaLibrary>(media.getMedias());
-                        Console.WriteLine(JsonConvert.SerializeObject(mediaLirary.value));
-                        ClientSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(mediaLirary.value)));
+
+                        //response = new Response("200", "", "MediaList", media.getMediasByPath(this.param["type"],this.param["folder"]));
+                        string te = JsonConvert.SerializeObject(media.getMediasByPath(this.param["type"], this.param["folder"]).medias);
+                        Console.WriteLine(te);
+                        ClientSocket.Send(Encoding.UTF8.GetBytes(te));
                         break;
                     case CommandName.APPLIST:
                         Console.WriteLine("app mengmeng:get");
@@ -73,8 +75,12 @@ namespace SendAndPlayMedia.command
                         {
                             Console.WriteLine("有数据");
                             Console.WriteLine(MyInfo.tvLibrary.value.First().name);
-                            deviceLibrary.value.Add(new DeviceItem(MyInfo.tvLibrary.value.First(), MyInfo.tvLibrary.value.First().name, "2"));
 
+                            
+                            foreach (info.tv.TVInfo item in MyInfo.tvLibrary.value)
+                            {
+                                deviceLibrary.value.Add(new DeviceItem(item, item.name, "2"));
+                            }
                         }
                         //Console.WriteLine(deviceLibrary.value.First());
                         ClientSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(deviceLibrary.value)));
@@ -206,6 +212,7 @@ namespace SendAndPlayMedia.command
                         Console.WriteLine(JsonConvert.SerializeObject(response));
                         break;
                     case CommandName.DLNA:
+                    case CommandName.DLNALIST:
                         DLNA dlna = new DLNA();
                         ClientSocket.Send(Encoding.UTF8.GetBytes(dlna.SendToJava(JsonConvert.SerializeObject(this))));
                         break;

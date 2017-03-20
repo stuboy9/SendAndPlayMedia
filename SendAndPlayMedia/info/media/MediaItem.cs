@@ -1,6 +1,7 @@
 ﻿using MediaInfo.DotNetWrapper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -19,6 +20,7 @@ namespace Test.info.media
         public string fileExtension = "";
         public string fileSize = "";
         public string fileCreationDate = "";
+        public string thumbnailurl = "";
         public MediaItem(string name,string path,string location,string url,string fileExtension,string fileSize,string fileCreationDate)
         {
             this.name = name;
@@ -31,18 +33,14 @@ namespace Test.info.media
         }
         public MediaItem(string fileName)
         {
-            using (var mediaInfo = new MediaInfo.DotNetWrapper.MediaInfo())
-            {
-                mediaInfo.Open(fileName);
-                this.name = mediaInfo.Get(StreamKind.General, 0, "FileName");
-                this.pathName = mediaInfo.Get(StreamKind.General, 0, "CompleteName");
-                this.location = "pc";
-                this.url = mediaInfo.Get(StreamKind.General, 0, "CompleteName");
-                this.fileExtension = mediaInfo.Get(StreamKind.General, 0, "FileExtension");
-                this.fileSize = mediaInfo.Get(StreamKind.General, 0, "FileSize/String");
-                this.fileCreationDate = mediaInfo.Get(StreamKind.General, 0, "File_Created_Date");
-                mediaInfo.Close();
-            }
+            FileInfo f = new FileInfo(fileName);
+            this.name = f.Name;
+            this.pathName = f.FullName;
+            this.location = "pc";
+            this.url = pathName;
+            this.fileExtension = f.Extension;
+            this.fileSize = f.Length.ToString();
+            this.fileCreationDate = f.CreationTime.ToString();
         }
         public override string ToString()
         {
@@ -54,6 +52,7 @@ namespace Test.info.media
             text += "fileExtension: " + fileExtension + "\r\n";
             text += "fileSize: " + fileSize + "\r\n";
             text += "fileCreationDate: " + fileCreationDate + "\r\n";
+            text += "thumbnailurl: " + thumbnailurl + "\r\n";
             return text;
 
         }

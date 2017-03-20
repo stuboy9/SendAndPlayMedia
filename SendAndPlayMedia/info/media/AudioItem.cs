@@ -16,7 +16,6 @@ namespace Test.info.media
         public string album { get; set; }
         public string trackName { get; set; }
         public string performer { get; set; }
-        public string cover { get; set; }
 
         
         public AudioItem(string name, string path, string location, string uri, string fileExtension, string fileSize, string fileCreationDate) :base( name,  path,  location,  uri,  fileExtension,  fileSize,  fileCreationDate)
@@ -39,7 +38,7 @@ namespace Test.info.media
                 this.album = mediaInfo.Get(StreamKind.General, 0, "Album");
                 this.trackName = mediaInfo.Get(StreamKind.General, 0, "Track");
                 this.performer = mediaInfo.Get(StreamKind.General, 0, "Performer");
-                this.cover = "";
+                this.thumbnailurl = "";
                 mediaInfo.Close();
 
             }
@@ -57,7 +56,7 @@ namespace Test.info.media
             text += "album: " + album + "\r\n";
             text += "trackName: " + trackName + "\r\n";
             text += "performer: " + performer + "\r\n";
-            text += "cover: " + cover + "\r\n";
+            text += "thumbnailurl: " + thumbnailurl + "\r\n";
             return text;
 
         }

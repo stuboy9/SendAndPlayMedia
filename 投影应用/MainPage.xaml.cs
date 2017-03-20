@@ -84,6 +84,10 @@ namespace myProjection
             }
         }
 
+        private void CommunicateWithPc()
+        {
+
+        }
         //扫描显示设备
         
         //private async Task<bool> Scaned()

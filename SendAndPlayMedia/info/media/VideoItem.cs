@@ -9,8 +9,7 @@ namespace Test.info.media
 {
     class VideoItem:MediaItem
     {
-        public string duration { set; get; }
-        public string coverUrl { set; get; }
+        //public string duration { set; get; }
         public VideoItem(string name, string path, string location, string uri, string fileExtension, string fileSize, string fileCreationDate) : base(name, path, location, uri, fileExtension, fileSize, fileCreationDate)
         {
             //this.name = name;
@@ -21,17 +20,18 @@ namespace Test.info.media
         {
             using (var mediaInfo = new MediaInfo.DotNetWrapper.MediaInfo())
             {
-                mediaInfo.Open(fileName);
-                this.duration = mediaInfo.Get(StreamKind.Video, 0, "Duration");
-                this.coverUrl = "http:/" + GetInternalIP() + ":" + 8634 + "/" + this.name + duration.Trim() +".jpg";
-                mediaInfo.Close();
+                //mediaInfo.Open(fileName);
+                //this.duration = "";
+                //this.duration = mediaInfo.Get(StreamKind.Video, 0, "Duration");
+                this.thumbnailurl = "http://" + GetInternalIP() + ":" + 8634 + "/" + this.name + this.fileSize +".jpg";
+                //mediaInfo.Close();
             }
         }
         public override string ToString()
         {
             string text = base.ToString();
-            text += "duration: " + duration + "\r\n";
-            text += "coverUrl: " + coverUrl + "\r\n";
+            //text += "duration: " + duration + "\r\n";
+            text += "thumbnailurl: " + thumbnailurl + "\r\n";
             return text;
         }
         /// <summary>
@@ -44,7 +44,7 @@ namespace Test.info.media
         /// <param name="thubHeight">生成图片高度</param>
         public void GetImageFromVedio(string thubImagePath, string ffmpegPath = @".\ffmpeg", int frameIndex = 10, int thubWidth = 80, int thubHeight = 80)
         {
-            string command = string.Format(" -i \"{0}\" -ss {1} -vframes 1 -r 1 -ac 1 -ab 2 -s {2}*{3} -y -f image2 \"{4}\"", pathName, frameIndex, thubWidth, thubHeight, thubImagePath+ "\\"+this.name + duration.Trim() + ".jpg");
+            string command = string.Format(" -i \"{0}\" -ss {1} -vframes 1 -r 1 -ac 1 -ab 2 -s {2}*{3} -y -f image2 \"{4}\"", pathName, frameIndex, thubWidth, thubHeight, thubImagePath+ "\\"+this.name + this.fileSize + ".jpg");
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = ffmpegPath;
             p.StartInfo.Arguments = command;

@@ -10,7 +10,6 @@ namespace Test.info.media
     class VideoItem : MediaItem
     {
         public string duration { set; get; }
-        public string coverUrl { set; get; }
         public VideoItem(string name, string path, string location, string uri, string fileExtension, string fileSize, string fileCreationDate) : base(name, path, location, uri, fileExtension, fileSize, fileCreationDate)
         {
             //this.name = name;
@@ -23,7 +22,7 @@ namespace Test.info.media
             {
                 mediaInfo.Open(fileName);
                 this.duration = mediaInfo.Get(StreamKind.Video, 0, "Duration");
-                this.coverUrl = "http:/" + GetInternalIP() + ":" + 8634 + "/" + this.name + duration.Trim() + ".jpg";
+                this.thumbnailurl = "http:/" + GetInternalIP() + ":" + 8634 + "/" + this.name + duration.Trim() + ".jpg";
                 mediaInfo.Close();
             }
         }
@@ -31,7 +30,7 @@ namespace Test.info.media
         {
             string text = base.ToString();
             text += "duration: " + duration + "\r\n";
-            text += "coverUrl: " + coverUrl + "\r\n";
+            text += "thumbnailurl: " + thumbnailurl + "\r\n";
             return text;
         }
         /// <summary>
