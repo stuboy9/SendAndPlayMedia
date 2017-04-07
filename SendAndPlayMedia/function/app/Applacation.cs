@@ -135,6 +135,7 @@ namespace SendAndPlayMedia
                 Process rdcProcess = new Process();
                 rdcProcess.StartInfo.FileName = Environment.ExpandEnvironmentVariables(name);
                 rdcProcess.StartInfo.Arguments = param;
+                rdcProcess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
                 rdcProcess.Start();
                 return rdcProcess;
             }
@@ -145,22 +146,38 @@ namespace SendAndPlayMedia
         }
         public void CloseAll()
         {
-            AppLibrary library = JsonConvert.DeserializeObject<AppLibrary>(GetAppList());
-            foreach(ApplacationItem item in library.value)
+            try
             {
-                CloseApp(item.packageName.Split('\\').Last().Split('.').First());
+                AppLibrary library = JsonConvert.DeserializeObject<AppLibrary>(GetAppList());
+                foreach (ApplacationItem item in library.value)
+                {
+                    CloseApp(item.packageName.Split('\\').Last().Split('.').First());
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("调用CloseAll函数报错:"+e);
+            }
+            
         }
         public void CloseApp(string name)
         {
-            Process[] ps = Process.GetProcesses();
-            foreach (Process item in ps)
+            try
             {
-                if (item.ProcessName == name)
+                Process[] ps = Process.GetProcesses();
+                foreach (Process item in ps)
                 {
-                    item.Kill();
+                    if (item.ProcessName == name)
+                    {
+                        item.Kill();
+                    }
                 }
             }
+            catch(Exception e)
+            {
+                Console.WriteLine("调用CloseApp函数报错:" + e);
+            }
+            
         }
 
 

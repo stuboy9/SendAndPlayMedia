@@ -3,6 +3,7 @@ using SendAndPlayMedia.info;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -14,6 +15,7 @@ namespace SendAndPlayMedia.function
     class Phone
     {
         int port = 9321;
+        
         Boolean flag = false;
         public Phone(int port=9321)
         {
@@ -49,21 +51,47 @@ namespace SendAndPlayMedia.function
                     int recv = sock.ReceiveFrom(data, ref ep);
                     string stringData = Encoding.UTF8.GetString(data, 0, recv);
 
-                    Console.WriteLine("received: {0} from: {1}", stringData, ep.ToString());
-                    PhoneInfo phone = JsonConvert.DeserializeObject<PhoneInfo>(stringData);
-                    CommonInformation.phone = phone;//保存当前连接手机
-
-                    Socket phoneSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                    phoneSocket.Connect(new IPEndPoint(IPAddress.Parse(phone.param.First().ip), phone.param.First().port));
-                    PhoneParam pp = new PhoneParam();
-                    pp.ip = GetInternalIP();
-                    pp.port = 8888;
-                    List<PhoneParam> param = new List<PhoneParam>();
-                    param.Add(pp);
-                    PhoneInfo info = new PhoneInfo(param, "PC_Y", "default");
-                    phoneSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(info)));
-                    Console.WriteLine("返回手机信息： "+ JsonConvert.SerializeObject(info));
-                    phoneSocket.Close();
+                    
+                    BroadInfo phone = JsonConvert.DeserializeObject<BroadInfo>(stringData);
+                    //Console.WriteLine("received: {0} from: {1}", stringData, ep.ToString());
+                    foreach(BroadParam bp in phone.param)
+                    {
+                        if (bp.launch_time_id == null) continue;
+                        if (!MyInfo.phone.Contains(bp))
+                        {
+                            Console.WriteLine("received: {0} from: {1}", stringData, ep.ToString());
+                            Console.WriteLine("test    " + JsonConvert.SerializeObject(bp));
+                            Socket phoneSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                            phoneSocket.Connect(new IPEndPoint(IPAddress.Parse(bp.ip), bp.port));
+                            BroadParam pp = new BroadParam();
+                            pp.ip = GetInternalIP();
+                            pp.port = 8888;
+                            pp.launch_time_id = MyInfo.launch_time_id;
+                            List<BroadParam> param = new List<BroadParam>();
+                            param.Add(pp);
+                            BroadInfo info = new BroadInfo(param, "PC_Y", "default");
+                            phoneSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(info)));
+                            Console.WriteLine("返回手机信息： " + JsonConvert.SerializeObject(info));
+                            phoneSocket.Close();
+                            int len = MyInfo.phone.Count;
+                            if (len >= 50)
+                            {
+                                MyInfo.phone.Clear();
+                                continue;
+                            }
+                            for (int i = MyInfo.phone.Count - 1; i >= 0; i--)
+                            {
+                                if (MyInfo.phone[i].ip == bp.ip && MyInfo.phone[i].port == bp.port)
+                                {
+                                    MyInfo.phone.RemoveAt(i);
+                                    break;
+                                }
+                            }
+                            MyInfo.phone.Add(bp);
+                        }
+                    }
+                    
+                    
                 }
                 catch (Exception e)
                 {
@@ -72,21 +100,28 @@ namespace SendAndPlayMedia.function
             }
         }
         //获取内网IP
-        private string GetInternalIP()
+        private static string getIPAddress()
         {
-            IPHostEntry host;
-            string localIP = "?";
-            host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (IPAddress ip in host.AddressList)
+            System.Net.IPAddress addr;
+            addr = new System.Net.IPAddress(Dns.GetHostByName(Dns.GetHostName()).AddressList[0].Address);
+            return addr.ToString();
+        }
+        private static string GetInternalIP()
+        {
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+
+            ManagementObjectCollection moc = mc.GetInstances();
+            string MACAddress = String.Empty;
+            foreach (ManagementObject mo in moc)
             {
-                if (ip.AddressFamily.ToString() == "InterNetwork")
+                if ((bool)mo["IPEnabled"] == true)
                 {
-                    localIP = ip.ToString();
-                    break;
+                    return ((String[])mo["IPAddress"])[0];
                 }
             }
-            return localIP;
+            return "127.0.0.1";
         }
+
         public void close()
         {
             flag = false;
@@ -94,12 +129,12 @@ namespace SendAndPlayMedia.function
         //处理手机发送过的tv信息,保存起来.
         public void FuncMSG(string msg)
         {
-            PhoneInfo phone = JsonConvert.DeserializeObject<PhoneInfo>(msg);
-            foreach(PhoneInfo p in CommonInformation.tvs)
-            {
-                if (p.equals(p)) return;
-            }
-            CommonInformation.tvs.Add(phone);
+            BroadInfo phone = JsonConvert.DeserializeObject<BroadInfo>(msg);
+            BroadParam b = phone.param.First();
+            if (MyInfo.tvs.Contains(b)) return;
+            if (MyInfo.tvs.Count > 50) MyInfo.tvs.Clear();
+            MyInfo.tvs.Add(b);
         }
+         
     }
 }

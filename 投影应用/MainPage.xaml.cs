@@ -1,11 +1,15 @@
 ﻿using CustomMediaTransportControls;
+using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Windows.ApplicationModel.Core;
 using Windows.Devices.Enumeration;
 using Windows.Devices.WiFiDirect;
@@ -74,7 +78,8 @@ namespace myProjection
                 Current = this;
                 rootPage = MainPage.Current;
                 thisViewId = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().Id;
-                
+
+                CommunicateWithPc();
                 FileOper();//等待读取投影请求文件，投影桌面
                 ScanCurrentName();//等待读取设备名请求文件，写回设备名称文件
             }
@@ -84,9 +89,231 @@ namespace myProjection
             }
         }
 
-        private void CommunicateWithPc()
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Ansi)]
+        private static extern SafeFileHandle CreateFile(
+           string lpFileName,
+           [MarshalAs(UnmanagedType.U4)] FileAccess dwDesiredAccess,
+           [MarshalAs(UnmanagedType.U4)] FileShare dwShareMode,
+           IntPtr lpSecurityAttributes,
+           [MarshalAs(UnmanagedType.U4)] FileMode dwCreationDisposition,
+           [MarshalAs(UnmanagedType.U4)] System.IO.FileAttributes dwFlagsAndAttributes,
+           IntPtr hTemplateFile);
+        private async void CommunicateWithPc()
         {
+            while (true)
+            {
+                try
+                {
+                    await Task.Delay(1500);
 
+                    var handle = CreateFile(@"\\.\pipe\mypipe", FileAccess.ReadWrite, FileShare.None, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
+                    if (handle.IsInvalid)
+                    {
+                        var err = Marshal.GetLastWin32Error();
+                        //rootPage.NotifyUser("ScanCurrentName:" + "error", NotifyType.ErrorMessage);
+                        continue;
+                    }
+
+                    StreamReader sr = new StreamReader(new FileStream(handle, FileAccess.Read), Encoding.UTF8);
+
+                    string read = sr.ReadLine();
+
+
+                    StreamWriter sw = new StreamWriter(new FileStream(handle, FileAccess.Write), Encoding.UTF8);
+                   
+                    Command y = Command.ToCommandFromJson(read);
+                    string re = "";
+                    if (y.command == "GET")
+                    {
+                        deviceInfoColl = await DeviceInformation.FindAllAsync(aqsFilter);
+                        lock (deviceList)
+                        {
+                            deviceList.Clear();
+                            foreach (DeviceInformation di in deviceInfoColl)
+                            {
+                                deviceList.Add(di);
+                            }
+                        }
+
+                        Response r = new Response();
+                        r.status = "200";
+                        r.name = "UWP";
+                        r.type = "data";
+                        foreach(DeviceInformation di in deviceList)
+                            r.value.Add(di.Name);
+                        re = r.ToJson();
+                        sw.WriteLine(re);
+                        sw.Flush();
+                        handle.Dispose();
+                    }
+                    else if (y.command == "PLAY")
+                    {
+                        Response r = new Response();
+                        r.status = "200";
+                        r.name = "UWP";
+                        r.type = "execteMessage";
+
+                        DeviceInformation device = null;
+                        if (!(deviceList.Count > 0))
+                        {
+                            deviceInfoColl = await DeviceInformation.FindAllAsync(aqsFilter);
+                        }
+                        lock (deviceList)
+                        {
+                            foreach (DeviceInformation di in deviceList)
+                                if (di.Name == y.param["render"])
+                                    device = di;
+                        } 
+                        if (device == null)
+                        {
+                            //deviceInfoColl = await DeviceInformation.FindAllAsync(aqsFilter);
+                            //lock (deviceList)
+                            //{
+                            //    deviceList.Clear();
+                            //    foreach (DeviceInformation di in deviceInfoColl)
+                            //    {
+                            //        deviceList.Add(di);
+                            //        if (di.Name == y.param["render"])
+                            //            device = di;
+                            //    }
+                            //}
+                            deviceInfoColl = await DeviceInformation.FindAllAsync(aqsFilter);
+
+                            throw new Exception("没有匹配的设备或当前设备搜索不到，请重新选择");
+                        }
+                            
+                        thisViewId = MainPage.viewID;
+
+                        if (rootPage.ProjectionViewPageControl == null)
+                        {
+                            try
+                            {
+                                //创建新的空白页面
+                                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                                {
+                                    disPa = Window.Current.Dispatcher;
+                                    rootPage.NotifyUser("创建页面: ", NotifyType.StatusMessage);
+                                });
+
+                                await CoreApplication.CreateNewView().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                {
+                                    //生命周期控制
+                                    rootPage.ProjectionViewPageControl = ViewLifetimeControl.CreateForCurrentView();
+                                    pvb = new ProjectionViewBroker();
+                                    pvb.ProjectionViewPageControl = rootPage.ProjectionViewPageControl;
+                                    pvb.MainViewId = thisViewId;
+                                    pvb.MainPageDispatcher = disPa;
+                                    //新建页面存入视图，当调用StartProjectingAsync时显示这个视图
+                                    var rootFrame = new Frame();
+                                    rootFrame.Navigate(typeof(ProjectionViewPage), pvb);
+                                    Window.Current.Content = rootFrame;
+                                    Window.Current.Activate();
+                                });
+                            }
+                            catch (Exception e444)
+                            {
+                                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                                {
+                                    rootPage.NotifyUser("create view:" + e444.ToString(), NotifyType.ErrorMessage);
+                                });
+                            }
+                        }
+                        try
+                        {
+                            rootPage.ProjectionViewPageControl.StartViewInUse();
+                            await Task.Delay(200);//闪退...
+                            IAsyncAction projection = ProjectionManager.StartProjectingAsync(rootPage.ProjectionViewPageControl.Id, thisViewId, device);
+                            //await ProjectionManager.StartProjectingAsync(rootPage.ProjectionViewPageControl.Id, thisViewId, device);
+
+                            projection.Completed += async delegate (IAsyncAction asyncInfo, AsyncStatus asyncStatus)
+                            {
+                                try
+                                {
+                                    // asyncInfo.AsTask();
+                                    switch (asyncStatus)
+                                    {
+                                        case AsyncStatus.Completed:
+                                            if (ProjectionManager.ProjectionDisplayAvailable && pvb.ProjectedPage != null)
+                                            {
+                                                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                                                {
+                                                    await ApplicationViewSwitcher.SwitchAsync(thisViewId, rootPage.ProjectionViewPageControl.Id, ApplicationViewSwitchingOptions.ConsolidateViews);
+                                                });
+
+                                                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                                                {
+                                                    rootPage.NotifyUser(" 投影成功", NotifyType.StatusMessage);
+                                                });
+                                                re = r.ToJson();
+                                                sw.WriteLine(re);
+                                                sw.Flush();
+                                                handle.Dispose();
+                                            }
+                                            re = r.ToJson();
+                                            sw.WriteLine(re);
+                                            sw.Flush();
+                                            handle.Dispose();
+                                            break;
+                                        case AsyncStatus.Error:
+                                            if (ProjectionManager.ProjectionDisplayAvailable && pvb.ProjectedPage != null)
+                                            {
+
+                                                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                                                {
+                                                    rootPage.NotifyUser(" 投影成功...", NotifyType.StatusMessage);
+                                                });
+                                            }
+                                            re = r.ToJson();
+                                            sw.WriteLine(re);
+                                            sw.Flush();
+                                            handle.Dispose();
+                                            break;
+                                        //throw new Exception("投影出错");
+                                        default:
+                                            r.status = "404";
+                                            re = r.ToJson();
+                                            sw.WriteLine(re);
+                                            sw.Flush();
+                                            handle.Dispose();
+                                            throw new Exception("投影出现未知错误");
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                                    {
+                                        rootPage.NotifyUser("isProjectionCompleted:" + e.ToString(), NotifyType.ErrorMessage);
+                                    });
+                                }
+                            };
+
+                            await Task.Delay(200);//闪退...
+                            rootPage.ProjectionViewPageControl.StopViewInUse();
+                            //rootPage.ProjectionViewPageControl = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                            {
+                                rootPage.NotifyUser("ProjectionManager:" + ex.ToString(), NotifyType.ErrorMessage);
+                            });
+
+                        }
+
+                    }
+
+                    
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+
+        }
+        private void parseCommand(string json)
+        {
+            //JObject json = new JObject()
         }
         //扫描显示设备
         

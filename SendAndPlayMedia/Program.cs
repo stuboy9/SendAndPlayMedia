@@ -35,13 +35,8 @@ namespace SendAndPlayMedia
             pro.Start();
 
             MediaFunction media = new MediaFunction();
-            foreach (string library in media.GetMediaLibrary())
-            {
-                Console.WriteLine(library);
-                media.GetThumbnail(library);
-            }
+            media.init();
             Console.WriteLine("finish");
-            media.AddSourceToHTTP(media.GetLibraryTemp());
             
             DLNA dlna = new DLNA();
 
@@ -52,7 +47,6 @@ namespace SendAndPlayMedia
             //Thread.Sleep(100000);
 
             byte[] result = new byte[1024];
-            IPAddress ip = IPAddress.Parse("192.168.1.126");
             Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             serverSocket.Bind(new IPEndPoint(IPAddress.Any, 8888));  //绑定IP地址：端口  
             serverSocket.Listen(10);    //设定最多10个排队连接请求  
@@ -80,11 +74,13 @@ namespace SendAndPlayMedia
                         tvTest.Connect(new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9752));
                         tvTest.Send(Encoding.UTF8.GetBytes(rev));
                         tvTest.Close();
+                        myClientSocket.Close();
                         continue;
                     }
                     else if (obj.Property("source") != null)
                     {
                         phone.FuncMSG(rev);
+                        myClientSocket.Close();
                         continue;
                     }
 

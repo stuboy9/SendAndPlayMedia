@@ -43,6 +43,34 @@ namespace SendAndPlayMedia
         {
             return "";
         }
+        public void init()
+        {
+            String[] s = GetMediaLibrary();
+            foreach (string library in s)
+            {
+                Console.WriteLine(library);
+                GetThumbnail(library);
+            }
+            s = GetVideoLibrary();
+            foreach (string library in s)
+            {
+                Console.WriteLine(library);
+                GetThumbnail(library);
+            }
+            s = GetAudioLibrary();
+            foreach (string library in s)
+            {
+                Console.WriteLine(library);
+                GetThumbnail(library);
+            }
+            s = GetImagebrary();
+            foreach (string library in s)
+            {
+                Console.WriteLine(library);
+                GetThumbnail(library);
+            }
+            AddSourceToHTTP(GetLibraryTemp());
+        }
         public MediaJson getMediasByPath(string type, string folder)
         {
             string currDir = folder;
@@ -56,6 +84,22 @@ namespace SendAndPlayMedia
                 {
                     vlist.Add(new MediaMengMeng(sub.Substring(sub.LastIndexOf(@"\") + 1), sub,type:type));
 
+                }
+                if (type == "video")
+                {
+                    subDirs = GetVideoLibrary();
+                }
+                else if (type == "audio")
+                {
+                    subDirs = GetAudioLibrary();
+                }
+                else if(type == "image")
+                {
+                    subDirs = GetImagebrary();
+                }
+                foreach (string sub in subDirs)
+                {
+                    vlist.Add(new MediaMengMeng(sub.Substring(sub.LastIndexOf(@"\") + 1), sub, type: type));
                 }
                 return new MediaJson(vlist);
             }
@@ -143,7 +187,7 @@ namespace SendAndPlayMedia
             System.Configuration.ConfigurationManager.RefreshSection("appSettings");
         }
         /// <summary>
-        /// 获取配置文件中媒体库文件夹
+        /// 获取配置文件中用户自己设置媒体库文件夹
         /// </summary>
         /// <returns>媒体库文件夹</returns>
         public string[] GetMediaLibrary()
@@ -151,10 +195,41 @@ namespace SendAndPlayMedia
             //获取Configuration对象
             Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             //根据Key读取<add>元素的Value
-            string name = config.AppSettings.Settings["mediaConfig"].Value;
+            string name = config.AppSettings.Settings["UserMediaConfig"].Value;
             name = name.Substring(0, name.LastIndexOf(";"));
             return name.Split(';');
         }
+
+        public string[] GetImagebrary()
+        {
+            //获取Configuration对象
+            Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //根据Key读取<add>元素的Value
+            string name = config.AppSettings.Settings["ImageConfig"].Value;
+            name = name.Substring(0, name.LastIndexOf(";"));
+            return name.Split(';');
+        }
+
+        public string[] GetVideoLibrary()
+        {
+            //获取Configuration对象
+            Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //根据Key读取<add>元素的Value
+            string name = config.AppSettings.Settings["VideoConfig"].Value;
+            name = name.Substring(0, name.LastIndexOf(";"));
+            return name.Split(';');
+        }
+
+        public string[] GetAudioLibrary()
+        {
+            //获取Configuration对象
+            Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //根据Key读取<add>元素的Value
+            string name = config.AppSettings.Settings["AudioConfig"].Value;
+            name = name.Substring(0, name.LastIndexOf(";"));
+            return name.Split(';');
+        }
+
         public string GetLibraryTemp()
         {
             return System.Environment.CurrentDirectory + "\\MediaLibraryTemp";
@@ -369,7 +444,7 @@ namespace SendAndPlayMedia
                                 VideoItem vi = new VideoItem(file);
                                 if (dsts.Contains(vi.name + vi.fileSize + ".jpg"))
                                 {
-                                    Console.WriteLine(vi);
+                                   // Console.WriteLine(vi);
                                     continue;
                                 }
                                 vi.GetImageFromVedio(dstPath);
@@ -380,7 +455,7 @@ namespace SendAndPlayMedia
                                 ImageItem vi = new ImageItem(file);
                                 if (dsts.Contains(vi.name + vi.fileSize.Trim() + ".jpg"))
                                 {
-                                    Console.WriteLine(vi);
+                                   // Console.WriteLine(vi);
                                     continue;
                                 }
                                 vi.MakeThumbnail(dstPath + "\\" + vi.name + vi.fileSize.Trim() + ".jpg", 80, 80, "HW");

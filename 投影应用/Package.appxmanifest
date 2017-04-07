@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="06e0587e-3eeb-433c-a44a-b5145c6efc47" Publisher="CN=HOME" Version="1.0.2.0" />
+  <Identity Name="06e0587e-3eeb-433c-a44a-b5145c6efc47" Publisher="CN=HOME" Version="1.0.3.0" />
   <mp:PhoneIdentity PhoneProductId="06e0587e-3eeb-433c-a44a-b5145c6efc47" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>投影应用</DisplayName>
@@ -20,6 +20,11 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="com.yi.myprojection" />
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>

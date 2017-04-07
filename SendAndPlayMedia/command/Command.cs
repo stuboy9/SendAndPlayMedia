@@ -28,8 +28,7 @@ namespace SendAndPlayMedia.command
         public const string APPLIST = "APPLIST";
         public const string DEVICELIST = "DEVICELIST";
         public const string DLNALIST = "DLNALIST";
-
-
+        public const string PORTELIST = "PORTLIST";
     }
     class Command
     {
@@ -44,9 +43,10 @@ namespace SendAndPlayMedia.command
         }
         public void handle(Object myClientSocket)
         {
+            Socket ClientSocket = null;
             try
             {
-                Socket ClientSocket = (Socket)myClientSocket;
+                ClientSocket = (Socket)myClientSocket;
                 Projection projection = new Projection();
                 WindowControl wc = new WindowControl();
                 Applacation app = new Applacation();
@@ -69,7 +69,7 @@ namespace SendAndPlayMedia.command
                         ClientSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(appLirary.value)));
                         break;
                     case CommandName.DEVICELIST:
-                        Console.WriteLine("device mengmeng:get");
+                        //Console.WriteLine("device mengmeng:get");
                         DeviceLibrary deviceLibrary = new DeviceLibrary();
                         if (MyInfo.tvLibrary.value.Count > 0)
                         {
@@ -79,13 +79,14 @@ namespace SendAndPlayMedia.command
                             
                             foreach (info.tv.TVInfo item in MyInfo.tvLibrary.value)
                             {
-                                deviceLibrary.value.Add(new DeviceItem(item, item.name, "2"));
+                                deviceLibrary.value.Add(new DeviceItem(item, item.name, "书房的小米电视"));
                             }
                         }
                         //Console.WriteLine(deviceLibrary.value.First());
                         ClientSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(deviceLibrary.value)));
                         JsonConvert.SerializeObject(JsonConvert.SerializeObject(deviceLibrary.value));
                         break;
+
                     case CommandName.MEDIA:
                         if (command.Equals("GET"))
                         {
@@ -121,7 +122,11 @@ namespace SendAndPlayMedia.command
                         }
                         else if (command.Equals("PLAY"))
                         {
-                            projection.SelectProjectionDevice(Int32.Parse((string)param["screen"]));
+                            //projection.SelectProjectionDevice(Int32.Parse((string)param["screen"]));
+                            if (!projection.TestConnection(0)) {
+                                media.KillPlayer();
+                                app.CloseAll();
+                            }
                             Process pro;
                             if (param["name"].Equals("media"))
                             {
@@ -137,6 +142,9 @@ namespace SendAndPlayMedia.command
                                 projection.CloseProjection();
                                 break;
                             }
+
+                            projection.SelectProjectionDevice(param["screen"]);
+                            
                             wc.MoveWindow(pro, Projection.current.screen, true);
 
                             response = new Response("200", "", "miracast", new Info());
@@ -194,13 +202,14 @@ namespace SendAndPlayMedia.command
                         }
                         else if (command.Equals("PLAY"))
                         {
+                            Process pro;
                             if (param["name"].Equals("media"))
                             {
-                                media.openPlayer((string)param["path"]);
+                               pro= media.openPlayer((string)param["path"]);
                             }
                             else if (param["name"].Equals("application"))
                             {
-                                app.OpenApp((string)param["path"], "");
+                                pro=app.OpenApp((string)param["path"], "");
                             }
                             else
                             {
@@ -230,6 +239,7 @@ namespace SendAndPlayMedia.command
             }
             catch(Exception e)
             {
+                if (ClientSocket != null) ClientSocket.Close();
                 Console.WriteLine(e);
             }
             

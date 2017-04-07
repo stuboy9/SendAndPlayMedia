@@ -14,10 +14,18 @@ using System.IO.Pipes;
 using System.Security.Principal;
 using System.Security.AccessControl;
 using System.IO;
+using System.Collections.Concurrent;
+using System.Management;
+using System.Net;
+using System.Threading;
+using Windows.System;
+using System.Windows;
+using SendAndPlayMedia.info;
 
 namespace Test
 {
-    
+    public delegate void ProcessDelegate(object sender, EventArgs e);
+
     class Program
     {
         public void GenThupImage(string oriVideoPath, string thubImagePath, string ffmpegPath = @".\ffmpeg", int frameIndex = 10, int thubWidth = 80, int thubHeight = 80)
@@ -30,7 +38,8 @@ namespace Test
             p.StartInfo.CreateNoWindow = true;//不显示程序窗口
             p.Start();//启动程序
         }
-
+        static readonly Uri uri = new Uri("com.yi.myprojection:DoSomething?With=This");
+        const string TargetPackageFamilyName = "06e0587e-3eeb-433c-a44a-b5145c6efc47_yrvdh1zv4g43y";
         /**//// <summary> 
             /// 生成缩略图 
             /// </summary> 
@@ -118,53 +127,69 @@ namespace Test
             }
         }
 
+        
         static void Main(string[] args)
         {
-            while(true)te();
-            Console.ReadKey();
-        }
-        public static void te()
-        {
-            try
-            {
-                using (var pipe = new NamedPipeServerStream("mypipe", PipeDirection.InOut, -1, PipeTransmissionMode.Byte, PipeOptions.None, 0, 0, null, HandleInheritability.None, PipeAccessRights.ChangePermissions))
-                {
-                    PipeSecurity ps = pipe.GetAccessControl();
-                    PipeAccessRule clientRule = new PipeAccessRule(
-                        new SecurityIdentifier("S-1-15-2-1"), // All application packages
-                        PipeAccessRights.ReadWrite,
-                        AccessControlType.Allow);
-                    PipeAccessRule ownerRule = new PipeAccessRule(
-                        WindowsIdentity.GetCurrent().Owner,
-                        PipeAccessRights.FullControl,
-                        AccessControlType.Allow);
-                    ps.AddAccessRule(clientRule);
-                    ps.AddAccessRule(ownerRule);
-                    pipe.SetAccessControl(ps);
-                    pipe.WaitForConnection();
-                    int i = 0;
-                    using (var sr = new StreamReader(pipe, Encoding.UTF8))
-                    {
-                        while (true)
-                        {
-                            StreamWriter sw = new StreamWriter(pipe, Encoding.UTF8);
-                            sw.WriteLine("hello word from pc" + i++);
-                            sw.Flush();
+            //test();
+            String launch = Guid.NewGuid().ToString();
+            BroadInfo l = new BroadInfo(new List<BroadParam>());
+            BroadParam b = new BroadParam();
+            b.ip = getMyip();
+            b.port = 8888;
+            b.launch_time_id = launch;
+            l.param.Add(b);
 
-                            string message = sr.ReadLine();
-                            //在此处处理App写入命名管道的内容
-                            Console.WriteLine(message);
-                            pipe.WaitForPipeDrain();
-                            
-                        }
-                    }
+            BroadParam c = new BroadParam();
+            c.ip = getMyip();
+            c.port = 8888;
+            c.launch_time_id = launch;
+            Console.WriteLine(l.param.Contains(c));
+            Console.ReadKey();
+
+        }
+        public static async void test()
+        {
+
+            var supportStatus = await Launcher.QueryUriSupportAsync(uri, LaunchQuerySupportType.Uri, TargetPackageFamilyName);
+            if (supportStatus != LaunchQuerySupportStatus.Available)
+            {
+                Console.WriteLine("软件未安装！");
+            }
+            var options = new LauncherOptions { TargetApplicationPackageFamilyName = TargetPackageFamilyName };
+            bool success = await Launcher.LaunchUriAsync(uri, options);
+
+        }
+        /// <summary>
+        /// DateTime时间格式转换为Unix时间戳格式
+        /// </summary>
+        /// <param name="time"> DateTime时间格式</param>
+        /// <returns>Unix时间戳格式</returns>
+        public static int ConvertDateTimeInt(System.DateTime time)
+        {
+            System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
+            return (int)(time - startTime).TotalSeconds;
+        }
+        private static string getIPAddress()
+        {
+            System.Net.IPAddress addr;
+            addr = new System.Net.IPAddress(Dns.GetHostByName(Dns.GetHostName()).AddressList[0].Address);
+            return addr.ToString();
+        }
+        private static  string getMyip()
+        {
+            ManagementClass mc = new ManagementClass("Win32_NetworkAdapterConfiguration");
+
+            ManagementObjectCollection moc = mc.GetInstances();
+            string MACAddress = String.Empty;
+            foreach (ManagementObject mo in moc)
+            {
+                if ((bool)mo["IPEnabled"] == true)
+                {
+                    return ((String[])mo["IPAddress"])[0];
                 }
             }
-            catch(Exception e)
-            {
-
-            }
-            
+            return "127.0.0.1";
         }
     }
+
 }

@@ -48,7 +48,7 @@ namespace SendAndPlayMedia.info
             BroadParam temp = null;
             temp = (BroadParam)obj;
 
-            return this.ip.Equals(temp.ip) && this.port.Equals(temp.port)&&this.launch_time_id.Equals(temp.launch_time_id) ;
+            return this.ip.Equals(temp.ip) && this.port.Equals(temp.port) ;
 
         }
 

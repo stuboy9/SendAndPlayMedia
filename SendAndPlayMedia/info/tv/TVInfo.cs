@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,8 @@ namespace SendAndPlayMedia.info.tv
         public Boolean dlnaOk { set; get; }
         public Boolean miracastOk { set; get; }
         public Boolean rdpOk { set; get; }
+        [JsonIgnore]
+        public int timeStamp = -1;
         public TVInfo(string uuid,string name,string type,string ip, Boolean dlnaOk, Boolean miracastOk, Boolean rdpOk)
         {
             this.uuid = uuid;
@@ -26,6 +29,31 @@ namespace SendAndPlayMedia.info.tv
             this.miracastOk = miracastOk;
             this.rdpOk = rdpOk;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            if ((obj.GetType().Equals(this.GetType())) == false)
+            {
+                return false;
+            }
+            TVInfo temp = null;
+            temp = (TVInfo)obj;
+
+            return this.name.Equals(temp.name) && this.ip.Equals(temp.ip)&&this.uuid.Equals(temp.uuid);
+
+        }
+
+        //重写GetHashCode方法（重写Equals方法必须重写GetHashCode方法，否则发生警告
+
+        public override int GetHashCode()
+        {
+            return this.name.GetHashCode() + this.ip.GetHashCode()+this.uuid.GetHashCode();
+        }
+
     }
     class TVLibrary :Info
     {
