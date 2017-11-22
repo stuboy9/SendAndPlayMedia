@@ -110,7 +110,9 @@
                             <RowDefinition Height="26.9999999999997"/>
                         </Grid.RowDefinitions>
 
-                        --><!--详细--><!--
+                        -->
+                <!--详细-->
+                <!--
                         <Label Content="当前屏幕" HorizontalAlignment="Left" Margin="0" Width="94.25" Height="36" FontSize="14.667" FontWeight="Bold" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
                         <pageTransitions:PageTransition Name="pTransitionControl_1" Margin="0" TransitionType="SlideAndFade" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
 
@@ -210,7 +212,8 @@
             <!--导航详细-->
             <!--下状态栏-->
             <Label Content="欢迎使用AREAPARTY系统"  Margin="0" Grid.Row="3" Foreground="#A794E9FF" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Left" Width="150.5" TextOptions.TextFormattingMode="Display" />
-            <Label Name="Login_Label" Content="已连接网络" Margin="0" Grid.Row="3" Foreground="#A794E9FF" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Right" Width="100" TextOptions.TextFormattingMode="Display" />
+            <Label Name="Login_Label" Content="长连接断开" Margin="0" Grid.Row="3" Foreground="#A794E9FF" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Right" Width="100" TextOptions.TextFormattingMode="Display" />
+            <Label Name="Nas_Label" Content="未连接NAS" Margin="0,0,105,-1" Grid.Row="3" Foreground="#A794E9FF" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Right" Width="100" TextOptions.TextFormattingMode="Display" />
         </Grid>
     </Border>
 </Window>

@@ -118,7 +118,7 @@ namespace AreaParty.windows
         }
             private void closeButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.main.Status = "NAS长连接断开";
+            MainWindow.main.Status_Nas = "未连接NAS";
             this.Close();
         }
         //private void NasNameTextBox_GotFocus(object sender, RoutedEventArgs e)

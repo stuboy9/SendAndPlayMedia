@@ -43,6 +43,11 @@ namespace AreaParty
             get { return Login_Label.Content.ToString(); }
             set { try { Dispatcher.Invoke(new Action(() => { Login_Label.Content = value; })); } catch (Exception e) { } }
         }
+        internal string Status_Nas
+        {
+            get { return Nas_Label.Content.ToString(); }
+            set { try { Dispatcher.Invoke(new Action(() => { Nas_Label.Content = value; })); } catch (Exception e) { } }
+        }
 
         public MainWindow()
         {

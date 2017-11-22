@@ -97,7 +97,7 @@ namespace AreaParty.pages
                 if (System.Windows.MessageBox.Show("确定断开NAS长连接", "NAS长连接", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
                     util.config.ConfigUtil.SetValue("naslongconnect", "false");
-                    MainWindow.main.Status = "NAS长连接断开";
+                    MainWindow.main.Status_Nas = "未连接NAS";
                 }
                 else
                 {
