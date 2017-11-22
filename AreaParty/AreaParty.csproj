@@ -1,0 +1,667 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{565141A3-ED89-4039-B8DE-7FF9ACF9465F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AreaParty</RootNamespace>
+    <AssemblyName>AreaParty</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>1</WarningLevel>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Logo1.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>0B1EACB5F97BC251E3ECC890E8B41A099CE312BC</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>AreaParty_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net35\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="protobuf-net, Version=2.3.2.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.3.2\lib\net35\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.WindowsRuntime, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Runtime.WindowsRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Windows">
+      <HintPath>C:\Program Files (x86)\Windows Kits\10\UnionMetadata\Windows.winmd</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WpfPageTransitions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WpfPageTransitions\bin\Release\WpfPageTransitions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="clientPC\ClientPCNew2.cs" />
+    <Compile Include="clientPC\ClientPCState.cs" />
+    <Compile Include="clientPC\ClientPcTest.cs" />
+    <Compile Include="clientPC\FileOp.cs" />
+    <Compile Include="clientPC\ProgressObj.cs" />
+    <Compile Include="clientPC\ReceiveBtServer.cs" />
+    <Compile Include="clientPC\StateEnum.cs" />
+    <Compile Include="command\Command.cs" />
+    <Compile Include="command\CommandFactory.cs" />
+    <Compile Include="fileService\ByteChange.cs" />
+    <Compile Include="fileService\CircleStack.cs" />
+    <Compile Include="fileService\MD5.cs" />
+    <Compile Include="fileService\MyRandom.cs" />
+    <Compile Include="fileService\ReceiveLittle.cs" />
+    <Compile Include="fileService\ReceiveState.cs" />
+    <Compile Include="fileService\SendLittle.cs" />
+    <Compile Include="fileService\SendState.cs" />
+    <Compile Include="function\app\Application.cs" />
+    <Compile Include="function\app\AppScan.cs" />
+    <Compile Include="function\dlna\DLNA.cs" />
+    <Compile Include="function\game\Game.cs" />
+    <Compile Include="function\media\MediaFunction.cs" />
+    <Compile Include="function\miracast\Projection.cs" />
+    <Compile Include="function\pcapp\PCApp.cs" />
+    <Compile Include="function\pcapp\PCInformation.cs" />
+    <Compile Include="function\phone\Phone.cs" />
+    <Compile Include="function\rdp\RDP.cs" />
+    <Compile Include="function\tv\TVFunction.cs" />
+    <Compile Include="function\webservice\WebOperation.cs" />
+    <Compile Include="function\window\WindowControl.cs" />
+    <Compile Include="http_server\command\Command.cs" />
+    <Compile Include="http_server\http\HttpServer.cs" />
+    <Compile Include="http_server\http\UnsupportedEncodingException.cs" />
+    <Compile Include="info\application\AppLibrary.cs" />
+    <Compile Include="info\application\ApplicationItem.cs" />
+    <Compile Include="info\ConfigResource.cs" />
+    <Compile Include="info\game\GameItem.cs" />
+    <Compile Include="info\Info.cs" />
+    <Compile Include="info\media\AudioItem.cs" />
+    <Compile Include="info\media\ImageItem.cs" />
+    <Compile Include="info\media\MediaItem.cs" />
+    <Compile Include="info\media\MediaLibrary.cs" />
+    <Compile Include="info\media\VideoItem.cs" />
+    <Compile Include="info\miracast\MiracastLibrary.cs" />
+    <Compile Include="info\miracast\Screen.cs" />
+    <Compile Include="info\MyInfo.cs" />
+    <Compile Include="info\phone\PhoneInfo.cs" />
+    <Compile Include="info\Response.cs" />
+    <Compile Include="info\tv\DeviceItem.cs" />
+    <Compile Include="info\tv\TVCommand.cs" />
+    <Compile Include="info\tv\TVInfo.cs" />
+    <Compile Include="http_server\node\MediaType.cs" />
+    <Compile Include="http_server\node\Node.cs" />
+    <Compile Include="http_server\node\NodeContainer.cs" />
+    <Compile Include="pages\AppPage.xaml.cs">
+      <DependentUpon>AppPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\MediaPage.xaml.cs">
+      <DependentUpon>MediaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\NasPage.xaml.cs">
+      <DependentUpon>NasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\Screen.xaml.cs">
+      <DependentUpon>Screen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\SettingPage.xaml.cs">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\setting\Dlna.xaml.cs">
+      <DependentUpon>Dlna.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\setting\Game.xaml.cs">
+      <DependentUpon>Game.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\setting\Miracast.xaml.cs">
+      <DependentUpon>Miracast.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\setting\TVScreen.xaml.cs">
+      <DependentUpon>TVScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="protocol\AccreditMsg.cs" />
+    <Compile Include="protocol\AddFileMsg.cs" />
+    <Compile Include="protocol\AddFriendMsg.cs" />
+    <Compile Include="protocol\AgreeAddFriendMsg.cs" />
+    <Compile Include="protocol\ApplicationData.cs" />
+    <Compile Include="protocol\ChangeFriendMsg.cs" />
+    <Compile Include="protocol\ChangeGroupMsg.cs" />
+    <Compile Include="protocol\ChatData.cs" />
+    <Compile Include="protocol\CreateGroupChatMsg.cs" />
+    <Compile Include="protocol\DeleteFileMsg.cs" />
+    <Compile Include="protocol\DeleteFriendMsg.cs" />
+    <Compile Include="protocol\DownloadData.cs" />
+    <Compile Include="protocol\FileData.cs" />
+    <Compile Include="protocol\GameData.cs" />
+    <Compile Include="protocol\GetDownloadFileInfo.cs" />
+    <Compile Include="protocol\GetExeInfoMsg.cs" />
+    <Compile Include="protocol\GetFileInfoMsg.cs" />
+    <Compile Include="protocol\GetGroupInfoMsg.cs" />
+    <Compile Include="protocol\GetMiracastInfoMsg.cs" />
+    <Compile Include="protocol\GetPersonalInfoMsg.cs" />
+    <Compile Include="protocol\GetUserInfoMsg.cs" />
+    <Compile Include="protocol\GroupData.cs" />
+    <Compile Include="protocol\KeepAliveMsg.cs" />
+    <Compile Include="protocol\LoginMsg.cs" />
+    <Compile Include="protocol\LogoutMsg.cs" />
+    <Compile Include="protocol\MiracastData.cs" />
+    <Compile Include="protocol\OffLineMsg.cs" />
+    <Compile Include="protocol\PersonalSettingsMsg.cs" />
+    <Compile Include="protocol\ProgressData.cs" />
+    <Compile Include="protocol\ProtoHead.cs" />
+    <Compile Include="protocol\ReceiveChatMsg.cs" />
+    <Compile Include="protocol\RegisterMsg.cs" />
+    <Compile Include="protocol\SendChatMsg.cs" />
+    <Compile Include="protocol\SendCode.cs" />
+    <Compile Include="protocol\SendDownloadMsg.cs" />
+    <Compile Include="protocol\UserData.cs" />
+    <Compile Include="routedcommand\MyRoutedCommand.cs" />
+    <Compile Include="transferinformation\Action.cs" />
+    <Compile Include="transferinformation\informationFormat\applicationFormat\ApplicationFormat.cs" />
+    <Compile Include="transferinformation\informationFormat\diskFormat\DiskInforFormat.cs" />
+    <Compile Include="transferinformation\informationFormat\fileManagerFormat\FileInforFormat.cs" />
+    <Compile Include="transferinformation\informationFormat\fileManagerFormat\FolderInforFormat.cs" />
+    <Compile Include="transferinformation\informationFormat\fileManagerFormat\NodeFormat.cs" />
+    <Compile Include="transferinformation\informationFormat\fileManagerFormat\SharedFilePathFormat.cs" />
+    <Compile Include="transferinformation\informationFormat\fileManagerFormat\TreeNode.cs" />
+    <Compile Include="transferinformation\informationFormat\monitorFormat\MonitorData.cs" />
+    <Compile Include="transferinformation\informationFormat\monitorFormat\ProcessFormat.cs" />
+    <Compile Include="transferinformation\informationFormat\RequestMessageFormat.cs" />
+    <Compile Include="transferinformation\informationFormat\ReturnMessageFormat.cs" />
+    <Compile Include="transferinformation\JsonHelper.cs" />
+    <Compile Include="transferinformation\Order.cs" />
+    <Compile Include="transferinformation\processesMonitor\ProcessInfo.cs" />
+    <Compile Include="transferinformation\processesMonitor\ProcessMonitor.cs" />
+    <Compile Include="transferinformation\RegistryConst.cs" />
+    <Compile Include="transferinformation\systemMonitor\NetworkAdapter.cs" />
+    <Compile Include="transferinformation\systemMonitor\SystemMonitor.cs" />
+    <Compile Include="transferinformation\TransferInformationService.cs" />
+    <Compile Include="util\config\AppConfig.cs" />
+    <Compile Include="util\config\ApplicationConfig.cs" />
+    <Compile Include="util\config\AppMySection.cs" />
+    <Compile Include="util\config\ConfigUtil.cs" />
+    <Compile Include="util\config\GameConfig.cs" />
+    <Compile Include="util\config\GameMySection.cs" />
+    <Compile Include="util\config\GetIPAddress.cs" />
+    <Compile Include="util\config\MediaConfig.cs" />
+    <Compile Include="util\config\PairCodeConfig.cs" />
+    <Compile Include="util\config\UserScreenConfig.cs" />
+    <Compile Include="util\IconUtil.cs" />
+    <Compile Include="util\IPUtil.cs" />
+    <Compile Include="util\JAVAUtil.cs" />
+    <Compile Include="util\config\MySection.cs" />
+    <Compile Include="windows\BackGroundWindow.xaml.cs">
+      <DependentUpon>BackGroundWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\InitSetting.xaml.cs">
+      <DependentUpon>InitSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\LoadingWindow.xaml.cs">
+      <DependentUpon>LoadingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\NasConnectWindow.xaml.cs">
+      <DependentUpon>NasConnectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\class\NASFolder.cs" />
+    <Compile Include="windows\NASFoldersWindow.xaml.cs">
+      <DependentUpon>NASFoldersWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\PairCodeWindow.xaml.cs">
+      <DependentUpon>PairCodeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\TestWindow.xaml.cs">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\UserLoginWindow.xaml.cs">
+      <DependentUpon>UserLoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="pages\AppPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\MediaPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\NasPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\Screen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="pages\SettingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\setting\Dlna.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\setting\Game.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\setting\Miracast.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\setting\TVScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="styles\ButtonResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\CheckBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\ListBoxStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\MenuItemStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\ScrollViewerStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="styles\SysButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="styles\TabControlStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="windows\BackGroundWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="windows\InitSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\LoadingWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\NasConnectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\NASFoldersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\PairCodeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\TestWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="windows\UserLoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="AreaParty_TemporaryKey.pfx" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\app.manifest">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\Button\btbg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\Button\btfg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\Button\M.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\Button\MAX.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\Button\MNI.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\Button\x1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\360AntiVirus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\360Chrome.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\360Compress.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\360Desktop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\360EntAdmin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\360FirstAD.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\360JiShi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\360se.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_360Guard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_360MobileMgr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_360NetRepair.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_360passwordcheck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_360PowerSaver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_360QSpeed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_360UDiskCheck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_360Ys.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_pic_360cloud.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AavanceTools_pic_shoujitijian.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AdvanceTool_pic_360LuDaShi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\csbt\AdvanceTools_NetSpeed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\frame.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\ico\ico_Examine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\ico\toolbar_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\ico\toolbar_pushed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\ico\ico_settingpage_other.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\ico\ico_Game.png" />
+    <Resource Include="styles\skin\ico\ico_Media.png" />
+    <Resource Include="styles\skin\ico\ico_Setting.png" />
+    <Resource Include="styles\skin\ico\ico_settingpage_game.png" />
+    <Resource Include="styles\skin\ico\ico_settingpage_help.png" />
+    <Resource Include="styles\skin\ico\ico_settingpage_login.png" />
+    <Resource Include="styles\skin\ico\ico_settingpage_remotedesktop.png" />
+    <Resource Include="styles\skin\ico\ico_settingpage_setting.png" />
+    <Resource Include="styles\skin\ico\ico_Software.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\item\item_media.png" />
+    <Resource Include="styles\skin\item\item_tv.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\notifylogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\background\SettingWindowBackGround.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="bitbug_favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\background\UserLoginBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\ico\ico_login_person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="NATUPNPLib">
+      <Guid>{1C565858-F302-471E-B409-F180AA4ABEC6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\item\WelcomeAreaParty.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\item\LeftLogo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\item\LeftLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Logo1.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\item\item_video.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\item\item_audio.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\item\item_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\pairing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\ico\ico_settingpage_nas.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

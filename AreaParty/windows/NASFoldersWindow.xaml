@@ -1,0 +1,44 @@
+﻿<Window x:Class="AreaParty.windows.NASFoldersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:WpfTest="clr-namespace:AreaParty.windows" 
+        WindowStartupLocation="CenterScreen"
+        Title="NAS" Height="400" Width="600">
+
+    <Grid>
+        <Grid HorizontalAlignment="Left" Height="349" Margin="10,10,0,0" VerticalAlignment="Top" Width="572">
+            <ListView Name="foldersview" HorizontalAlignment="Left" Height="305" Margin="10,10,0,0" VerticalAlignment="Top" Width="552" RenderTransformOrigin="0.46,-0.26">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn x:Name="gvc" Width="60">
+                            <GridViewColumn.Header>
+                                <CheckBox Click="CheckBox_Click_1">全选</CheckBox>
+                            </GridViewColumn.Header>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox Click="CheckBox_Click" Tag="{Binding folder_id}"></CheckBox>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="编号" Width="60" DisplayMemberBinding="{Binding folder_id}"/>
+                        <GridViewColumn Header="文件夹" Width="100" DisplayMemberBinding="{Binding folder_name}"/>
+                        <GridViewColumn Header="文件夹状态" Width="100" DisplayMemberBinding="{Binding folder_statue}"/>
+                        <GridViewColumn Header="操作" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="映射" Width="75" Height="23" Click="Button_Click" CommandParameter="{Binding folder_id}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="映射" HorizontalAlignment="Left" Margin="10,320,0,0" VerticalAlignment="Top" Width="60" Click="Map_Click"/>
+        </Grid>
+
+    </Grid>
+
+</Window>

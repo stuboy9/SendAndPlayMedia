@@ -1,0 +1,111 @@
+﻿<Window
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="AreaParty.windows.TestWindow"
+    x:Name="Window"
+    Title="Window1"
+    Width="900" 
+    Height="500" 
+    FontFamily="Segoe UI" 
+    FontSize="20" 
+    WindowStartupLocation="CenterScreen"
+    >
+
+
+    <Grid x:Name="LayoutRoot">
+        <TabControl Margin="0,0,0,32" Grid.ColumnSpan="2"  Style="{DynamicResource SettingTabControlStyle}" BorderThickness="0,1,0,0" BorderBrush="{x:Null}" Background="{x:Null}">
+            <TabItem Header="全部任务" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                <TabItem.Background>
+                    <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\20120514094220107_easyicon_cn_48.png" Stretch="Uniform"/>
+                </TabItem.Background>
+                <Grid Background="White">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                    </Grid.Effect>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="370.471"></RowDefinition>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock TextWrapping="Wrap" xml:space="preserve" >
+PC端：
+  1. 右键我的电脑，选择属性。
+  2. 选择远程设置。
+  3. 勾选允许远程协助连接这台计算机和允许远程连接到此计算机，其他不要勾选，确定即可。
+TV端：
+  1. 打开TV软件Remote Desktop，选择上面添加按钮（即右上角加号），然后选择Desktop选项。
+  2. 点击scan选项，搜索局域网可用设备，搜索结果显示的列表中，选择刚才设置过的PC，选择Enter every time，继续选择Add user account，在弹出的界面分别输入你的PC用户名和密码，选择save保存。
+  3. 在返回的界面选择CONNECT，然后在弹出界面继续选择CONNECT，即可进入远程桌面。
+                    </TextBlock>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="更多详细设置" MouseLeftButtonDown="Label_More_Click"></Label>
+                        <Button Content="已设置" Style="{DynamicResource MyButton}" Grid.Column="1"></Button>
+                        <Button Content="稍后设置" Style="{DynamicResource MyButton}" Grid.Column="2"></Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="正在下载" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                <TabItem.Background>
+                    <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\20120514094858213_easyicon_cn_64.png" Stretch="UniformToFill"/>
+                </TabItem.Background>
+                <Grid Background="White" Margin="0">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                    </Grid.Effect>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="370"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" TextWrapping="Wrap" xml:space="preserve">
+1.  打开Geforce Experience，然后进行帐号注册或者使用第三方帐号登录。
+2.  选择设置，然后选择SHIELD，在此界面，将GAMESTREAM选项打开即可。
+                    </TextBlock>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="更多详细设置"></Label>
+                        <Button Content="已设置" Grid.Column="1"></Button>
+                        <Button Content="稍后设置" Grid.Column="2"></Button>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="已完成" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                <TabItem.Background>
+                    <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\qqq.png" Stretch="UniformToFill"/>
+                </TabItem.Background>
+                <Grid Background="White">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                    </Grid.Effect>
+                </Grid>
+            </TabItem>
+            <TabItem Header="私人空间" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                <TabItem.Background>
+                    <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\88.png" Stretch="UniformToFill"/>
+                </TabItem.Background>
+                <Grid Background="White">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                    </Grid.Effect>
+                </Grid>
+            </TabItem>
+            <TabItem Header="垃圾箱" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+                <TabItem.Background>
+                    <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\ff.png" Stretch="UniformToFill"/>
+                </TabItem.Background>
+                <Grid Background="White">
+                    <Grid.Effect>
+                        <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
+                    </Grid.Effect>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
