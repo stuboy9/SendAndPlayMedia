@@ -286,7 +286,7 @@ namespace transferinfomation
             System.Threading.Thread.Sleep(5000);
             IPEndPoint localIP = new IPEndPoint(IPAddress.Any, 7777);
             TcpListener listener = new TcpListener(localIP);
-
+            
             listener.Start();
             Console.WriteLine("Monitoring Server is listening...");
             while (true)

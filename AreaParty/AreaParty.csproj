@@ -654,7 +654,7 @@
     <Resource Include="styles\skin\pairing.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="styles\skin\ico\ico_settingpage_nas.jpg" />
+    <Resource Include="styles\skin\ico\ico_settingpage_nas.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

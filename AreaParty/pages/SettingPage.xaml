@@ -188,7 +188,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
             </TabItem>
             <TabItem Header="NAS连接" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
                 <TabItem.Background>
-                    <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_nas.jpg" Stretch="UniformToFill"/>
+                    <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_nas.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
                 <Grid >
                     <Grid.Effect>

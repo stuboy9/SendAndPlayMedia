@@ -428,9 +428,36 @@ namespace AreaParty.command
                             response = new Response("200", "", CommandName.IMAGE, null);
                             ClientSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(response)));
                         }
+                        else if (command.Equals("PLAYALL"))
+                        {
+                            List<MediaMengMeng> l = media.getMediasByPath("IMAGE", param["folder"]);
+                            List<string> urls = new List<string>();
+                       
+                            foreach (MediaMengMeng m in l)
+                            {
+                                info.media.MediaItem mi = new info.media.MediaItem(m.pathName);
+                                urls.Add(mi.url);
+                            }
+                            foreach (info.tv.TVInfo item in MyInfo.tvLibrary.value)
+                            {
+                                if (item.name.Equals(param["tvname"]))
+                                {
+                                    function.tv.TVFunction.sendCommand(item.ip, info.tv.TVCommand.GetInstance("OPEN_HTTP_MEDIA", null, false, "", "image", urls, null));
+                                }
+                            }
+                            //foreach (var ls in list)
+                            //{
+                            //    PlayMedia(param["tvname"], ls[""]);
+                            //}
+                            
+
+                            response = new Response("200", "", CommandName.IMAGE, null);
+                            ClientSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(response)));
+                        }
                         else if (command.Equals("GETTOTALLIST"))
                         {
-                            response = new Response("200", "", CommandName.IMAGE, JsonConvert.SerializeObject(media.getMediasByPath("IMAGE", param["folder"])));
+                            List<MediaMengMeng> list = media.getMediasByPath("IMAGE", param["folder"]);
+                            response = new Response("200", "", CommandName.IMAGE, JsonConvert.SerializeObject(list));
                             ClientSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(response)));
                         }
                         else if (command.Equals("GETSETS"))

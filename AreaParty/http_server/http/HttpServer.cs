@@ -385,20 +385,30 @@ namespace http
 						}
 					}
 
-					// We are looking for the byte separating header from body.
-					// It must be the last byte of the first two sequential new lines.
-					int splitbyte = 0;
+                    // We are looking for the byte separating header from body.
+                    // It must be the last byte of the first two sequential new lines.
+                    int splitbyte = 0;
 					bool sbfound = false;
-					while (splitbyte < rlen)
-					{
-						if (buf[splitbyte] == (byte)'\r' && buf[++splitbyte] == (byte)'\n' && buf[++splitbyte] == (byte)'\r' && buf[++splitbyte] == (byte)'\n')
-						{
-							sbfound = true;
-							break;
-						}
-						splitbyte++;
-					}
-					splitbyte++;
+                    if (header.Count == 0)
+                    {
+                        splitbyte = rlen;
+                        sbfound = true;
+                    }
+                    else
+                    {
+                        while (splitbyte < rlen)
+                        {
+                            if (buf[splitbyte] == (byte)'\r' && buf[++splitbyte] == (byte)'\n' && buf[++splitbyte] == (byte)'\r' && buf[++splitbyte] == (byte)'\n')
+                            {
+                                sbfound = true;
+                                break;
+                            }
+                            splitbyte++;
+                        }
+                        splitbyte++;
+                    }
+					
+					
 
 					// Write the part of body already read to ByteArrayOutputStream f
 					System.IO.MemoryStream f = new System.IO.MemoryStream();
@@ -602,21 +612,21 @@ namespace http
                     if (version != null)
                     {
                         string line = @in.ReadLine();
-                        //int i = 1;
-                        //while (line == null)
-                        //{
-                            
-                            
-                        //    if (line == null)
-                        //    {
-                        //        Console.WriteLine("请求头空：{0}", i++);
-                        //    }
-                        //    else
-                        //    {
-                        //        Console.WriteLine("请求头为：{0}", line);
-                        //    }
-                        //    line = @in.ReadLine();
-                        //}
+                        int i = 1;
+                        while ((line == null)&(i<1000))
+                        {
+
+
+                            if (line == null)
+                            {
+                                Console.WriteLine("请求头空：{0}", i++);
+                            }
+                            else
+                            {
+                                Console.WriteLine("请求头为：{0}", line);
+                            }
+                            line = @in.ReadLine();
+                        }
                         while (!string.ReferenceEquals(line, null) && line.Trim().Length > 0)
                         {
                             int p = line.IndexOf(':');
