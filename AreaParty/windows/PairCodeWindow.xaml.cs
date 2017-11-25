@@ -30,6 +30,17 @@ namespace AreaParty.windows
         //    set { ResponseTextBox.Text = value; }
         //}
 
+        /// <summary>
+        /// 窗口移动事件
+        /// </summary>
+        private void TitleBar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
+        }
+
         private void OKButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             

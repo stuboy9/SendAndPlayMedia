@@ -173,7 +173,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     <Label Content="服务连接开关" Foreground="#cc9966" FontFamily="宋体" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <CheckBox Name="LoginCheckBox" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,6,0"/>
                     <TextBlock Grid.Row="1" Name="LoginTextBlock" TextWrapping="Wrap"  FontSize="17" TextBlock.LineHeight="23"   FontStretch="Expanded"  xml:space="preserve">
-    若开启长连接，当你打开本软件的时候会直接连上NAS，之后可以使用手机远程控制PC进行P2P下载文件功能;好友共享的文件下载;查看下载状态。
+    若开启长连接，当你打开本软件的时候会直接连上服务器，之后可以使用手机远程控制PC进行P2P下载文件功能;好友共享的文件下载;查看下载状态。
     若不开启长连接，则不能使用以上功能。
                     </TextBlock>
                     <Grid Grid.Row="2">
@@ -199,19 +199,21 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                         <RowDefinition Height="330.471"></RowDefinition>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
-                    <Label Content="NAS连接开关" Foreground="#cc9966" FontFamily="宋体" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Content="打开NAS长连接" Foreground="#cc9966" FontFamily="宋体" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <CheckBox Name="LoginCheckBox_NAS" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_NAS_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,6,0"/>
                     <TextBlock Grid.Row="1" Name="LoginTextBlock_NAS" TextWrapping="Wrap"  FontSize="17" TextBlock.LineHeight="23"   FontStretch="Expanded"  xml:space="preserve">
-    若开启长连接，当你打开本软件的时候会直接连上服务器，之后可以使用手机远程管理NAS，进行数据存储、查看状态等操作。
-    若不开启长连接，则不能使用以上功能。
+    若开启长连接，本软件会帮助您保存您的NAS管理员账号，方便您使用手机远程管理NAS，进行数据存储、查看状态等操作。
+    若不需要关闭即可。
                     </TextBlock>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="300"></ColumnDefinition>
-                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="285"></ColumnDefinition>
+                            <ColumnDefinition Width="21"/>
+                            <ColumnDefinition Width="194"></ColumnDefinition>
                             <ColumnDefinition Width="200"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Content="更多详细设置>" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" />
+                        <Label Content="更多详细设置>" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" Margin="0,0,192,10" />
+                        <Label Content="继续映射" Margin="29,0,106,10" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreNas_Click" Grid.Column="2" />
                     </Grid>
                 </Grid>
             </TabItem>

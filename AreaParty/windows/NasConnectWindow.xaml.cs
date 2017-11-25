@@ -23,6 +23,8 @@ namespace AreaParty.windows
     /// </summary>
     public partial class NasConnectWindow : Window
     {
+        public string username;
+        public string password;
         string remotepath;  //NAS将要映射的共享文件夹
         string localpath;   //映射为本地的盘符
         public NasConnectWindow()
@@ -37,8 +39,8 @@ namespace AreaParty.windows
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
             //string nasname = this.NasNameTextBox.Text;
-            string username = this.UserNameTextBox.Text;
-            string password = this.PasswordTextBox.Password;
+            username = this.UserNameTextBox.Text;
+            password = this.PasswordTextBox.Password;
             
                                 //string username = "admin";    //NAS的账户
                                 //string password = "abc123";    //NAS的密码
@@ -52,23 +54,6 @@ namespace AreaParty.windows
             FindDiskName();
             Get_Share(remotepath, localpath, username, password);
             this.Close();
-            //if (dilog.ShowDialog() == DialogResult.OK || dilog.ShowDialog() == DialogResult.Yes)
-            //{
-
-            /*System.Windows.MessageBox.Show(path);     */                       //显示该路径名
-                                                                                 //}
-                                                                                 //NASFoldersWindow nfw = new NASFoldersWindow();
-                                                                                 //nfw.Show();
-                                                                                 //this.Close();
-
-
-            //Thread t = new Thread(Login);
-            //User u = new User(name, password);
-            //Thread t = new Thread(Login);
-            ////t.SetApartmentState(ApartmentState.STA);
-            //t.IsBackground = true;
-            //t.Start(u);
-
         }
 
         public static void Get_Share(string remotepath, string localpath, string username, string password)
@@ -76,15 +61,13 @@ namespace AreaParty.windows
             Process.Start("net", " use " + localpath + " " + remotepath + " " + password + " /user:" + username);
         }
 
-        //断开共享文件的映射
+        ///断开共享文件的映射
         public static void Break_Share(string localpath)
         {
             Process.Start("net", " use " + localpath + " /delete");
         }
 
-
-
-        //查找PC上的盘符的名称，从Z-A(未使用的字母)赋予给新映射的网络盘
+        ///查找PC上的盘符的名称，从Z-A(未使用的字母)赋予给新映射的网络盘
         public void FindDiskName()
         {
             DriveInfo[] allDrives = DriveInfo.GetDrives();
@@ -121,22 +104,6 @@ namespace AreaParty.windows
             MainWindow.main.Status_Nas = "未连接NAS";
             this.Close();
         }
-        //private void NasNameTextBox_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    string name = this.NasNameTextBox.Text;
-        //    if (name == "NAS设备名称")
-        //    {
-        //        this.NasNameTextBox.Text = "";
-        //    }
-        //}
-
-        //private void NasNameTextBox_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    if (this.NasNameTextBox.Text == "")
-        //    {
-        //        this.NasNameTextBox.Text = "NAS设备名称";
-        //    }
-        //}
 
         private void UserNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {

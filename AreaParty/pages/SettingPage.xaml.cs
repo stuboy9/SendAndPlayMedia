@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -15,6 +16,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -26,7 +28,7 @@ namespace AreaParty.pages
     /// <summary>
     /// SettingPage.xaml 的交互逻辑
     /// </summary>
-    public partial class SettingPage : UserControl
+    public partial class SettingPage : System.Windows.Controls.UserControl
     {
         public static SettingPage settingPage;
         public SettingPage()
@@ -132,6 +134,56 @@ namespace AreaParty.pages
                 else
                 {
                     this.LoginCheckBox.IsChecked = true;
+                }
+            }
+        }
+
+
+        string user;
+        string password;
+        string remotepath;  //NAS将要映射的共享文件夹
+        string localpath;   //映射为本地的盘符
+        private void MoreNas_Click(object sender, MouseButtonEventArgs e)
+        {
+            
+
+            string path = "";           //保存选择文件夹的名称
+            FolderBrowserDialog dilog = new FolderBrowserDialog();
+            dilog.Description = "请选择文件夹";
+            dilog.ShowDialog();
+            remotepath = dilog.SelectedPath;
+            FindDiskName();
+            NasConnectWindow.Get_Share(remotepath, localpath, user, password);
+        }
+        ///查找PC上的盘符的名称，从Z-A(未使用的字母)赋予给新映射的网络盘
+        public void FindDiskName()
+        {
+            DriveInfo[] allDrives = DriveInfo.GetDrives();
+
+            for (int i = 90; i > 64; i--)
+            {
+                var NewNasName = char.ConvertFromUtf32(i);
+                var str = string.Empty + NewNasName;
+                Boolean exist = true;
+                for (int j = allDrives.Length - 1; j >= 0; j--)
+                {
+                    string DiskName = allDrives[j].Name.Trim(':', '\\');
+                    Console.WriteLine(DiskName);
+                    if (DiskName != str)
+                    {
+                        exist = false;
+                    }
+                    else
+                    {
+                        exist = true;
+                        break;
+                    }
+
+                }
+                if (exist == false)
+                {
+                    localpath = str + ":";
+                    break;
                 }
             }
         }

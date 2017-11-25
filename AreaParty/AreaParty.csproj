@@ -656,6 +656,11 @@
   <ItemGroup>
     <Resource Include="styles\skin\ico\ico_settingpage_nas.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\item\item_title_audio.png" />
+    <Resource Include="styles\skin\item\item_title_image.png" />
+    <Resource Include="styles\skin\item\item_title_video.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -24,14 +24,17 @@
                     <DataTemplate>
                         <Grid Width="150" Margin="0,20,0,20">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="90"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"/>
-                                <RowDefinition Height="30"/>
-                            </Grid.RowDefinitions>
-                            <Image Grid.Row="0"  Width="48" Margin="2,2,2,1" Source="{Binding ImagePath}"/>
-                            <TextBlock Name="textBlock" Grid.Row="1" FontSize="13" HorizontalAlignment="Center" Margin="5" Text="{Binding Name}"/>
+                            <!--<Grid.ColumnDefinitions>
+                                -->
+                            <!--<ColumnDefinitions Height="60"/>
+                                <ColumnDefinitions Height="30"/>-->
+                            <!--
+                            </Grid.ColumnDefinitions>-->
+                            <Image Grid.Column="0"  Width="60" Margin="2,2,2,1" Source="{Binding ImagePath}"/>
+                            <TextBlock Name="textBlock" Grid.Column="1" Margin="2,20,2,1" FontSize="13" HorizontalAlignment="Center" Text="{Binding Name}"/>
                             <Grid.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="删除" Click="Menu_Remove_Click"/>
@@ -88,23 +91,26 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="286.7"/>
-            
+
             <ColumnDefinition Width="286.7"/>
             <ColumnDefinition Width="286.7"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.ColumnSpan="3" Margin="0,0,-6,0">
             <Line X1="256.7" Y1="29" X2="256.7" Y2="383" Stroke="Gray" StrokeThickness="0.5"></Line>
-
             <Line X1="542.4" Y1="29" X2="542.4" Y2="383" Stroke="Gray" StrokeThickness="0.5"></Line>
+            
+            <Image HorizontalAlignment="Left" Height="25" Margin="54,0,0,0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.5,0.45" Source="/styles/skin/item/item_title_video.png"/>
+            <Image HorizontalAlignment="Left" Height="25" Margin="342,0,0,0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.5,0.45" Source="/styles/skin/item/item_title_audio.png"/>
+            <Image HorizontalAlignment="Left" Height="25" Margin="624,0,0,0" VerticalAlignment="Top" Width="25" RenderTransformOrigin="0.5,0.45" Source="/styles/skin/item/item_title_image.png"/>
             <!--<Line X1="830.1 " Y1="25" X2="830.1 " Y2="380" Stroke="Gray" StrokeThickness="0.5"></Line>-->
         </Grid>
-        
-        
-        <Label  Content="视频" Margin="83,0,0,0" Grid.Column="0" />
+
+
+        <Label  Content="视 频" Margin="83,0,0,0" Grid.Column="0" />
         <!--<Image  Margin="180,0,80,420" Source="F:\代码\SendAndPlayMedia\AreaParty\styles\skin\item\item_media.png"/>-->
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,25,30,5" Grid.Column="0" HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource for_scrollviewer}" Background="{x:Null}" >
             <ListBox Name="listbox"   ItemsSource="{Binding}" Margin="10,10" Style="{StaticResource MediaPageListBoxStyle}">
-                
+
                 <ListBox.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="添加视频" Style="{StaticResource MyMenuItemStyle}" Click="Video_Add_Click"/>
@@ -114,10 +120,10 @@
         </ScrollViewer>
 
 
-        <Label Content="音频" Margin="83,0,0,0" Grid.Column="1" />
+        <Label Content="音 频" Margin="83,0,0,0" Grid.Column="1" />
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,25,30,5" Grid.Column="1" HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource for_scrollviewer}" Background="{x:Null}">
             <ListBox Name="listbox1"  ItemsSource="{Binding}" Margin="10,10" Style="{StaticResource MediaPageListBoxStyle}">
-                
+
                 <ListBox.ContextMenu >
                     <ContextMenu HorizontalAlignment="Left" >
                         <MenuItem Header="添加音频"  Style="{StaticResource MyMenuItemStyle}" Click="Audio_Add_Click"  />
@@ -126,10 +132,10 @@
             </ListBox>
         </ScrollViewer>
 
-        <Label Content="图片" Margin="83,0,0,0" Grid.Column="2" />
+        <Label Content="图 片" Margin="83,0,0,0" Grid.Column="2" />
         <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,25,30,5" Grid.Column="2" HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource for_scrollviewer}" Background="{x:Null}">
             <ListBox Name="listbox2"   ItemsSource="{Binding}" Margin="10,10" Style="{StaticResource MediaPageListBoxStyle}">
-                
+
                 <ListBox.ContextMenu>
                     <ContextMenu>
 

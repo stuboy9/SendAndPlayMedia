@@ -52,7 +52,10 @@ namespace transferinfomation
 
             IPEndPoint localIP = new IPEndPoint(IPAddress.Any, ConfigResource.PCINFO_PORT);
             TcpListener listener = new TcpListener(localIP);
+
             listener.Start();
+
+
             Console.WriteLine("Action Server is listening...");
             while (isRun)
             {
