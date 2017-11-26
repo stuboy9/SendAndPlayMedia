@@ -23,7 +23,7 @@
             <DropShadowEffect ShadowDepth="0" Opacity="0.8"/>
         </Border.Effect>
         <Border.Background>
-            <ImageBrush ImageSource="pack://application:,,,/styles/skin/frame.jpg"/>
+            <ImageBrush ImageSource="pack://application:,,,/styles/skin/46.jpg"/>
         </Border.Background>
         <Grid>
             <Grid.RowDefinitions>
@@ -33,7 +33,7 @@
                 <RowDefinition Height="24.5"/>
             </Grid.RowDefinitions>
             <!--上标题栏-->
-            <Label Content="AREAPARTY设置界面" HorizontalAlignment="Left"  Width="171.79" Foreground="#A794E9FF" FontWeight="Bold" TextOptions.TextFormattingMode="Display"/>
+            <Label Content="AREAPARTY设置界面" HorizontalAlignment="Left"  Width="171.79" Foreground="White" FontWeight="Bold" TextOptions.TextFormattingMode="Display"/>
             <Rectangle Margin="0" Stroke="Black" HorizontalAlignment="Right" Width="151.5" Grid.Row="1" StrokeThickness="0">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="styles/skin/logo.png" Stretch="Uniform"/>
@@ -82,7 +82,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Rectangle Height="3" Margin="0,0,120.274,0" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top">
+            <Rectangle Height="3" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top">
                 <Rectangle.Fill>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#61FFFFFF"/>
@@ -211,9 +211,9 @@
 
             <!--导航详细-->
             <!--下状态栏-->
-            <Label Content="欢迎使用AREAPARTY系统"  Margin="0" Grid.Row="3" Foreground="#A794E9FF" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Left" Width="150.5" TextOptions.TextFormattingMode="Display" />
-            <Label Name="Login_Label" Content="长连接断开" Margin="0" Grid.Row="3" Foreground="#A794E9FF" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Right" Width="100" TextOptions.TextFormattingMode="Display" />
-            <Label Name="Nas_Label" Content="未连接NAS" Margin="0,0,105,-1" Grid.Row="3" Foreground="#A794E9FF" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Right" Width="100" TextOptions.TextFormattingMode="Display" />
+            <Label Content="欢迎使用AREAPARTY系统"  Margin="0" Grid.Row="3" Foreground="White" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Left" Width="150.5" TextOptions.TextFormattingMode="Display" />
+            <Label Name="Login_Label" Content="长连接断开" Margin="0" Grid.Row="3" Foreground="White" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Right" Width="100" TextOptions.TextFormattingMode="Display" />
+            <Label Name="Nas_Label" Content="未连接NAS" Margin="0,0,105,-1" Grid.Row="3" Foreground="White" FontWeight="Bold" BorderThickness="0" BorderBrush="White" HorizontalAlignment="Right" Width="100" TextOptions.TextFormattingMode="Display" />
         </Grid>
     </Border>
 </Window>

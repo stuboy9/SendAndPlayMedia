@@ -192,14 +192,14 @@
                     </Button.Background>
                 </Button>-->
 
-                <Rectangle Stroke="Black" StrokeThickness="0" Width="1" Margin="0,0,88.2,8.77" HorizontalAlignment="Right" Height="17">
+                <!--<Rectangle Stroke="Black" StrokeThickness="0" Width="1" Margin="0,0,88.2,8.77" HorizontalAlignment="Right" Height="17">
                     <Rectangle.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#85000000"/>
                             <GradientStop Offset="1" Color="#1A4D4D4D"/>
                         </LinearGradientBrush>
                     </Rectangle.Fill>
-                </Rectangle>
+                </Rectangle>-->
                 <Rectangle Stroke="Black" StrokeThickness="0" Width="1" Margin="0,0,46.2,8.77" HorizontalAlignment="Right" Height="17">
                     <Rectangle.Fill>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -220,7 +220,7 @@
 
 
         </Grid>
-        <StackPanel Height="150">
+        <StackPanel Background="#fffafc" Height="150">
             <StackPanel Orientation="Horizontal" >
                 <Border Height="80" Width="80" Margin="35,10,10,10" CornerRadius="5" BorderBrush="Gray" BorderThickness="1">
                     <Border.Background>
@@ -245,17 +245,17 @@
 
                 <StackPanel Height="60" Margin="15">
                     <TextBlock Height="30">  
-                        <Hyperlink NavigateUri="http://zc.qq.com">注册账号</Hyperlink>
+                        <Hyperlink Foreground="#fc3c2b" NavigateUri="http://zc.qq.com">注册账号</Hyperlink>
                     </TextBlock>
                     <TextBlock Height="30">  
-                        <Hyperlink NavigateUri="http://aq.qq.com/">找回密码</Hyperlink>
+                        <Hyperlink Foreground="#fc3c2b" NavigateUri="http://aq.qq.com/">找回密码</Hyperlink>
                     </TextBlock>
                 </StackPanel>
 
             </StackPanel>
 
             <Border Height="30" Width="180" Margin="20,5,0,0" CornerRadius="5" BorderBrush="#FF0E95F1" BorderThickness="1">
-                <Button Height="30" Click="Login_Button_Click" FontWeight="Bold" Width="180" Content="登  录" FontFamily="宋体" Foreground="White" Background="#FF0E95F1" BorderThickness="0" Style="{DynamicResource ButtonStyle1}"></Button>
+                <Button Height="30" Click="Login_Button_Click" FontWeight="Bold" Width="180" Content="登  录" FontFamily="宋体" Foreground="White" Background="#fc3c2b" BorderThickness="0" Style="{DynamicResource ButtonStyle1}"></Button>
             </Border>
         </StackPanel>
     </StackPanel>

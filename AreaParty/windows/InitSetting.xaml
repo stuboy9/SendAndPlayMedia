@@ -3,16 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:sys= "clr-namespace:System;assembly=mscorlib"
-        xmlns:local="clr-namespace:AreaParty.windows"
         WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
         Background="{x:Null}"
         ResizeMode="NoResize"
-        Icon="/styles/skin/ico/ico_settingpage_setting.png"
         FontFamily="NSimSun" 
         TextOptions.TextFormattingMode="Display"
-        Title="初始化设置" Height="500" Width="800" Closing="Window_Closing">
+        Title="初始化设置" Height="500" Width="800" Closing="Window_Closing" WindowStyle="None">
     <Window.Resources>
         <LinearGradientBrush x:Key="MyBrush" EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#CFFFFFFF"/>
@@ -40,7 +37,7 @@
                                     <ImageBrush ImageSource="/styles/skin/Button/btfg.png" Stretch="Uniform"/>
                                 </Rectangle.Fill>
                             </Rectangle>
-                            <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="{TemplateBinding Content}" d:LayoutOverrides="Height" VerticalAlignment="Center" Foreground="#FF020F5C"/>
+                            <TextBlock x:Name="textBlock" HorizontalAlignment="Center" Margin="0" TextWrapping="Wrap" Text="{TemplateBinding Content}" d:LayoutOverrides="Height" VerticalAlignment="Center" Foreground="Black"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsDefaulted" Value="True"/>
@@ -67,32 +64,48 @@
             <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
         </Grid.Effect>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+
+            <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Name="RemoteSetting" >
+
+        <WrapPanel MouseMove="TitleBar_MouseMove" Background="#fc3c2b" DockPanel.Dock="Top">
+            <Image Margin="2,0,0,0" Height="15" Width="15" Source="/styles/skin/pairing.png"/>
+            <TextBlock x:Name="txtTitle" Margin="0,0,0,0"  Padding="5,3,5,5" Text="初始化设置" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontFamily="宋体"  
+                   Foreground="White" Width="84" Height="20"/>
+            <Button Name="close_button" Width="30" Height="30" Margin="668,0,0,0" Click="close_button_Click" BorderThickness="0" MouseMove="close_button_MouseMove">
+                <Button.Background>
+                    <ImageBrush ImageSource="/styles/skin/close_bottun.png" Stretch="Fill"/>
+                </Button.Background>
+            </Button>
+            <!--<Image Height="30" Width="30" Margin="668,0,0,0" Source="/styles/skin/close_button.png"/>-->
+        </WrapPanel>
+
+        <Grid Grid.Row="1" Name="RemoteSetting" Grid.RowSpan="3" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Label Name="ContentTitle" Background="#B2DFEE" Content="远程桌面初始化设置" Foreground="BlueViolet" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
+            <Label Name="ContentTitle" FontSize="17" FontFamily="宋体" Background="#ffb1aa" Content="远程桌面初始化设置" Foreground="Black" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
             <Grid  Grid.Row="1">
 
-                <TextBlock  FontSize="16"   TextBlock.LineHeight="23" TextWrapping="Wrap" xml:space="preserve">
-为了使用远程桌面功能，以便您可以在电视上使用PC软件，需要进行如下设置，您可以跳过此设置，稍后在设置选项自行设置。
+                <TextBlock Margin="15,0,15,321" FontSize="17" FontFamily="宋体"   TextBlock.LineHeight="23" TextWrapping="Wrap" xml:space="preserve">
+    为了使用远程桌面功能，以便您可以在电视上使用PC软件，需要进行如下设置，您可以跳过此设置，稍后在设置选项自行设置。
                 </TextBlock>
-                <TextBlock  FontSize="17" Foreground="#4F94CD" Margin="0,55,0,0" FontWeight="Heavy"  TextBlock.LineHeight="23" FontStretch="Expanded"    TextWrapping="Wrap" xml:space="preserve">
+                <TextBlock Margin="15,55,15,290" FontSize="17" FontFamily="宋体" Foreground="#ff1500" FontWeight="Heavy"  TextBlock.LineHeight="23" FontStretch="Expanded" TextWrapping="Wrap" xml:space="preserve">
 PC端设置步骤：
                 </TextBlock>
-                <TextBlock  FontSize="16" Margin="0,85,0,0" FontFamily="幼圆" TextBlock.LineHeight="23" TextWrapping="Wrap" xml:space="preserve">
+                <TextBlock Margin="15,85,15,211" FontSize="17" FontFamily="宋体" TextBlock.LineHeight="23" TextWrapping="Wrap" xml:space="preserve">
 1. 右键我的电脑，选择属性。
 2. 选择远程设置。
 3. 勾选允许远程协助连接这台计算机和允许远程连接到此计算机，其他不要勾选，确定即可。
                 </TextBlock>
-                <TextBlock  FontSize="17"  Margin="0,160,0,0" Foreground="#4F94CD" FontWeight="Heavy"  TextBlock.LineHeight="23"    TextWrapping="Wrap" xml:space="preserve">
+                <TextBlock  FontSize="17" FontFamily="宋体"  Margin="15,160,15,183" Foreground="#ff1500" FontWeight="Heavy"  TextBlock.LineHeight="23"    TextWrapping="Wrap" xml:space="preserve">
 TV端设置步骤(建议插上鼠标键盘方便设置)：
                 </TextBlock>
-                <TextBlock  FontSize="16" Margin="0,195,0,0" FontFamily="幼圆" TextBlock.LineHeight="23" TextWrapping="Wrap" xml:space="preserve">
+                <TextBlock FontSize="17" FontFamily="宋体" Margin="15,195,15,0" TextBlock.LineHeight="23" TextWrapping="Wrap" xml:space="preserve">
 1. 在TV已安装应用中打开RD Client应用，选择上面添加按钮（即右上角加号），然后选择Desktop选项。
 2. 点击Scan/Scan again选项，搜索局域网可用设备，搜索结果显示的列表中，选择本PC的计算机名称，选择Enter every time，继续选择Add user account，在弹出的界面分别输入本PC用户名和密码，选择save保存。
 3. 在返回的界面选择右上方CONNECT，然后在弹出界面继续选择CONNECT，即可测试远程桌面功能能否正确使用。
@@ -104,24 +117,22 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Content="更多图文设置>" Name="RDP_Label" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
-                <Button Name="Button_Finish" Margin="2,0,2,0" Content="下一步" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
-                <Button Name="Button_Skip" Margin="2,0,2,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
+                <Label Content="更多图文设置>" Name="RDP_Label" Margin="15,7,15,0" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
+                <Button Name="Button_Finish" Margin="17,0,17,0" Content="下一步" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
+                <Button Name="Button_Skip" Margin="17,0,17,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
             </Grid>
         </Grid>
-
-
-        <Grid Name="GameSetting" Grid.Row="0" Visibility="Collapsed"  >
+        <Grid Name="GameSetting" Grid.Row="1" Visibility="Collapsed" Grid.RowSpan="3"  >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Label Name="GameSettingTitle" Background="#B2DFEE" Content="游戏串流设置" Foreground="BlueViolet" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
-            <TextBlock Name="ContentTextGame"  FontFamily="幼圆" FontSize="17" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+            <Label Name="GameSettingTitle" FontSize="17" FontFamily="宋体" Background="#ffb1aa" Content="游戏串流设置" Foreground="Black" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
+            <TextBlock Name="ContentTextGame"  FontSize="17" FontFamily="宋体" Margin="15,0,15,0" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
     为了您可以在TV直接玩电脑上的游戏，需要您进行如下设置，您可以跳过此设置，稍后在设置选项自行设置。注意，此功能需要硬件支持，要求独立显卡GTX600以上，具体请查询英伟达官网。
             </TextBlock>
-            <TextBlock  FontFamily="幼圆" FontSize="17" TextBlock.LineHeight="23" FontStretch="Expanded" Margin="0,55,0,0" Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+            <TextBlock  FontSize="17" FontFamily="宋体" TextBlock.LineHeight="23" FontStretch="Expanded" Margin="15,55,15,0" Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
 1.  打开Geforce Experience(如果没有安装此程序请上官网下载安装)，然后进行帐号注册或者使用第三方帐号登录。
 2.  选择上方设置按钮，然后选择SHIELD，在此界面，将GAMESTREAM选项打开即可。
             </TextBlock>
@@ -131,42 +142,42 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Content="更多图文设置>" Name="Game_Label" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
-                <Button  Margin="2,0,2,0" Content="下一步" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
-                <Button  Margin="2,0,2,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
+                <Label Content="更多图文设置>" Name="Game_Label" Margin="15,7,15,0" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
+                <Button  Margin="17,0,17,0" Content="下一步" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
+                <Button  Margin="17,0,17,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
             </Grid>
         </Grid>
-        <Grid Name="ScreenSetting" Grid.Row="0" Visibility="Collapsed" >
+        <Grid Name="ScreenSetting" Grid.Row="1" Visibility="Collapsed" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
-            <Label Name="ScreenSettingTitle" Background="#B2DFEE" Content="投屏设置" Foreground="BlueViolet" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
+            <Label Name="ScreenSettingTitle" FontSize="17" FontFamily="宋体" Background="#ffb1aa" Content="投屏设置" Foreground="Black" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
             <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource for_scrollviewer}" Background="{x:Null}">
                 <Grid>
-                    <TextBlock   FontSize="17" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+                    <TextBlock   FontSize="17" FontFamily="宋体" Margin="15,0,15,0" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
     本软件需要电脑、手机还有电视都安装AreaParty软件，为了使用全部功能，需要进行如下配置，您也可以不做设置，依然可以使用本软件，只是部分功能不可用，您也可以跳过本次设置，稍后在软件设置界面进行设置。
                     </TextBlock>
-                    <TextBlock   FontSize="17" Margin="0,75,0,0" FontWeight="Heavy"  Foreground="#4F94CD"  TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+                    <TextBlock   FontSize="17" FontFamily="宋体" Margin="15,75,15,0" FontWeight="Heavy"  Foreground="#ff1500"  TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
     a．打开手机和电视AreaParty软件
                     </TextBlock>
-                    <TextBlock   FontSize="17" Margin="0,100,0,0" FontWeight="Heavy" Foreground="#4F94CD"  TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+                    <TextBlock   FontSize="17" FontFamily="宋体" Margin="15,100,15,0" FontWeight="Heavy" Foreground="#ff1500"  TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
     b．选择要设置的屏幕
                     </TextBlock>
-                    <TextBlock   FontSize="16" Margin="0,125,0,0"  FontFamily="幼圆" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+                    <TextBlock  FontSize="17" FontFamily="宋体" Margin="15,125,15,0"  TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
     点击下方立即设置按钮，在弹出的窗口我们会自动搜索安装了我们AreaParty软件的电视，选择所需设置的电视，然后选择下一步。
                     </TextBlock>
-                    <TextBlock   FontSize="17" Margin="0,170,0,0" FontWeight="Heavy" Foreground="#4F94CD"  TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+                    <TextBlock   FontSize="17" Margin="15,170,15,0" FontWeight="Heavy" Foreground="#ff1500"  TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
     c．游戏设置
                     </TextBlock>
-                    <TextBlock   FontSize="16" Margin="0,195,0,0"  FontFamily="幼圆" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+                    <TextBlock   FontSize="17" FontFamily="宋体" Margin="15,195,15,0" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
     为了将电脑上游戏投影到电视上，需要开启此功能。此功前一项游戏投影设置开启才可继续设置，此功能需硬件支持，显卡GTX600以上。开启开关，选择下一步，如果本电脑支持此功能，将会在右下角有个配对弹窗，需要输入电视上显示的配对码。
                     </TextBlock>
-                    <TextBlock   FontSize="17" Margin="0,270,0,0" FontWeight="Heavy"  Foreground="#4F94CD" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+                    <TextBlock   FontSize="17" FontFamily="宋体" Margin="15,270,15,0" FontWeight="Heavy"  Foreground="#ff1500" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
     d．无线投屏设置
                     </TextBlock>
-                    <TextBlock   FontSize="16" Margin="0,295,0,0"  FontFamily="幼圆" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
+                    <TextBlock   FontSize="17" FontFamily="宋体" Margin="15,295,15,0" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
     如果需要使用特殊模式(MIRACAST)将PC显示桌面投屏到电视，则需要设置此选项，否则特殊模式将不起作用，注，此功能需要因特尔的无线网卡。
         1.打开电视上无线投屏接收软件（Miracast接收端），待本软件中显示接收端后，选择然后进入初始化连接设置。
         2.初始化连接设置。按住win+K，然后选择刚才选择接收端，完成第一次连接。
@@ -181,12 +192,12 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Content="更多图文设置>" Name="SoftWare_Label" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
-                <Button  Margin="2,0,2,0" Content="立即设置" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
-                <Button  Margin="2,0,2,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
+                <Label Content="更多图文设置>" Name="SoftWare_Label" Margin="15,7,15,0" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
+                <Button  Margin="17,0,17,0" Content="立即设置" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
+                <Button  Margin="17,0,17,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
             </Grid>
         </Grid>
-        <Grid Name="LoginSetting" Grid.Row="0" Visibility="Collapsed" >
+        <Grid Name="LoginSetting" Grid.Row="1" Visibility="Collapsed" Grid.RowSpan="3" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
@@ -195,15 +206,15 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
             </Grid.Effect>
-            <Label Name="LoginSettingTitle" Background="#B2DFEE" Content="服务器连接设置" Foreground="BlueViolet" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
+            <Label Name="LoginSettingTitle" FontSize="17" FontFamily="宋体" Background="#ffb1aa" Content="服务器连接设置" Foreground="Black" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
             <Grid  Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition ></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Content="服务器连接开关" Foreground="#cc9966" FontFamily="宋体" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <CheckBox Name="LoginCheckBox" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,6,0"/>
-                <TextBlock Grid.Row="1" Name="LoginTextBlock" TextWrapping="Wrap"  FontSize="17" TextBlock.LineHeight="23"   FontStretch="Expanded"  xml:space="preserve">
+                <Label Content="服务器连接开关" Foreground="#cc9966" FontSize="17" FontFamily="宋体" Margin="15,0,15,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="LoginCheckBox" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,16,0"/>
+                <TextBlock Grid.Row="1" Name="LoginTextBlock" TextWrapping="Wrap"  FontSize="17" FontFamily="宋体" Margin="15,0,15,0" TextBlock.LineHeight="23"   FontStretch="Expanded"  xml:space="preserve">
     若开启长连接，当你打开本软件的时候会直接连上服务器，之后可以使用手机远程控制PC进行P2P下载文件功能;好友共享的文件下载;查看下载状态。
     若不开启长连接，则不能使用以上功能，想重新打开请前往设置管理中的服务连接界面进行进行设置。
                 </TextBlock>
@@ -214,12 +225,12 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Content="更多图文设置>" Name="LongConnect_Label" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
-                <Button  Margin="2,0,2,0" Content="下一步" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
-                <Button  Margin="2,0,2,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
+                <Label Content="更多图文设置>" Name="LongConnect_Label" Margin="15,7,15,0" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
+                <Button  Margin="17,0,17,0" Content="下一步" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
+                <Button  Margin="17,0,17,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
             </Grid>
         </Grid>
-        <Grid Name="NasSetting" Grid.Row="0" Visibility="Collapsed" >
+        <Grid Name="NasSetting" Grid.Row="1" Visibility="Collapsed" Grid.RowSpan="3" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
@@ -228,15 +239,15 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
             </Grid.Effect>
-            <Label Name="NasSettingTitle" Background="#B2DFEE" Content="NAS连接设置" Foreground="BlueViolet" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
+            <Label Name="NasSettingTitle" FontSize="17" FontFamily="宋体" Background="#ffb1aa" Content="NAS连接设置" Foreground="Black" HorizontalContentAlignment="Center" Grid.Row="0" HorizontalAlignment="Left" FontWeight="Bold" Width="800"/>
             <Grid  Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
                     <RowDefinition ></RowDefinition>
                 </Grid.RowDefinitions>
-                <Label Content="NAS连接开关" Foreground="#cc9966" FontFamily="宋体" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                <CheckBox Name="LoginCheckBox_NAS" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_NAS_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,6,0"/>
-                <TextBlock Grid.Row="1" Name="NasTextBlock" TextWrapping="Wrap"  FontSize="17" TextBlock.LineHeight="23"   FontStretch="Expanded"  xml:space="preserve">
+                <Label Content="NAS连接开关" Foreground="#cc9966" FontSize="17" FontFamily="宋体" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                <CheckBox Name="LoginCheckBox_NAS" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_NAS_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,16,0"/>
+                <TextBlock Grid.Row="1" Name="NasTextBlock" TextWrapping="Wrap"  FontSize="17" FontFamily="宋体" Margin="15,0,15,0" TextBlock.LineHeight="23"  FontStretch="Expanded"  xml:space="preserve">
     若开启长连接，当你打开本软件的时候会直接连上服务器，之后可以使用手机远程管理NAS，进行数据存储、查看状态等操作。
     若不开启长连接，则不能使用以上功能，想重新打开请前往设置管理中的NAS连接界面进行进行设置。
                 </TextBlock>
@@ -247,10 +258,11 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     <ColumnDefinition Width="100"></ColumnDefinition>
                     <ColumnDefinition Width="100"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Content="更多图文设置>" Name="NasLongConnect_Label" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
-                <Button  Margin="2,0,2,0" Content="下一步" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
-                <Button  Margin="2,0,2,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
+                <Label Content="更多图文设置>" Name="NasLongConnect_Label" Margin="15,7,15,0" Style="{DynamicResource ThisLabel}" MouseLeftButtonDown="Label_More_Click"></Label>
+                <Button  Margin="17,0,17,0" Content="下一步" Style="{DynamicResource ThisButton}" Grid.Column="1" Click="Button_Finish_Click"></Button>
+                <Button  Margin="17,0,17,0" Content="稍后设置" Style="{DynamicResource ThisButton}" Grid.Column="2" Click="Button_Skip_Click"></Button>
             </Grid>
         </Grid>
     </Grid>
 </Window>
+

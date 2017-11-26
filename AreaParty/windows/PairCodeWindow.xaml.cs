@@ -23,12 +23,9 @@ namespace AreaParty.windows
         public PairCodeWindow()
         {
             InitializeComponent();
+            
         }
-        //public string ResponseTexT
-        //{
-        //    get { return ResponseTextBox.Text; }
-        //    set { ResponseTextBox.Text = value; }
-        //}
+      
 
         /// <summary>
         /// 窗口移动事件

@@ -14,7 +14,7 @@
 
     <Grid x:Name="LayoutRoot">
         <TabControl Margin="0,0,0,32" Grid.ColumnSpan="2"  Style="{DynamicResource SettingTabControlStyle}" BorderThickness="0,1,0,0" BorderBrush="{x:Null}" Background="{x:Null}">
-            <TabItem Header="全部任务" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="全部任务" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\20120514094220107_easyicon_cn_48.png" Stretch="Uniform"/>
                 </TabItem.Background>
@@ -48,7 +48,7 @@ TV端：
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="正在下载" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="正在下载" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\20120514094858213_easyicon_cn_64.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -76,7 +76,7 @@ TV端：
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="已完成" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="已完成" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\qqq.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -86,7 +86,7 @@ TV端：
                     </Grid.Effect>
                 </Grid>
             </TabItem>
-            <TabItem Header="私人空间" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="私人空间" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\88.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -96,7 +96,7 @@ TV端：
                     </Grid.Effect>
                 </Grid>
             </TabItem>
-            <TabItem Header="垃圾箱" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="垃圾箱" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="C:\Users\Yi\Desktop\Thunder UI\Thunder UI\ff.png" Stretch="UniformToFill"/>
                 </TabItem.Background>

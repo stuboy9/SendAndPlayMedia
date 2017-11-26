@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace AreaParty.windows
 {
     /// <summary>
@@ -33,6 +34,7 @@ namespace AreaParty.windows
         {
             InitializeComponent();
             string status = ConfigUtil.GetValue("longconnect");
+
             if (status.Equals("false")) { this.LoginCheckBox.IsChecked = false; }
             else
                 this.LoginCheckBox.IsChecked = true;
@@ -40,6 +42,16 @@ namespace AreaParty.windows
             if (status2.Equals("false")) { this.LoginCheckBox_NAS.IsChecked = false; }
             else
                 this.LoginCheckBox_NAS.IsChecked = true;
+        }
+        /// <summary>
+        /// 窗口移动事件
+        /// </summary>
+        private void TitleBar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                this.DragMove();
+            }
         }
 
         private void Label_More_Click(object sender, MouseButtonEventArgs e)
@@ -63,7 +75,7 @@ namespace AreaParty.windows
                     pdf = ConfigResource.GetSCREEN_PDF_PATH();
                     //this.Close();
                     break;
-                
+
             }
             Process rdcProcess = new Process();
             rdcProcess.StartInfo.FileName = "cmd.exe";
@@ -74,7 +86,7 @@ namespace AreaParty.windows
             rdcProcess.StartInfo.CreateNoWindow = true;//不显示程序窗口
             //rdcProcess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
             rdcProcess.Start();
-            rdcProcess.StandardInput.WriteLine("\""+pdf+"\"" + "&exit");
+            rdcProcess.StandardInput.WriteLine("\"" + pdf + "\"" + "&exit");
             rdcProcess.StandardInput.AutoFlush = true;
             rdcProcess.Close();
         }
@@ -103,15 +115,16 @@ namespace AreaParty.windows
                 case NAS:
                     this.NasSetting.Visibility = Visibility.Hidden;
                     this.ScreenSetting.Visibility = Visibility.Visible;
+                    this.Close();
                     current++;
                     break;
                 case SCREEN:
-                    Window1 w = new Window1();
-                    w.finish += CallBack;
-                    w.ShowDialog();
-                    //this.Close();
+                    //    Window1 w = new Window1();
+                    //    w.finish += CallBack;
+                    //    w.ShowDialog();
+                    this.Close();
                     break;
-                
+
 
 
             }
@@ -146,15 +159,16 @@ namespace AreaParty.windows
                 case NAS:
                     this.NasSetting.Visibility = Visibility.Hidden;
                     this.ScreenSetting.Visibility = Visibility.Visible;
+                    this.Close();
                     current++;
                     break;
                 case SCREEN:
                     this.Close();
                     break;
-                
+
             }
         }
-        
+
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             //e.Cancel = true;
@@ -207,5 +221,18 @@ namespace AreaParty.windows
                 }
             }
         }
+
+        private void close_button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void close_button_MouseMove(object sender, MouseEventArgs e)
+        {
+            //ImageBrush brush = new ImageBrush();
+            //brush.ImageSource = new BitmapImage(new Uri("/styles/skin/close_bottun.png", UriKind.Relative));
+            //close_button.Background = brush;
+        }
     }
 }
+

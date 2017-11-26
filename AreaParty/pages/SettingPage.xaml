@@ -24,7 +24,7 @@
     </UserControl.Resources>
     <Grid>
         <TabControl  Name="SettingTab" Style="{DynamicResource SettingTabControlStyle}" BorderThickness="0,1,0,0" BorderBrush="{x:Null}" Background="{x:Null}">
-            <TabItem Header="远程桌面" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="远程桌面" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_remotedesktop.png" Stretch="Uniform"/>
                 </TabItem.Background>
@@ -39,21 +39,21 @@
                     <Grid Name="RemoteSetting" >
                         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" HorizontalScrollBarVisibility="Disabled" Style="{DynamicResource for_scrollviewer}" Background="{x:Null}">
                             <Grid  Grid.Row="1">
-                                <TextBlock  FontSize="16"   TextBlock.LineHeight="23" TextWrapping="Wrap" xml:space="preserve">
-为了使用远程桌面功能，以便您可以在电视上使用PC软件，需要进行如下设置，您可以跳过此设置，稍后在设置选项自行设置。
+                                <TextBlock  FontSize="14" FontFamily="宋体" Margin="15,-14,15,544" TextBlock.LineHeight="21" TextWrapping="Wrap" xml:space="preserve">
+    为了使用远程桌面功能，以便您可以在电视上使用PC软件，需要进行如下设置，您可以跳过此设置，稍后在设置选项自行设置。
                                 </TextBlock>
-                                <TextBlock  FontSize="17"  Margin="0,55,0,0" FontWeight="Light" FontFamily="黑体" TextBlock.LineHeight="23" FontStretch="Expanded"    TextWrapping="Wrap" xml:space="preserve">
+                                <TextBlock Foreground="#ff1500" FontSize="14"  Margin="15,57,15,462"  FontFamily="宋体" FontWeight="Heavy" TextBlock.LineHeight="21" FontStretch="Expanded"    TextWrapping="Wrap" xml:space="preserve">
 PC端设置步骤：
                                 </TextBlock>
-                                <TextBlock  FontSize="16" Margin="0,85,0,0" FontFamily="幼圆" TextBlock.LineHeight="23" TextWrapping="Wrap" xml:space="preserve">
+                                <TextBlock  FontSize="14" Margin="15,79,15,269" FontFamily="宋体" TextBlock.LineHeight="21" TextWrapping="Wrap" xml:space="preserve">
 1. 右键我的电脑，选择属性。
 2. 选择远程设置。
 3. 勾选允许远程协助连接这台计算机和允许远程连接到此计算机，其他不要勾选，确定即可。
                                 </TextBlock>
-                                <TextBlock  FontSize="17"  Margin="0,160,0,0" FontWeight="Light" FontFamily="黑体" TextBlock.LineHeight="23"    TextWrapping="Wrap" xml:space="preserve">
+                                <TextBlock Foreground="#ff1500" FontSize="14"  Margin="15,163,15,385" FontWeight="Heavy" FontFamily="宋体" TextBlock.LineHeight="21"    TextWrapping="Wrap" xml:space="preserve">
 TV端设置步骤(建议插上鼠标键盘方便设置)：
                                 </TextBlock>
-                                <TextBlock  FontSize="16" Margin="0,195,0,0" FontFamily="幼圆" TextBlock.LineHeight="23" TextWrapping="Wrap" xml:space="preserve">
+                                <TextBlock  FontSize="14" Margin="15,185,15,10" FontFamily="宋体" TextBlock.LineHeight="21" TextWrapping="Wrap" xml:space="preserve">
 1. 在TV已安装应用中打开RD Client应用，选择上面添加按钮（即右上角加号），然后选择Desktop选项。
 2. 点击Scan/Scan again选项，搜索局域网可用设备，搜索结果显示的列表中，选择本PC的计算机名称，选择Enter every time，继续选择Add user account，在弹出的界面分别输入本PC用户名和密码，选择save保存。
 3. 在返回的界面选择右上方CONNECT，然后在弹出界面继续选择CONNECT，即可测试远程桌面功能能否正确使用。
@@ -67,11 +67,11 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                             <ColumnDefinition Width="200"></ColumnDefinition>
                             <ColumnDefinition Width="200"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Content="更多详细设置>" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click"></Label>
+                        <Label Content="更多详细设置>" Margin="15,0,15,0" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click"></Label>
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="游戏串流" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="游戏串流" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_game.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -84,10 +84,10 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
                     <Grid>
-                        <TextBlock Name="ContentTextGame"   FontSize="17" TextBlock.LineHeight="23" FontStretch="Expanded"  Padding="5,0,5,0"  TextWrapping="Wrap" xml:space="preserve">
+                        <TextBlock Name="ContentTextGame" FontSize="14" FontFamily="宋体" Margin="15,0,15,264" TextBlock.LineHeight="21" FontStretch="Expanded"  Padding="5,0,5,0"  TextWrapping="Wrap" xml:space="preserve">
     为了您可以在TV直接玩电脑上的游戏，需要您进行如下设置，您可以跳过此设置，稍后在设置选项自行设置。注意，此功能需要硬件支持，要求独立显卡GTX600以上，具体请查询英伟达官网。
                         </TextBlock>
-                        <TextBlock  FontFamily="幼圆" FontSize="17" TextBlock.LineHeight="23" FontStretch="Expanded" Margin="0,75,0,0" Padding="5,0,5,0"  TextWrapping="Wrap" xml:space="preserve">
+                        <TextBlock  FontSize="14" FontFamily="宋体" TextBlock.LineHeight="21" FontStretch="Expanded" Margin="15,85,15,150" Padding="5,0,5,0"  TextWrapping="Wrap" xml:space="preserve">
 1.  打开Geforce Experience(如果没有安装此程序请上官网下载安装)，然后进行帐号注册或者使用第三方帐号登录。
 2.  选择上方设置按钮，然后选择SHIELD，在此界面，将GAMESTREAM选项打开即可。
                         </TextBlock>
@@ -99,11 +99,11 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                             <ColumnDefinition Width="200"></ColumnDefinition>
                             <ColumnDefinition Width="200"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Content="更多详细设置>" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" />
+                        <Label Content="更多详细设置>" Margin="15,0,15,0" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" />
                     </Grid>
                 </Grid>
             </TabItem>
-            <!--<TabItem Header="无线投屏设置" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <!--<TabItem Header="无线投屏设置" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_help.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -157,7 +157,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     </Grid>
                 </Grid>
             </TabItem>-->
-            <TabItem Header="服务连接" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="服务连接" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_login.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -170,9 +170,9 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                         <RowDefinition Height="330.471"></RowDefinition>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
-                    <Label Content="服务连接开关" Foreground="#cc9966" FontFamily="宋体" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <CheckBox Name="LoginCheckBox" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,6,0"/>
-                    <TextBlock Grid.Row="1" Name="LoginTextBlock" TextWrapping="Wrap"  FontSize="17" TextBlock.LineHeight="23"   FontStretch="Expanded"  xml:space="preserve">
+                    <Label Content="服务连接开关" Foreground="#cc9966" FontFamily="宋体" Margin="15,0,15,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <CheckBox Name="LoginCheckBox" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,21,0"/>
+                    <TextBlock Grid.Row="1" Name="LoginTextBlock" TextWrapping="Wrap"  FontSize="14" TextBlock.LineHeight="21" Margin="15,0,15,0"  FontStretch="Expanded"  xml:space="preserve">
     若开启长连接，当你打开本软件的时候会直接连上服务器，之后可以使用手机远程控制PC进行P2P下载文件功能;好友共享的文件下载;查看下载状态。
     若不开启长连接，则不能使用以上功能。
                     </TextBlock>
@@ -182,11 +182,11 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                             <ColumnDefinition Width="200"></ColumnDefinition>
                             <ColumnDefinition Width="200"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Content="更多详细设置>" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" />
+                        <Label Content="更多详细设置>" Margin="15,0,15,0" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" />
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="NAS连接" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="NAS连接" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_nas.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -199,25 +199,23 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                         <RowDefinition Height="330.471"></RowDefinition>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
-                    <Label Content="打开NAS长连接" Foreground="#cc9966" FontFamily="宋体" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <CheckBox Name="LoginCheckBox_NAS" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_NAS_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,6,0"/>
-                    <TextBlock Grid.Row="1" Name="LoginTextBlock_NAS" TextWrapping="Wrap"  FontSize="17" TextBlock.LineHeight="23"   FontStretch="Expanded"  xml:space="preserve">
+                    <Label Content="打开NAS长连接" Foreground="#cc9966" FontFamily="宋体" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <CheckBox Name="LoginCheckBox_NAS" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_NAS_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,21,0"/>
+                    <TextBlock Grid.Row="1" Name="LoginTextBlock_NAS" TextWrapping="Wrap" FontFamily="宋体" FontSize="14" TextBlock.LineHeight="21" Margin="15,0,15,0" FontStretch="Expanded"  xml:space="preserve">
     若开启长连接，本软件会帮助您保存您的NAS管理员账号，方便您使用手机远程管理NAS，进行数据存储、查看状态等操作。
     若不需要关闭即可。
                     </TextBlock>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="285"></ColumnDefinition>
-                            <ColumnDefinition Width="21"/>
-                            <ColumnDefinition Width="194"></ColumnDefinition>
-                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Content="更多详细设置>" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" Margin="0,0,192,10" />
-                        <Label Content="继续映射" Margin="29,0,106,10" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreNas_Click" Grid.Column="2" />
+                        <Label Content="更多详细设置>" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" Margin="10,0,95,30" />
+                        <Label Content="继续映射" Margin="395,0,0,30" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreNas_Click" Grid.Column="1" />
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="其他软件" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="#FF0E3C7A" Height="27.598">
+            <TabItem Header="其他软件" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_other.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -225,7 +223,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     <Grid.Effect>
                         <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#FF5C8185" Opacity="0.25" Direction="225"/>
                     </Grid.Effect>
-                    <TextBlock Grid.Row="1" Name="OtherTextBlock" TextWrapping="Wrap"  FontSize="17" TextBlock.LineHeight="23"   FontStretch="Expanded"  xml:space="preserve">
+                    <TextBlock Grid.Row="1" Name="OtherTextBlock" TextWrapping="Wrap"  FontSize="14" FontFamily="宋体" Margin="15,0,15,0" TextBlock.LineHeight="21"   FontStretch="Expanded"  xml:space="preserve">
 1.媒体库设置
     在”媒体文件”界面，右键，添加，然后就可以选择一个文件夹作为媒体库，然后用户就可在手机软件多媒体界面，可以看到此文件夹，可以对里面的多媒体文件进行操作。
 2.应用设置

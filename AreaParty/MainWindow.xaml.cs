@@ -277,8 +277,10 @@ namespace AreaParty
             Window test = new windows.InitSetting();
             test.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             test.Owner = this;
-            test.Show();
+            bool result =  test.ShowDialog().Value;
+            
         }
+ 
 
         private void CloseClick(object sender, RoutedEventArgs e)
         {

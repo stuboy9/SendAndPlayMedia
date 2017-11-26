@@ -400,10 +400,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="windows\InitSetting.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="windows\LoadingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -475,6 +471,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="styles\skin\Button\btbg.png" />
+    <Page Include="windows\InitSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="styles\skin\Button\btfg.png" />
@@ -660,6 +660,12 @@
     <Resource Include="styles\skin\item\item_title_audio.png" />
     <Resource Include="styles\skin\item\item_title_image.png" />
     <Resource Include="styles\skin\item\item_title_video.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\close_bottun.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="styles\skin\46.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
