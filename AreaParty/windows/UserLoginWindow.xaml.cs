@@ -404,15 +404,7 @@ namespace AreaParty.windows
             //this.Close();
         }
 
-        private void mniButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void menuButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
 
         private void UserNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {

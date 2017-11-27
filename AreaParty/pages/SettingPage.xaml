@@ -24,7 +24,7 @@
     </UserControl.Resources>
     <Grid>
         <TabControl  Name="SettingTab" Style="{DynamicResource SettingTabControlStyle}" BorderThickness="0,1,0,0" BorderBrush="{x:Null}" Background="{x:Null}">
-            <TabItem Header="远程桌面" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
+            <TabItem Header="远程桌面" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="30">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_remotedesktop.png" Stretch="Uniform"/>
                 </TabItem.Background>
@@ -71,7 +71,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="游戏串流" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
+            <TabItem Header="游戏串流" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="30">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_game.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -157,7 +157,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     </Grid>
                 </Grid>
             </TabItem>-->
-            <TabItem Header="服务连接" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
+            <TabItem Header="服务连接" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="30">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_login.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -186,7 +186,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="NAS连接" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
+            <TabItem Header="NAS连接" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="30">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_nas.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
@@ -215,7 +215,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="其他软件" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="27.598">
+            <TabItem Header="其他软件" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="30">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_other.png" Stretch="UniformToFill"/>
                 </TabItem.Background>
