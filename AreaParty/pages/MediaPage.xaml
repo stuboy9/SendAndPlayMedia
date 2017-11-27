@@ -34,7 +34,7 @@
                             <!--
                             </Grid.ColumnDefinitions>-->
                             <Image Grid.Column="0"  Width="60" Margin="2,2,2,1" Source="{Binding ImagePath}"/>
-                            <TextBlock Name="textBlock" Grid.Column="1" Margin="2,20,2,1" FontSize="13" HorizontalAlignment="Center" Text="{Binding Name}"/>
+                            <TextBlock Name="textBlock" Grid.Column="1" Margin="2,25,2,1" FontSize="15" HorizontalAlignment="Center" Text="{Binding Name}"/>
                             <Grid.ContextMenu>
                                 <ContextMenu>
                                     <MenuItem Header="删除" Click="Menu_Remove_Click"/>

@@ -155,6 +155,7 @@
     <Compile Include="function\game\Game.cs" />
     <Compile Include="function\media\MediaFunction.cs" />
     <Compile Include="function\miracast\Projection.cs" />
+    <Compile Include="function\nas\NasFunction.cs" />
     <Compile Include="function\pcapp\PCApp.cs" />
     <Compile Include="function\pcapp\PCInformation.cs" />
     <Compile Include="function\phone\Phone.cs" />

@@ -199,11 +199,11 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                         <RowDefinition Height="330.471"></RowDefinition>
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
-                    <Label Content="打开NAS长连接" Foreground="#cc9966" FontFamily="宋体" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Label Content="NAS连接开关" Foreground="#cc9966" FontFamily="宋体" Margin="15,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     <CheckBox Name="LoginCheckBox_NAS" Style="{DynamicResource OrangeSwitchStyle}" Click="Login_CheckBox_NAS_Click"  HorizontalAlignment="Right" VerticalAlignment="Top"  Margin="0,6,21,0"/>
                     <TextBlock Grid.Row="1" Name="LoginTextBlock_NAS" TextWrapping="Wrap" FontFamily="宋体" FontSize="14" TextBlock.LineHeight="21" Margin="15,0,15,0" FontStretch="Expanded"  xml:space="preserve">
-    若开启长连接，本软件会帮助您保存您的NAS管理员账号，方便您使用手机远程管理NAS，进行数据存储、查看状态等操作。
-    若不需要关闭即可。
+    若开启长连接，当您打开本软件时会直接连接您的NAS设备，之后您可以使用手机远程管理NAS，进行数据存储、查看状态等操作。
+    若不开启长连接，则不能使用以上功能。
                     </TextBlock>
                     <Grid Grid.Row="2">
                         <Grid.ColumnDefinitions>
@@ -215,7 +215,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="其他软件" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="30">
+            <TabItem Header="其他设置" Margin="0" Style="{DynamicResource SettinglistTabItemStyle}" BorderBrush="{x:Null}" Foreground="Black" Height="30">
                 <TabItem.Background>
                     <ImageBrush ImageSource="/styles/skin/ico/ico_settingpage_other.png" Stretch="UniformToFill"/>
                 </TabItem.Background>

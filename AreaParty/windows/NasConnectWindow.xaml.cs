@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -38,12 +39,12 @@ namespace AreaParty.windows
 
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
+            Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             //string nasname = this.NasNameTextBox.Text;
             username = this.UserNameTextBox.Text;
             password = this.PasswordTextBox.Password;
-            
-                                //string username = "admin";    //NAS的账户
-                                //string password = "abc123";    //NAS的密码
+            //string username = "admin";    //NAS的账户
+            //string password = "abc123";    //NAS的密码
             //Device device = new Device(nasname, username, password);
 
             string path = "";           //保存选择文件夹的名称
@@ -54,8 +55,20 @@ namespace AreaParty.windows
             FindDiskName();
             Get_Share(remotepath, localpath, username, password);
             this.Close();
-        }
 
+            config.AppSettings.Settings["nasusername"].Value = username;
+            config.AppSettings.Settings["naspassword"].Value = password;
+
+            config.Save(ConfigurationSaveMode.Modified);
+            System.Configuration.ConfigurationManager.RefreshSection("appSettings");
+        }
+        /// <summary>
+        /// 映射共享文件
+        /// </summary>
+        /// <param name="remotepath"></param>
+        /// <param name="localpath"></param>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         public static void Get_Share(string remotepath, string localpath, string username, string password)
         {
             Process.Start("net", " use " + localpath + " " + remotepath + " " + password + " /user:" + username);
@@ -108,7 +121,7 @@ namespace AreaParty.windows
         private void UserNameTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
             string name = this.UserNameTextBox.Text;
-            if (name == "NAS用户账号")
+            if (name == "NAS管理员账号")
             {
                 this.UserNameTextBox.Text = "";
             }
@@ -118,7 +131,7 @@ namespace AreaParty.windows
         {
             if (this.UserNameTextBox.Text == "")
             {
-                this.UserNameTextBox.Text = "NAS用户账号";
+                this.UserNameTextBox.Text = "NAS管理员账号";
             }
         }
     }

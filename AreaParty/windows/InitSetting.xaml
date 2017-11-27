@@ -74,12 +74,13 @@
             <TextBlock x:Name="txtTitle" Margin="0,0,0,0"  Padding="5,3,5,5" Text="初始化设置" 
                    HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" FontFamily="宋体"  
                    Foreground="White" Width="84" Height="20"/>
-            <Button Name="close_button" Width="30" Height="30" Margin="668,0,0,0" Click="close_button_Click" BorderThickness="0" MouseMove="close_button_MouseMove">
+            <Button Content="x" HorizontalAlignment="Right" Margin="666,0,0,0" Style="{DynamicResource SysButtonStyle}" Width="32" x:Name="close_button" Click="close_button_Click_1" Height="30" />
+            <!--<Button Name="close_button" Width="30" Height="30" Margin="668,0,0,0" Click="close_button_Click" BorderThickness="0" MouseMove="close_button_MouseMove">
                 <Button.Background>
                     <ImageBrush ImageSource="/styles/skin/close_bottun.png" Stretch="Fill"/>
                 </Button.Background>
             </Button>
-            <!--<Image Height="30" Width="30" Margin="668,0,0,0" Source="/styles/skin/close_button.png"/>-->
+            <Image Height="30" Width="30" Margin="668,0,0,0" Source="/styles/skin/close_button.png"/>-->
         </WrapPanel>
 
         <Grid Grid.Row="1" Name="RemoteSetting" Grid.RowSpan="3" >

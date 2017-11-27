@@ -80,6 +80,20 @@ namespace transferinfomation
                     ReturnMessageFormat returnMessage = new ReturnMessageFormat();
                     switch (request.name)
                     {
+                        case Order.nasAction_name:
+                            switch (request.command)
+                            {
+                                case Order.nasAction_manager:
+                                    
+                                    break;
+                                case Order.nasAction_add:
+
+                                    break;
+                                case Order.nasAction_delete:
+                                    
+                                    break;
+                            }
+                            break;
                         case Order.get_areaparty_path:
                             returnMessage.data = null;
                             returnMessage.message = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\AreaParty\\";

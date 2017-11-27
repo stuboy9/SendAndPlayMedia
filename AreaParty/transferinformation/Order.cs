@@ -49,7 +49,11 @@ namespace transferinformation
         public const string appAction_get_more_param = "GETMOREEXE";
 
         public const string get_areaparty_path = "GETAREAPARTYPATH";
-        
+
+        public const string nasAction_name = "NAS";
+        public const string nasAction_manager = "NASMANAGER";
+        public const string nasAction_add = "NASADD";
+        public const string nasAction_delete = "NASDELETE";
     
     }
 }

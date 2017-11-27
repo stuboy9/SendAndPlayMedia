@@ -222,16 +222,9 @@ namespace AreaParty.windows
             }
         }
 
-        private void close_button_Click(object sender, RoutedEventArgs e)
+        private void close_button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void close_button_MouseMove(object sender, MouseEventArgs e)
-        {
-            //ImageBrush brush = new ImageBrush();
-            //brush.ImageSource = new BitmapImage(new Uri("/styles/skin/close_bottun.png", UriKind.Relative));
-            //close_button.Background = brush;
         }
     }
 }

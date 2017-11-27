@@ -5,6 +5,7 @@ using client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -138,15 +139,15 @@ namespace AreaParty.pages
             }
         }
 
-
-        string user;
-        string password;
-        string remotepath;  //NAS将要映射的共享文件夹
         string localpath;   //映射为本地的盘符
         private void MoreNas_Click(object sender, MouseButtonEventArgs e)
         {
-            
-
+            string remotepath;  //NAS将要映射的共享文件夹
+            Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            string user = config.AppSettings.Settings["nasusername"].Value;
+            string password = config.AppSettings.Settings["naspassword"].Value;
+            config.Save(ConfigurationSaveMode.Modified);
+            System.Configuration.ConfigurationManager.RefreshSection("appSettings");
             string path = "";           //保存选择文件夹的名称
             FolderBrowserDialog dilog = new FolderBrowserDialog();
             dilog.Description = "请选择文件夹";
