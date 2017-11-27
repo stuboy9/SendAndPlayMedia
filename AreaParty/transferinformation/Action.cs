@@ -572,7 +572,7 @@ namespace transferinformation
 
         #region DiskHelper
         /// <summary>
-        /// 获取当前PC除系统盘外的所有磁盘列表（仅支持固定磁盘和移动盘）
+        /// 获取当前PC除系统盘外的所有磁盘列表（仅支持固定磁盘、移动盘和网络磁盘）
         /// </summary>
         /// <returns></returns>
         public static ReturnMessageFormat GetDiskList()
@@ -585,7 +585,7 @@ namespace transferinformation
             {
                 // !(item.Name.Contains(System.Environment.SystemDirectory.Split('\\').First()))
                 //if (item.DriveType == DriveType.Fixed || item.DriveType == DriveType.Removable && item.IsReady)
-                if (item.DriveType == DriveType.Fixed || item.DriveType == DriveType.Removable || item.DriveType == DriveType.Network && item.IsReady)//增加支持网络硬盘功能
+                if (item.DriveType == DriveType.Fixed || item.DriveType == DriveType.Removable || item.DriveType == DriveType.Network && item.IsReady)
                 {
                     DiskInforFormat disk = new DiskInforFormat();
                     disk.driveFormat = item.DriveFormat;

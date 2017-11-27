@@ -1,4 +1,5 @@
-﻿using AreaParty.info;
+﻿using AreaParty.function.nas;
+using AreaParty.info;
 using AreaParty.pages;
 using AreaParty.util.config;
 using System;
@@ -80,20 +81,20 @@ namespace transferinfomation
                     ReturnMessageFormat returnMessage = new ReturnMessageFormat();
                     switch (request.name)
                     {
-                        case Order.nasAction_name:
-                            switch (request.command)
-                            {
-                                case Order.nasAction_manager:
+                        //case Order.nasAction_name:
+                        //    switch (request.command)
+                        //    {
+                        //        case Order.nasAction_manager:
                                     
-                                    break;
-                                case Order.nasAction_add:
+                        //            break;
+                        //        case Order.nasAction_add:
 
-                                    break;
-                                case Order.nasAction_delete:
+                        //            break;
+                        //        case Order.nasAction_delete:
                                     
-                                    break;
-                            }
-                            break;
+                        //            break;
+                        //    }
+                        //    break;
                         case Order.get_areaparty_path:
                             returnMessage.data = null;
                             returnMessage.message = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\AreaParty\\";
@@ -167,6 +168,12 @@ namespace transferinfomation
                         case Order.folderAction_name:
                             switch (request.command)
                             {
+                                case Order.nasAction_add:
+                                    returnMessage = NasFunction.addNasFolder(request.param);
+                                    break;
+                                case Order.nasAction_delete:
+                                    returnMessage = NasFunction.deleteNasFolder(request.param);
+                                    break;
                                 case Order.folderAction_addtohttp_command:
                                     ReturnMessageFormat message = new ReturnMessageFormat();
                                     string method = request.param.Substring(0,5);//request.param = "VIDIO/AUDIO/IMAGE" + uri

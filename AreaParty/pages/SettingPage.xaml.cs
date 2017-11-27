@@ -1,4 +1,5 @@
 ﻿using AreaParty.command;
+using AreaParty.function.nas;
 using AreaParty.info;
 using AreaParty.windows;
 using client;
@@ -142,19 +143,28 @@ namespace AreaParty.pages
         string localpath;   //映射为本地的盘符
         private void MoreNas_Click(object sender, MouseButtonEventArgs e)
         {
+
             string remotepath;  //NAS将要映射的共享文件夹
             Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             string user = config.AppSettings.Settings["nasusername"].Value;
             string password = config.AppSettings.Settings["naspassword"].Value;
+            string nasconnect = config.AppSettings.Settings["naslongconnect"].Value;
+            if (nasconnect.Equals("true"))
+            {
+                string path = "";           //保存选择文件夹的名称
+                FolderBrowserDialog dilog = new FolderBrowserDialog();
+                dilog.Description = "请选择文件夹";
+                dilog.ShowDialog();
+                remotepath = dilog.SelectedPath;
+                FindDiskName();
+                NasFunction.Get_Share(remotepath, localpath, user, password);
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("NAS长连接未打开");
+            }
             config.Save(ConfigurationSaveMode.Modified);
             System.Configuration.ConfigurationManager.RefreshSection("appSettings");
-            string path = "";           //保存选择文件夹的名称
-            FolderBrowserDialog dilog = new FolderBrowserDialog();
-            dilog.Description = "请选择文件夹";
-            dilog.ShowDialog();
-            remotepath = dilog.SelectedPath;
-            FindDiskName();
-            NasConnectWindow.Get_Share(remotepath, localpath, user, password);
         }
         ///查找PC上的盘符的名称，从Z-A(未使用的字母)赋予给新映射的网络盘
         public void FindDiskName()

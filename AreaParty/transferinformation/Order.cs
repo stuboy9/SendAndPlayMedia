@@ -39,6 +39,11 @@ namespace transferinformation
         public const string folderAction_open_finish_message = "FINISHFILE";
         public const string folderAction_open_more_param = "GETMORE";
 
+        public const string nasAction_name = "NAS";
+        //public const string nasAction_manager = "NASMANAGER";
+        public const string nasAction_add = "NASADD";
+        public const string nasAction_delete = "NASDELETE";
+
         public const string diskAction_name = "DISK";
         public const string diskAction_get_command = "GETDISKLIST";
 
@@ -50,10 +55,5 @@ namespace transferinformation
 
         public const string get_areaparty_path = "GETAREAPARTYPATH";
 
-        public const string nasAction_name = "NAS";
-        public const string nasAction_manager = "NASMANAGER";
-        public const string nasAction_add = "NASADD";
-        public const string nasAction_delete = "NASDELETE";
-    
     }
 }
