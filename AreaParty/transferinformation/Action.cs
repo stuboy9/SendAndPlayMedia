@@ -13,6 +13,7 @@ using System.Threading;
 using transferinformation.informationFormat.fileManagerFormat;
 using log4net;
 using System.Reflection;
+using System.Configuration;
 
 namespace transferinformation
 {
@@ -604,7 +605,18 @@ namespace transferinformation
             }
             message.status = diskList.Count >= 1 ? Order.success : Order.failure;
             message.message = diskList.Count >= 1 ? "" : "当前PC除系统盘外无其他磁盘或移动盘";
+            //Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            //string naslongconnect = config.AppSettings.Settings["naslongconnect"].Value;
+            //if (naslongconnect.Equals("ture")){
+            //    message.message = config.AppSettings.Settings["nasdir"].Value;
+            //}
+            //else
+            //{
+            //    message.message = "";
+            //}
             message.data = diskList;
+            //config.Save(ConfigurationSaveMode.Modified);
+            //System.Configuration.ConfigurationManager.RefreshSection("appSettings");
             return message;
         }
         #endregion

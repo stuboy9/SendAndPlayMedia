@@ -39,7 +39,8 @@ namespace AreaParty.function.nas
                 message.message = e.Message;
                 message.data = null;
             }
-
+            config.Save(ConfigurationSaveMode.Modified);
+            System.Configuration.ConfigurationManager.RefreshSection("appSettings");
 
             return message;
 

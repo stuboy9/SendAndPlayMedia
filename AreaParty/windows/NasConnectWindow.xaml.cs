@@ -48,7 +48,11 @@ namespace AreaParty.windows
             //string username = "admin";    //NAS的账户
             //string password = "abc123";    //NAS的密码
             //Device device = new Device(nasname, username, password);
-
+            if((username == "")||(password == ""))
+            {
+                System.Windows.Forms.MessageBox.Show("账号密码为空");
+                return;
+            }
             string path = "";           //保存选择文件夹的名称
             FolderBrowserDialog dilog = new FolderBrowserDialog();
             dilog.Description = "请选择文件夹";
@@ -58,14 +62,14 @@ namespace AreaParty.windows
             NasFunction.Get_Share(remotepath, localpath, username, password);
             this.Close();
 
-            if(remotepath != null)
-            {
-                nas_dir = remotepath.Substring(0, remotepath.IndexOf("////", 2));
-            }
+            //if(remotepath != null)
+            //{
+            //    nas_dir = remotepath.Substring(0, remotepath.IndexOf("////", 2));
+            //}
             
             config.AppSettings.Settings["nasusername"].Value = username;
             config.AppSettings.Settings["naspassword"].Value = password;
-            config.AppSettings.Settings["nasdir"].Value = nas_dir;
+            //config.AppSettings.Settings["nasdir"].Value = nas_dir;
 
             config.Save(ConfigurationSaveMode.Modified);
             System.Configuration.ConfigurationManager.RefreshSection("appSettings");
