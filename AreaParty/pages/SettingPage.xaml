@@ -210,7 +210,7 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Content="更多详细设置>" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" Margin="10,0,95,30" />
+                        <Label Content="更多详细设置>" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreLabel_Click" Margin="15,0,95,30" />
                         <Label Content="继续映射" Margin="395,0,0,30" Style="{DynamicResource thisLabel}" MouseLeftButtonDown="MoreNas_Click" Grid.Column="1" />
                     </Grid>
                 </Grid>
