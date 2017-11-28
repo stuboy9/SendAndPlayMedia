@@ -146,7 +146,7 @@ namespace transferinfomation
                                         // 此处是重命名文件的代码
                                         string[] temp = System.Text.RegularExpressions.Regex.Split(request.param, "-PATH-",
                                             System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-                                        returnMessage = transferinformation.Action.RenameFile(temp[0], temp[1]);
+                                        returnMessage = transferinformation.Action.RenameFile(temp[1], temp[2]);
                                     }
                                     break;
                                 case Order.fileOrFolderAction_copy_command:
@@ -234,7 +234,7 @@ namespace transferinfomation
                                         // 此处是重命名文件夹的代码
                                         string[] temp = System.Text.RegularExpressions.Regex.Split(request.param, "-PATH-",
                                             System.Text.RegularExpressions.RegexOptions.IgnoreCase);
-                                        returnMessage = transferinformation.Action.RenameFolder(temp[0], temp[1]);
+                                        returnMessage = transferinformation.Action.RenameFolder(temp[1], temp[2]);
                                     }
                                     break;
                                 case Order.folderAction_add_command:

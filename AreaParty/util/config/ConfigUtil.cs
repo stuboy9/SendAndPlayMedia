@@ -26,6 +26,7 @@ namespace AreaParty.util.config
                 Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 config.AppSettings.Settings[key].Value = value;
                 config.Save();
+                System.Configuration.ConfigurationManager.RefreshSection("appSettings");
                 return true;
             }
             catch (Exception e)

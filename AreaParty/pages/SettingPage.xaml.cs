@@ -37,9 +37,13 @@ namespace AreaParty.pages
         {
             InitializeComponent();
             string status = util.config.ConfigUtil.GetValue("longconnect");
-            if (status.Equals("false")) { this.LoginCheckBox.IsChecked = false; }
+            if (status.Equals("false", StringComparison.CurrentCultureIgnoreCase)) { this.LoginCheckBox.IsChecked = false; }
             else
                 this.LoginCheckBox.IsChecked = true;
+            string status_nas = util.config.ConfigUtil.GetValue("naslongconnect");
+            if (status_nas.Equals("false", StringComparison.CurrentCultureIgnoreCase)) { this.LoginCheckBox_NAS.IsChecked = false; }
+            else
+                this.LoginCheckBox_NAS.IsChecked = true;
         }
         private void MoreLabel_Click(object sender, MouseButtonEventArgs e)
         {
@@ -100,6 +104,7 @@ namespace AreaParty.pages
             {
                 if (System.Windows.MessageBox.Show("确定断开NAS长连接", "NAS长连接", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                 {
+                    util.config.ConfigUtil.SetValue("naslongconnect", "false");
                     util.config.ConfigUtil.SetValue("naslongconnect", "false");
                     MainWindow.main.Status_Nas = "未连接NAS";
                 }

@@ -12,7 +12,7 @@ namespace AreaParty.function.nas
 {
     class NasFunction
     {
-        public static string localpath;
+        
         /// <summary>
         /// 封装映射函数
         /// </summary>
@@ -21,13 +21,13 @@ namespace AreaParty.function.nas
         public static ReturnMessageFormat addNasFolder(string remotepath)
         {
             ReturnMessageFormat message = new ReturnMessageFormat();
-
+            string localpath;
             Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             string username = config.AppSettings.Settings["nasusername"].Value;
             string password = config.AppSettings.Settings["naspassword"].Value;
             try
             {
-                FindDiskName();
+                localpath = FindDiskName();
                 Get_Share(remotepath, localpath, username, password);
                 message.status = Order.success;
                 message.message = "";
@@ -93,8 +93,9 @@ namespace AreaParty.function.nas
         /// <summary>
         /// 查找PC上的盘符的名称，从Z-A(未使用的字母)赋予给新映射的网络盘
         /// </summary>
-        public static void FindDiskName()
+        public static string FindDiskName()
         {
+            string localpath = null;
             DriveInfo[] allDrives = DriveInfo.GetDrives();
 
             for (int i = 90; i > 64; i--)
@@ -123,6 +124,7 @@ namespace AreaParty.function.nas
                     break;
                 }
             }
+            return localpath;
         }
 
         //public static ReturnMessageFormat getNasFolder()

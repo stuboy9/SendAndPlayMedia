@@ -25,14 +25,20 @@ namespace AreaParty.windows
     /// </summary>
     public partial class NasConnectWindow : Window
     {
-        public string username;
-        public string password;
-        string remotepath;  //NAS将要映射的共享文件夹
-        string localpath;   //映射为本地的盘符
-        string nas_dir = null;
         public NasConnectWindow()
         {
             InitializeComponent();
+            string checkbox = util.config.ConfigUtil.GetValue("nascheckbox");
+            if (checkbox.Equals("true", StringComparison.CurrentCultureIgnoreCase))
+            {
+                NasCheckBox.IsChecked = true;
+                this.UserNameTextBox.Text = util.config.ConfigUtil.GetValue("nasusername");
+                this.PasswordTextBox.Password = util.config.ConfigUtil.GetValue("naspassword");
+            }
+            else
+            {
+                NasCheckBox.IsChecked = false;
+            }
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -41,7 +47,10 @@ namespace AreaParty.windows
 
         private void Login_Button_Click(object sender, RoutedEventArgs e)
         {
-            Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            string username;
+            string password;
+            string remotepath;  //NAS将要映射的共享文件夹
+            string localpath;   //映射为本地的盘符
             //string nasname = this.NasNameTextBox.Text;
             username = this.UserNameTextBox.Text;
             password = this.PasswordTextBox.Password;
@@ -58,21 +67,23 @@ namespace AreaParty.windows
             dilog.Description = "请选择文件夹";
             dilog.ShowDialog();
             remotepath = dilog.SelectedPath;
-            NasFunction.FindDiskName();
+            localpath = NasFunction.FindDiskName();
             NasFunction.Get_Share(remotepath, localpath, username, password);
-            this.Close();
 
-            //if(remotepath != null)
-            //{
-            //    nas_dir = remotepath.Substring(0, remotepath.IndexOf("////", 2));
-            //}
-            
-            config.AppSettings.Settings["nasusername"].Value = username;
-            config.AppSettings.Settings["naspassword"].Value = password;
+            if (NasCheckBox.IsChecked == true)
+            {
+                util.config.ConfigUtil.SetValue("nascheckbox", "true");
+            }
+            else
+            {
+                util.config.ConfigUtil.SetValue("nascheckbox", "false");
+            }
+            util.config.ConfigUtil.SetValue("nasusername", username);
+            util.config.ConfigUtil.SetValue("naspassword", password);
+            util.config.ConfigUtil.SetValue("naslongconnect", "true");
             //config.AppSettings.Settings["nasdir"].Value = nas_dir;
-
-            config.Save(ConfigurationSaveMode.Modified);
-            System.Configuration.ConfigurationManager.RefreshSection("appSettings");
+            MainWindow.main.Status_Nas = "NAS已连接";
+            this.Close();
         }
         ///// <summary>
         ///// 映射共享文件
@@ -147,6 +158,26 @@ namespace AreaParty.windows
             {
                 this.UserNameTextBox.Text = "NAS管理员账号";
             }
+        }
+
+        private void NasCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (NasCheckBox.IsChecked == true)
+            {
+                string user = util.config.ConfigUtil.GetValue("nasusername");
+                string password = util.config.ConfigUtil.GetValue("naspassword");
+                if ((this.UserNameTextBox.Text != "") && (this.PasswordTextBox.Password != ""))
+                {
+                    util.config.ConfigUtil.SetValue("nasusername", this.UserNameTextBox.Text);
+                    util.config.ConfigUtil.SetValue("naspassword", this.PasswordTextBox.Password);
+                }
+                util.config.ConfigUtil.SetValue("nascheckbox", NasCheckBox.IsChecked.ToString());
+            }
+            else
+            {
+                util.config.ConfigUtil.SetValue("nascheckbox", NasCheckBox.IsChecked.ToString());
+            }
+            
         }
     }
     //class Device

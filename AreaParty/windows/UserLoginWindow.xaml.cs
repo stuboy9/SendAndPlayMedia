@@ -7,6 +7,7 @@ using ProtoBuf;
 using protocol;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -33,8 +34,18 @@ namespace AreaParty.windows
     {
         public UserLoginWindow()
         {
-            //this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             InitializeComponent();
+            string checkbox = util.config.ConfigUtil.GetValue("usercheckbox");
+            if (checkbox.Equals("true", StringComparison.CurrentCultureIgnoreCase))
+            {
+                checkBox.IsChecked = true;
+                this.UserNameTextBox.Text = util.config.ConfigUtil.GetValue("username");
+                this.PasswordTextBox.Password = util.config.ConfigUtil.GetValue("password");
+            }
+            else
+            {
+                checkBox.IsChecked = false;
+            }
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -52,6 +63,14 @@ namespace AreaParty.windows
 
             string name = this.UserNameTextBox.Text;
             string password = this.PasswordTextBox.Password;
+            if(checkBox.IsChecked == true)
+            {
+                util.config.ConfigUtil.SetValue("usercheckbox", "true");
+            }
+            else
+            {
+                util.config.ConfigUtil.SetValue("usercheckbox", "false");
+            }
             User u = new User(name, password);
             Thread t = new Thread(Login);
             //t.SetApartmentState(ApartmentState.STA);
@@ -260,148 +279,10 @@ namespace AreaParty.windows
             return null;
         }
 
-        //public void Login(string name,string password)
-        //{
-        //    try
-        //    {
-        //        IPAddress ip = IPAddress.Parse("127.0.0.1");
-        //        Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        //        socket.Connect(new IPEndPoint(ip, ConfigResource.HOLE_PORT));
-        //        Command c = CommandFactory.GetLoginCommand(name, password);
-        //        socket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(c)));
-        //        socket.Send(Encoding.UTF8.GetBytes("\r\n"));
-        //        byte[] result = new byte[1024];
-        //        int receiveNumber = socket.Receive(result);
-        //        string rev = Encoding.UTF8.GetString(result, 0, receiveNumber);
-        //        Console.WriteLine(rev);
-        //        JObject jo = (JObject)JsonConvert.DeserializeObject(rev);
-
-        //        Response re = JsonConvert.DeserializeObject<Response>(rev);
-        //        Dictionary<string, string> d = jo.GetValue("data").ToObject<Dictionary<string, string>>();
-        //        Console.WriteLine(re.status);
-        //        switch (re.status)
-        //        {
-        //            case "200":
-        //                util.config.ConfigUtil.SetValue("longconnect", "true");
-        //                util.config.ConfigUtil.SetValue("username", name);
-        //                util.config.ConfigUtil.SetValue("password", password);
-        //                App.Current.Dispatcher.Invoke((Action)(() =>
-        //                {
-        //                    this.Close();
-        //                }));
-        //                // can also be any object you'd like to use as a parameter
-        //                MainWindow.main.Status = "长连接已开启";
-        //                break;
-        //            case "404":
-        //                if (d.ContainsKey("failStyle"))
-        //                {
-        //                    Console.WriteLine(d["failStyle"]);
-        //                    if (d["failStyle"].Equals("userName or password error"))
-        //                    {
-        //                        MessageBox.Show("用户名或密码错误，请重新输入");
-        //                    }
-        //                    else if (d["failStyle"].Equals("the device is not main pc"))
-        //                    {
-        //                        Window loading = null;
-        //                        Thread t = new Thread(new ThreadStart(delegate
-        //                        {
-        //                            App.Current.Dispatcher.Invoke((Action)(() =>
-        //                            {
-        //                                loading = new LoadingWindow();
-        //                                loading.ShowDialog();
-        //                            }));
-        //                        }));
-        //                        t.IsBackground = true;
-        //                        t.Start();
-
-        //                        Console.WriteLine("waite result");
-        //                        try
-        //                        {
-        //                            receiveNumber = socket.Receive(result);
-        //                            rev = Encoding.UTF8.GetString(result, 0, receiveNumber);
-
-        //                        }
-        //                        catch(Exception e)
-        //                        {
-        //                            MessageBox.Show("授权失败");
-        //                            break;
-        //                        }
-        //                        Console.WriteLine("second" + rev);
-        //                        JObject jse = (JObject)JsonConvert.DeserializeObject(rev);
-        //                        string status = jse.GetValue("status").ToString();
-        //                        if (status.Equals("200"))
-        //                        {
-        //                            App.Current.Dispatcher.Invoke((Action)(() =>
-        //                            {
-        //                                if (loading != null) loading.Close();
-        //                            }));
-        //                            MessageBox.Show("授权成功");
-        //                            util.config.ConfigUtil.SetValue("longconnect", "true");
-        //                            util.config.ConfigUtil.SetValue("username", name);
-        //                            util.config.ConfigUtil.SetValue("password", password);
-        //                            App.Current.Dispatcher.Invoke((Action)(() =>
-        //                            {
-        //                                this.Close();
-        //                            }));
-        //                            MainWindow.main.Status = "长连接开启";
-        //                        }
-        //                        else
-        //                        {
-        //                            jse = (JObject)jse.GetValue("data");
-        //                            rev = jse.GetValue("failStyle").ToString();
-        //                            if (rev.Equals("main device refuse login"))
-        //                            {
-        //                                App.Current.Dispatcher.Invoke((Action)(() =>
-        //                                {
-        //                                    if (loading != null) loading.Close();
-        //                                }));
-        //                                MessageBox.Show("授权被拒绝");
-        //                            }
-        //                            MainWindow.main.Status = "长连接失败";
-        //                        }
-        //                    }
-        //                    else if (d["failStyle"].Equals("main device outline"))
-        //                    {
-        //                        MessageBox.Show("主设备不在线，请登录主设备授权");
-        //                        MainWindow.main.Status = "长连接失败";
-        //                    }
-        //                }
-
-        //                break;
-        //        }
-        //    }
-        //    catch(Exception e)
-        //    {
-        //        MainWindow.main.Status = "长连接失败";
-        //        MessageBox.Show("登录失败");
-        //    }
-
-        //}
-
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
-
-            //util.config.ConfigUtil.SetValue("longconnect", "false");
-            //ClientPCNew2.StopService();
-
             MainWindow.main.Status = "长连接断开";
             this.Close();
-            //try
-            //{
-            //    //IPAddress ip = IPAddress.Parse("127.0.0.1");
-            //    //Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //    //socket.Connect(new IPEndPoint(ip, ConfigResource.HOLE_PORT));
-            //    //Command c = CommandFactory.GetLoginOutCommand();
-            //    //socket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(c)));
-            //    //socket.Send(Encoding.UTF8.GetBytes("\r\n"));
-            //    //socket.Close();
-
-            //}
-            //catch (Exception ee)
-            //{
-            //    Console.WriteLine(ee);
-            //}
-            //this.Close();
         }
 
        
@@ -421,6 +302,32 @@ namespace AreaParty.windows
             {
                 this.UserNameTextBox.Text = "Areaparty账号";
             }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (checkBox.IsChecked == true)
+            {
+                string user = util.config.ConfigUtil.GetValue("username");
+                string password = util.config.ConfigUtil.GetValue("password");
+                if ((this.UserNameTextBox.Text != "") &&(this.PasswordTextBox.Password != ""))
+                {
+                    util.config.ConfigUtil.SetValue("username", this.UserNameTextBox.Text);
+                    util.config.ConfigUtil.SetValue("password", this.PasswordTextBox.Password);
+                    
+                }
+                util.config.ConfigUtil.SetValue("usercheckbox", checkBox.IsChecked.ToString());
+                //else
+                //{
+                //    this.UserNameTextBox.Text = user;
+                //    this.PasswordTextBox.Password = password;
+                //}
+            }
+            else
+            {
+                util.config.ConfigUtil.SetValue("usercheckbox", "false");
+            }
+            
         }
     }
     public class PasswordBoxMonitor : DependencyObject
