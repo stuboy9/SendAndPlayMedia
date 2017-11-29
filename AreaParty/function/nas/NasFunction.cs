@@ -53,6 +53,7 @@ namespace AreaParty.function.nas
         public static ReturnMessageFormat deleteNasFolder(string path)
         {
             ReturnMessageFormat message = new ReturnMessageFormat();
+            path = path.Substring(0, 2);
             try
             {
                 Break_Share(path);
@@ -87,6 +88,7 @@ namespace AreaParty.function.nas
         /// <param name="localpath"></param>
         public static void Break_Share(string localpath)
         {
+            
             Process.Start("net", " use " + localpath + " /delete");
         }
 

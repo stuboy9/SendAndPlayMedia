@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AreaParty.function.media;
+using AreaParty.info.media;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -76,6 +78,7 @@ namespace AreaParty.util.config
             config.AppSettings.Settings["ImageConfig"].Value = name;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+            //MediaFunction.ImageFolderPath.Add(imagePath);
         }
         public static void RemoveImageLibrary(string imagePath)
         {
@@ -93,6 +96,7 @@ namespace AreaParty.util.config
             config.AppSettings.Settings["ImageConfig"].Value = temp;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+            //MediaFunction.ImageFolderPath.Remove(imagePath);
         }
 
         /// <summary>
@@ -110,25 +114,16 @@ namespace AreaParty.util.config
         }
         public static List<string> GetDownLoadLibrary()
         {
-            //获取Configuration对象
             
             string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Areaparty\\下载文件";
-
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-            //DirectoryInfo Folder = new DirectoryInfo(path);
+
             List<string> list = new List<string>();
             list.Add(path);
-            //foreach (DirectoryInfo file in Folder.GetDirectories())
-            //{
-            //    Console.WriteLine("file fullname is:{0}", file.FullName);
-            //    list.Add(file.FullName);
-            //}
-            //根据Key读取<add>元素的Value
-            //string name = path/*  +"\\"+ config.AppSettings.Settings["VideoConfig"].Value*/;
-            //name = name.Substring(0, name.LastIndexOf(";"));
+           
             return list;
         }
 
@@ -141,6 +136,7 @@ namespace AreaParty.util.config
             config.AppSettings.Settings["VideoConfig"].Value = name;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+            //MediaFunction.VideoFolderPath.Add(videoPath);
         }
         public static void RemoveVideoLibrary(string videoPath)
         {
@@ -158,6 +154,7 @@ namespace AreaParty.util.config
             config.AppSettings.Settings["VideoConfig"].Value = temp;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+            //MediaFunction.VideoFolderPath.Remove(videoPath);
         }
 
 
@@ -186,6 +183,7 @@ namespace AreaParty.util.config
             config.AppSettings.Settings["AudioConfig"].Value = name;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+            //MediaFunction.AudioFolderPath.Add(audioPath);
         }
         public static void RemoveAudioLibrary(string audioPath)
         {
@@ -203,6 +201,7 @@ namespace AreaParty.util.config
             config.AppSettings.Settings["AudioConfig"].Value = temp;
             config.Save(ConfigurationSaveMode.Modified);
             ConfigurationManager.RefreshSection("appSettings");
+            //MediaFunction.AudioFolderPath.Remove(audioPath);
         }
 
 
@@ -214,12 +213,6 @@ namespace AreaParty.util.config
         public static List<string> GetMyVideoLibrary()
         {
             Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            //string name = config.AppSettings.Settings["UserVideoConfig"].Value;
-            //config.AppSettings.Settings["UserVideoConfig"].Value = "";
-            //config.Save(ConfigurationSaveMode.Modified);
-            //ConfigurationManager.RefreshSection("appSettings");
-            //string del = "G:\\迅雷下载;";
-            //Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             //根据Key读取<add>元素的Value
             string name = config.AppSettings.Settings["UserVideoConfig"].Value;
             //name.Replace(del, "").Trim();
@@ -368,6 +361,93 @@ namespace AreaParty.util.config
             ConfigurationManager.RefreshSection("appSettings");
             
         }
+        /// <summary>
+        /// 在指定文件夹下搜索指定文件
+        /// </summary>
+        /// <param name="dir"></param>
+        /// <param name="foldname"></param>
+        /// <returns></returns>
+        public static List<MediaMengMeng> SearchMedia(string dir,string foldname)
+        {
+            List<MediaMengMeng> list = null;
+            DirectoryInfo d = new DirectoryInfo(dir);
+            FileSystemInfo[] fsinfos = d.GetFileSystemInfos();
+            foreach (FileSystemInfo fsinfo in fsinfos)
+            {
+                if (fsinfo is DirectoryInfo)     //判断是否为文件夹  
+                {
+                    SearchMedia(fsinfo.FullName,foldname);//递归调用  
+                }
+                else
+                {
+                    if (fsinfo.FullName.IndexOf(foldname) > -1)
+                    {
+                        list.Add(new MediaMengMeng(new VideoItem(fsinfo.FullName)));
+                    }
+                }
+            }
+            return list;
+        }
+
+        public static List<MediaMengMeng> SearchAll(string key)
+        {
+            List<string> videolist = util.config.MediaConfig.GetVideoLibrary();
+            List<string> audiolist = util.config.MediaConfig.GetAudioLibrary();
+            List<string> imagelist = util.config.MediaConfig.GetImageLibrary();
+            List<string> downloadlist = util.config.MediaConfig.GetDownLoadLibrary();
+            List<string> myvideolist = util.config.MediaConfig.GetMyVideoLibrary();
+            List<string> myaudiolist = util.config.MediaConfig.GetMyAudioLibrary();
+            List<string> myimagelist = util.config.MediaConfig.GetMyImageLibrary();
+            List<MediaMengMeng> f_v_media = null;
+            List<MediaMengMeng> f_a_media = null;
+            List<MediaMengMeng> f_i_media = null;
+            foreach (string s in videolist)
+            {
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                f_v_media.AddRange(findlist);
+            }
+            foreach (string s in downloadlist)
+            {
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                f_v_media.AddRange(findlist);
+
+            }
+            foreach (string s in myvideolist)
+            {
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                f_v_media.AddRange(findlist);
+
+            }
+            foreach (string s in audiolist)
+            {
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                f_a_media.AddRange(findlist);
+
+            }
+            foreach (string s in myaudiolist)
+            {
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                f_a_media.AddRange(findlist);
+
+            }
+            foreach (string s in imagelist)
+            {
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                f_i_media.AddRange(findlist);
+
+            }
+            foreach (string s in myimagelist)
+            {
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                f_i_media.AddRange(findlist);
+            }
+            List<MediaMengMeng> totalmedia = null;
+            totalmedia.AddRange(f_v_media);
+            totalmedia.AddRange(f_a_media);
+            totalmedia.AddRange(f_i_media);
+            return totalmedia;
+        }
+
 
     }
 }

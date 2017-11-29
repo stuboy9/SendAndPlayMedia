@@ -43,18 +43,22 @@ namespace AreaParty.function.media
 
         private static Dictionary<string, List<MediaMengMeng>> AudioSet = null;//音频集列表
         private static Dictionary<string, List<MediaMengMeng>> ImageSet = null;//图片集列表
+
+        public static List<string> VideoFolderPath = null;
+        public static List<string> AudioFolderPath = null;
+        public static List<string> ImageFolderPath = null;
         
         /// <summary>
         /// 初始化，提取视频文件的缩略图，并将缩略图的路径添加到http服务器。
         /// </summary>
         public void init()
         {
+
             List<String> s = util.config.MediaConfig.GetMyVideoLibrary();
             foreach (string library in s)
             {
                 log.InfoFormat("用户视频媒体库{0}添加成功", library);
                 GetThumbnail(library);
-                //util.JAVAUtil.AddSourceToHTTP(library);
                 util.JAVAUtil.AddAlltoHttp(library);
             }
 
@@ -63,7 +67,6 @@ namespace AreaParty.function.media
             {
                 log.InfoFormat("用户音频媒体库{0}添加成功", library);
                 GetThumbnail(library);
-                //util.JAVAUtil.AddSourceToHTTP(library);
                 util.JAVAUtil.AddAlltoHttp(library);
             }
             s = util.config.MediaConfig.GetMyImageLibrary();
@@ -71,7 +74,6 @@ namespace AreaParty.function.media
             {
                 log.InfoFormat("用户图片媒体库{0}添加成功", library);
                 GetThumbnail(library);
-                //util.JAVAUtil.AddSourceToHTTP(library);
                 util.JAVAUtil.AddAlltoHttp(library);
             }
 
@@ -88,6 +90,7 @@ namespace AreaParty.function.media
             foreach (string library in s)
             {
                 log.InfoFormat("默认视频库{0}添加成功", library);
+                //VideoFolderPath.Add(library);
                 GetThumbnail(library);
                 //util.JAVAUtil.AddSourceToHTTP(library);
                 util.JAVAUtil.AddAlltoHttp(library);
@@ -96,6 +99,7 @@ namespace AreaParty.function.media
             foreach (string library in s)
             {
                 log.InfoFormat("默认音频库{0}添加成功", library);
+                //AudioFolderPath.Add(library);
                 //GetThumbnail(library);
                 //util.JAVAUtil.AddSourceToHTTP(library);
                 util.JAVAUtil.AddAlltoHttp(library);
@@ -104,6 +108,7 @@ namespace AreaParty.function.media
             foreach (string library in s)
             {
                 log.InfoFormat("默认图片库{0}添加成功", library);
+                //ImageFolderPath.Add(library);
                 GetThumbnail(library);
                 //util.JAVAUtil.AddSourceToHTTP(library);
                 util.JAVAUtil.AddAlltoHttp(library);
@@ -861,6 +866,7 @@ namespace AreaParty.function.media
                 return false;
             }
         }
+        
 
     }
     /// <summary>

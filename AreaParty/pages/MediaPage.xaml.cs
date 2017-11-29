@@ -1,4 +1,5 @@
-﻿using AreaParty.routedcommand;
+﻿using AreaParty.function.media;
+using AreaParty.routedcommand;
 using AreaParty.util;
 using AreaParty.util.config;
 using log4net;
@@ -172,6 +173,7 @@ namespace AreaParty.pages
                             video.Remove(new ListBoxMediaItem { Name = myTextBlock.Text, ImagePath = "/styles/skin/item/item_media.png" });
                             MediaConfig.RemoveMyVideoLibrary(this.dictVideo[myTextBlock.Text]);
                             this.dictVideo.Remove(myTextBlock.Text);
+                            
                         }
                         break;
                     case ListName.AUDIO:
@@ -180,7 +182,7 @@ namespace AreaParty.pages
                             audio.Remove(new ListBoxMediaItem { Name = myTextBlock.Text, ImagePath = "/styles/skin/item/item_media.png" });
                             MediaConfig.RemoveMyAudioLibrary(this.dictAudio[myTextBlock.Text]);
                             this.dictAudio.Remove(myTextBlock.Text);
-
+                            
                         }
                         break;
                     case ListName.IMAGE:
@@ -189,6 +191,7 @@ namespace AreaParty.pages
                             image.Remove(new ListBoxMediaItem { Name = myTextBlock.Text, ImagePath = "/styles/skin/item/item_media.png" });
                             MediaConfig.RemoveMyImageLibrary(this.dictImage[myTextBlock.Text]);
                             this.dictImage.Remove(myTextBlock.Text);
+                            
                         }
                         break;
                 }
@@ -227,6 +230,7 @@ namespace AreaParty.pages
                         new function.media.MediaFunction().GetThumbnail(path);
                         util.JAVAUtil.AddAlltoHttp(path);
                         //})).Start();
+                        
                     }
                 }
             }
@@ -259,6 +263,7 @@ namespace AreaParty.pages
                         new function.media.MediaFunction().GetThumbnail(path);
                         util.JAVAUtil.AddAlltoHttp(path);
                         //})).Start();
+                        
 
                     }
                 }
@@ -293,7 +298,7 @@ namespace AreaParty.pages
                         new function.media.MediaFunction().GetThumbnail(path);
                         util.JAVAUtil.AddAlltoHttp(path);
                         //})).Start();
-
+                        
                     }
                 }
             }catch(Exception error)

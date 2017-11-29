@@ -48,7 +48,6 @@ namespace AreaParty.command
         public const string PORTELIST = "PORTLIST";//废弃
         public const string NORMAL = "NORMAL";//新添加字段，智能播放媒体文件
         public const string PC = "PC";//将原来手机向服务器发消息改为向PC发消息
-
         //新字段
         public const string APP = "APP";//
         public const string GAME = "GAME";//
@@ -199,6 +198,7 @@ namespace AreaParty.command
                 Console.WriteLine("name is:{0}",name);
                 switch (name)
                 {
+                    
                     case CommandName.PC:
                         if (command.Equals("AddDirsHTTP"))
                         {
@@ -262,6 +262,13 @@ namespace AreaParty.command
                         else if (command.Equals("close"))
                         {
                             Environment.Exit(0);
+                        }
+                        else if (command.Equals("SEARCH"))
+                        {
+                            string key = param["key"];
+                            List<MediaMengMeng> allmedia = util.config.MediaConfig.SearchAll(key);
+                            response = new Response("200", "", CommandName.PC, JsonConvert.SerializeObject(allmedia));
+                            ClientSocket.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(response)));
                         }
                         break;
 
