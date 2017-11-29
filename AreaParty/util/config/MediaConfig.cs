@@ -369,20 +369,23 @@ namespace AreaParty.util.config
         /// <returns></returns>
         public static List<MediaMengMeng> SearchMedia(string dir,string foldname)
         {
-            List<MediaMengMeng> list = null;
+            List<MediaMengMeng> list = new List<MediaMengMeng>();
             DirectoryInfo d = new DirectoryInfo(dir);
             FileSystemInfo[] fsinfos = d.GetFileSystemInfos();
-            foreach (FileSystemInfo fsinfo in fsinfos)
+            if(fsinfos.Length> 0)
             {
-                if (fsinfo is DirectoryInfo)     //判断是否为文件夹  
+                foreach (FileSystemInfo fsinfo in fsinfos)
                 {
-                    SearchMedia(fsinfo.FullName,foldname);//递归调用  
-                }
-                else
-                {
-                    if (fsinfo.FullName.IndexOf(foldname) > -1)
+                    if (fsinfo is DirectoryInfo)     //判断是否为文件夹  
                     {
-                        list.Add(new MediaMengMeng(new VideoItem(fsinfo.FullName)));
+                        SearchMedia(fsinfo.FullName, foldname);//递归调用  
+                    }
+                    else
+                    {
+                        if (fsinfo.FullName.IndexOf(foldname) > -1)
+                        {
+                            list.Add(new MediaMengMeng(new VideoItem(fsinfo.FullName)));
+                        }
                     }
                 }
             }
@@ -398,50 +401,67 @@ namespace AreaParty.util.config
             List<string> myvideolist = util.config.MediaConfig.GetMyVideoLibrary();
             List<string> myaudiolist = util.config.MediaConfig.GetMyAudioLibrary();
             List<string> myimagelist = util.config.MediaConfig.GetMyImageLibrary();
-            List<MediaMengMeng> f_v_media = null;
-            List<MediaMengMeng> f_a_media = null;
-            List<MediaMengMeng> f_i_media = null;
+            List<MediaMengMeng> f_v_media = new List<MediaMengMeng>();
+            List<MediaMengMeng> f_a_media = new List<MediaMengMeng>();
+            List<MediaMengMeng> f_i_media = new List<MediaMengMeng>();
+            
             foreach (string s in videolist)
-            {
+            {         
                 List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
-                f_v_media.AddRange(findlist);
+                if(findlist.Count > 0)
+                {
+                    f_v_media.AddRange(findlist);
+                }
             }
             foreach (string s in downloadlist)
             {
                 List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
-                f_v_media.AddRange(findlist);
-
+                if (findlist.Count > 0)
+                {
+                    f_v_media.AddRange(findlist);
+                }                
             }
             foreach (string s in myvideolist)
-            {
+            {            
                 List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
-                f_v_media.AddRange(findlist);
-
+                if (findlist.Count > 0)
+                {
+                    f_v_media.AddRange(findlist);
+                }
             }
             foreach (string s in audiolist)
             {
                 List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
-                f_a_media.AddRange(findlist);
-
+                if (findlist.Count > 0)
+                {
+                    f_a_media.AddRange(findlist);
+                }               
             }
             foreach (string s in myaudiolist)
             {
                 List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
-                f_a_media.AddRange(findlist);
-
+                if (findlist.Count > 0)
+                {
+                    f_a_media.AddRange(findlist);
+                }
             }
             foreach (string s in imagelist)
             {
                 List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
-                f_i_media.AddRange(findlist);
-
+                if (findlist.Count > 0)
+                {
+                    f_i_media.AddRange(findlist);
+                }                
             }
             foreach (string s in myimagelist)
             {
                 List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
-                f_i_media.AddRange(findlist);
+                if (findlist.Count > 0)
+                {
+                    f_i_media.AddRange(findlist);
+                }                
             }
-            List<MediaMengMeng> totalmedia = null;
+            List<MediaMengMeng> totalmedia = new List<MediaMengMeng>();
             totalmedia.AddRange(f_v_media);
             totalmedia.AddRange(f_a_media);
             totalmedia.AddRange(f_i_media);
