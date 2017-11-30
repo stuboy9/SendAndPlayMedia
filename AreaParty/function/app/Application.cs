@@ -71,16 +71,22 @@ namespace AreaParty.function.app
                 rdcProcess.StartInfo.WorkingDirectory = fi.Directory.ToString();
                 rdcProcess.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;
                 rdcProcess.Start();
-                /*获取启动的进程的句柄并将窗口最大化*/
-                IntPtr MainWindowHande = rdcProcess.MainWindowHandle;
-                string mainwindowhande = MainWindowHande.ToString();
-                IntPtr mainHandle = FindWindow(mainwindowhande, null);
-                if (mainHandle != null)
-                {
-                    SetForegroundWindow(mainHandle);
-                    SendMessage(mainHandle, WM_SYSCOMMAND, SC_MAXIMIZE, 0); // 最大化
-                }
-
+                ///*获取启动的进程的句柄并将窗口最大化*/
+                //IntPtr MainWindowHande = rdcProcess.MainWindowHandle;
+                //string mainwindowhande = MainWindowHande.ToString();
+                //IntPtr mainHandle = FindWindow(mainwindowhande, mainwindowhande);
+                
+                //if (mainHandle ==IntPtr.Zero)
+                //{
+                //    while (mainHandle == IntPtr.Zero)
+                //    {
+                //        System.Threading.Thread.Sleep(1000);
+                //        mainHandle = FindWindow(mainwindowhande, mainwindowhande);
+                //    }
+                //    log.Info(string.Format("获取应用\"{0}\"的窗口句柄\"{1}\"", name, mainHandle.ToString()));
+                //    SetForegroundWindow(mainHandle);
+                //    SendMessage(mainHandle, WM_SYSCOMMAND, SC_MAXIMIZE, 0); // 最大化
+                //}
                 return rdcProcess;
             }
             catch (Exception e)

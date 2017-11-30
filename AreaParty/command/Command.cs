@@ -195,7 +195,10 @@ namespace AreaParty.command
                 MediaFunction media = new MediaFunction();
                 Game game = new Game();
                 Response response = null;
+                
+                //test = windows.BackGroundWindow.Instance();
                 Console.WriteLine("name is:{0}",name);
+                log.Info(string.Format("接收到手机发来的指令 name = {0}，command = {1}，param = {2}",name, command, param));
                 switch (name)
                 {
                     
@@ -549,64 +552,18 @@ namespace AreaParty.command
                         }
                         else if (command.Equals("OPEN_RDP"))
                         {
-                            //WindowControl.SetTaskBarState(0);
-
-                            if((string)param["path"] == "desk")
-                            {
-                                //Type oleType = Type.GetTypeFromProgID("Shell.Application");
-                                //object oleObject = System.Activator.CreateInstance(oleType);
-                                //Microsoft.Win32.SystemEvents.SessionSwitch += new Microsoft.Win32.SessionSwitchEventHandler(SystemEvents_SessionSwitch);
-                                //void SystemEvents_SessionSwitch(object sender, Microsoft.Win32.SessionSwitchEventArgs e)
-                                //{
-                                //    log.Info(string.Format("屏幕状态:{0}",e));
-                                //    if (e.Reason == Microsoft.Win32.SessionSwitchReason.SessionLock|| e.Reason == SessionSwitchReason.RemoteConnect)
-                                //    {
-                                //        // 屏幕锁定
-                                //        log.Info(string.Format("屏幕锁定状态"));
-                                //        try
-                                //        {
-                                //            App.Current.Dispatcher.Invoke((Action)(() =>
-                                //            {
-                                //                System.Windows.Window test = windows.BackGroundWindow.Instance();
-                                //                test.Show();
-                                //            }));
-                                //            app.CloseAll();
-                                //        }
-                                //        catch(Exception ex)
-                                //        {
-                                //            log.Info(string.Format("关闭当前进程出错：{0}",ex));
-                                //        }
-                                //        log.Info(string.Format("当前进程关闭"));
-                                //    }
-                                //    else if (e.Reason == Microsoft.Win32.SessionSwitchReason.SessionUnlock || e.Reason == SessionSwitchReason.ConsoleConnect)
-                                //    {
-                                //        // 屏幕解锁  
-                                //        oleType.InvokeMember("ToggleDesktop", BindingFlags.InvokeMethod, null, oleObject, null);
-                                //    }
-                                //}
+                            if((string)param["path"] == "back")
+                            { 
                                 App.Current.Dispatcher.Invoke((Action)(() =>
                                 {
                                     System.Windows.Window test = windows.BackGroundWindow.Instance();
                                     test.Hide();
-                                }));
+                                }));                               
                                 app.CloseAll();
                                 Type oleType = Type.GetTypeFromProgID("Shell.Application");
                                 object oleObject = System.Activator.CreateInstance(oleType);
                                 oleType.InvokeMember("ToggleDesktop", BindingFlags.InvokeMethod, null, oleObject, null);
                             }
-                            //else if((string)param["path"] == "back")
-                            //{
-                            //    //从打开的应用退回到桌面
-                            //    App.Current.Dispatcher.Invoke((Action)(() =>
-                            //    {
-                            //        System.Windows.Window test = windows.BackGroundWindow.Instance();
-                            //        test.Hide();
-                            //    }));
-                            //    app.CloseAll();
-                            //    Type oleType = Type.GetTypeFromProgID("Shell.Application");
-                            //    object oleObject = System.Activator.CreateInstance(oleType);
-                            //    oleType.InvokeMember("ToggleDesktop", BindingFlags.InvokeMethod, null, oleObject, null);
-                            //}
                             else
                             {
                                 App.Current.Dispatcher.Invoke((Action)(() =>
