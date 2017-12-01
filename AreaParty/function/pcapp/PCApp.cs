@@ -77,6 +77,7 @@ namespace AreaParty.function.pcapp
                 {
                     
                     log.Error("HttpService 启动失败",e);
+                    CloseHttpService();
                 }
 
             }
@@ -117,18 +118,23 @@ namespace AreaParty.function.pcapp
 
         private static bool OpenPCinfoService()
         {
-            try
+            if ((!TestOnline(ip, ConfigResource.PCINFO_PORT)) && (!TestOnline(ip, 7777)))
             {
-                Thread TransferInformationThread = new Thread(TransferInformationService.StartService);
-                TransferInformationThread.IsBackground = true;
-                TransferInformationThread.Start();
-                log.Info("PCinfoService线程已经启动");
-                return true;
+                try
+                {
+                    Thread TransferInformationThread = new Thread(TransferInformationService.StartService);
+                    TransferInformationThread.IsBackground = true;
+                    TransferInformationThread.Start();
+                    log.Info("PCinfoService线程已经启动");
+                    return true;
+                }
+                catch (ThreadAbortException e)
+                {
+                    log.Info(string.Format("PCinfoService启动失败：{0}", e.Message));
+                    ClosePCinfoService();
+                }
             }
-            catch (ThreadAbortException e)
-            {
-                log.Info(string.Format("PCinfoService启动失败：{0}", e.Message));
-            }
+            
             return false;
         }
 
@@ -199,6 +205,7 @@ namespace AreaParty.function.pcapp
             catch(ThreadAbortException e)
             {
                 log.Info(string.Format("BtReceive启动失败：{0}", e.Message));
+                CloseBtReceive();
             }
             return false;
         }
@@ -211,13 +218,13 @@ namespace AreaParty.function.pcapp
             try{
                 thread_httpserver.Abort();
                 Close("127.0.0.1", ConfigResource.HTTP_PORT);
+                log.Info(string.Format("HttpServer线程退出成功，关闭端口{0}", ConfigResource.HTTP_PORT));
             }
             catch (Exception e)
             {
+                
                 return;
             }
-            
-            
             Console.WriteLine("HttpServer线程退出成功");
         }
         
@@ -227,6 +234,8 @@ namespace AreaParty.function.pcapp
             TransferInformationService.StopService();
             Console.WriteLine("PCinfoService线程退出成功");
             Close("127.0.0.1", ConfigResource.PCINFO_PORT);
+            Close("127.0.0.1", 7777);
+            log.Info(string.Format("PCinfoService线程退出成功，关闭端口{0}，{1}", ConfigResource.PCINFO_PORT, 7777));
         }
 
         private static void CloseUtorrent()
@@ -239,28 +248,16 @@ namespace AreaParty.function.pcapp
             else
             {
                 process_utorrent[0].Kill();
+                log.Info(string.Format("Utorrent进程退出成功"));
                 Console.WriteLine("Utorrent进程退出成功");
             }
-            //try
-            //{
-            //p.Close();
-            //    p.Kill();
-            //if (!p.HasExited)
-            //{
-            //    Console.WriteLine("uTorrent进程退出失败");
-            //}
-            //}catch(Exception e)
-            //{
-            //    Console.WriteLine("uTorrent进程退出失败");
-            //}
-
         }
 
         private static void CloseBtReceive()
         {
             receiveBtServer.Abort();
             Close("127.0.0.1", ConfigResource.BTRECEIVE_PORT);
-            
+            log.Info(string.Format("BtReceive线程退出成功，关闭端口{0}",ConfigResource.BTRECEIVE_PORT));
             Console.WriteLine("BtReceive线程退出成功");
         }
 
@@ -296,7 +293,7 @@ namespace AreaParty.function.pcapp
             }
             
         }
-        private static bool Close(string ipadress,int port)
+        public static bool Close(string ipadress,int port)
         {
             try
             {

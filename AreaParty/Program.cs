@@ -19,6 +19,7 @@ using System.Configuration;
 using log4net;
 using System.Reflection;
 using Microsoft.Win32;
+using System.Windows.Forms;
 
 namespace AreaParty
 {
@@ -62,10 +63,23 @@ namespace AreaParty
             TVFunction tv = new TVFunction();
             tv.Start();//启动tv线程，检测TV是否在线
             isOpen = function.pcapp.PCApp.Open();//打开其他PC应用
+            int i = 0;
             while (!isOpen)
             {
+                
                 function.pcapp.PCApp.CLoseAll();
                 isOpen = function.pcapp.PCApp.Open();
+                if (i == 2)
+                {
+                    if (MessageBox.Show("确定重置吗？", "重置", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        function.pcapp.PCApp.CLoseAll();
+                        //System.Windows.Application.Current.Shutdown();
+                        //System.Windows.Forms.Application.Exit();
+                        Environment.Exit(0);
+                    }
+                }
+                i++;
             }
             //Thread.Sleep(3000);//必须等待一段时间，下个模块初始化依赖于上个模块。
 

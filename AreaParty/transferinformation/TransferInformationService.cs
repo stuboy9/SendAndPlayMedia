@@ -51,10 +51,40 @@ namespace transferinfomation
             thread2.IsBackground = true;
             thread2.Start();
 
+            //bool run = false;
+            //while (!run)
+            //{
+            //    System.Threading.Thread thread2 = new System.Threading.Thread(TransferMonitorData);
+            //    thread2.IsBackground = true;
+            //    try
+            //    {
+            //        thread2.Start();
+            //        run = true;
+            //    }
+            //    catch (SocketException e)
+            //    {
+            //        thread2.Abort();
+            //        AreaParty.function.pcapp.PCApp.Close("127.0.0.1", 7777);
+            //        //thread2.Start();
+            //    }
+            //}
+
+
+
             IPEndPoint localIP = new IPEndPoint(IPAddress.Any, ConfigResource.PCINFO_PORT);
             TcpListener listener = new TcpListener(localIP);
-
-            listener.Start();
+            //try
+            //{
+                listener.Start();
+            //}
+            //catch (SocketException)
+            //{
+            //    //listener.
+            //    //localIP = new IPEndPoint(IPAddress.Any, ConfigResource.PCINFO_PORT);
+            //    //listener = new TcpListener(localIP);
+            //    //listener.
+            //}
+            
 
 
             Console.WriteLine("Action Server is listening...");
@@ -80,21 +110,7 @@ namespace transferinfomation
                     RequestMessageFormat request = JsonHelper.DeserializeJsonToObject<RequestMessageFormat>(messageGet);
                     ReturnMessageFormat returnMessage = new ReturnMessageFormat();
                     switch (request.name)
-                    {
-                        //case Order.nasAction_name:
-                        //    switch (request.command)
-                        //    {
-                        //        case Order.nasAction_manager:
-                                    
-                        //            break;
-                        //        case Order.nasAction_add:
-
-                        //            break;
-                        //        case Order.nasAction_delete:
-                                    
-                        //            break;
-                        //    }
-                        //    break;
+                    {                       
                         case Order.get_areaparty_path:
                             returnMessage.data = null;
                             returnMessage.message = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\AreaParty\\";
@@ -310,8 +326,18 @@ namespace transferinfomation
             System.Threading.Thread.Sleep(5000);
             IPEndPoint localIP = new IPEndPoint(IPAddress.Any, 7777);
             TcpListener listener = new TcpListener(localIP);
+            //try
+            //{
+                listener.Start();
+            //}
+            //catch (SocketException)
+            //{
+            //    listener.Stop();
+            //    localIP = new IPEndPoint(IPAddress.Any, 7777);
+            //    listener = new TcpListener(localIP);
+            //    listener.Start();
+            //}
             
-            listener.Start();
             Console.WriteLine("Monitoring Server is listening...");
             while (true)
             {
