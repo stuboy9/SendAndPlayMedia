@@ -367,7 +367,7 @@ namespace AreaParty.util.config
         /// <param name="dir"></param>
         /// <param name="foldname"></param>
         /// <returns></returns>
-        public static List<MediaMengMeng> SearchMedia(string dir,string foldname)
+        public static List<MediaMengMeng> SearchVideo(string dir,string foldname)
         {
             List<MediaMengMeng> list = new List<MediaMengMeng>();
             DirectoryInfo d = new DirectoryInfo(dir);
@@ -378,13 +378,61 @@ namespace AreaParty.util.config
                 {
                     if (fsinfo is DirectoryInfo)     //判断是否为文件夹  
                     {
-                        SearchMedia(fsinfo.FullName, foldname);//递归调用  
+                        SearchVideo(fsinfo.FullName, foldname);//递归调用  
                     }
                     else
                     {
                         if (fsinfo.FullName.IndexOf(foldname) > -1)
                         {
                             list.Add(new MediaMengMeng(new VideoItem(fsinfo.FullName)));
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+        public static List<MediaMengMeng> SearchAudio(string dir, string foldname)
+        {
+            List<MediaMengMeng> list = new List<MediaMengMeng>();
+            DirectoryInfo d = new DirectoryInfo(dir);
+            FileSystemInfo[] fsinfos = d.GetFileSystemInfos();
+            if (fsinfos.Length > 0)
+            {
+                foreach (FileSystemInfo fsinfo in fsinfos)
+                {
+                    if (fsinfo is DirectoryInfo)     //判断是否为文件夹  
+                    {
+                        SearchAudio(fsinfo.FullName, foldname);//递归调用  
+                    }
+                    else
+                    {
+                        if (fsinfo.FullName.IndexOf(foldname) > -1)
+                        {
+                            list.Add(new MediaMengMeng(new AudioItem(fsinfo.FullName)));
+                        }
+                    }
+                }
+            }
+            return list;
+        }
+        public static List<MediaMengMeng> SearchImage(string dir, string foldname)
+        {
+            List<MediaMengMeng> list = new List<MediaMengMeng>();
+            DirectoryInfo d = new DirectoryInfo(dir);
+            FileSystemInfo[] fsinfos = d.GetFileSystemInfos();
+            if (fsinfos.Length > 0)
+            {
+                foreach (FileSystemInfo fsinfo in fsinfos)
+                {
+                    if (fsinfo is DirectoryInfo)     //判断是否为文件夹  
+                    {
+                        SearchImage(fsinfo.FullName, foldname);//递归调用  
+                    }
+                    else
+                    {
+                        if (fsinfo.FullName.IndexOf(foldname) > -1)
+                        {
+                            list.Add(new MediaMengMeng(new ImageItem(fsinfo.FullName)));
                         }
                     }
                 }
@@ -407,7 +455,7 @@ namespace AreaParty.util.config
             
             foreach (string s in videolist)
             {         
-                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchVideo(s, key);
                 if(findlist.Count > 0)
                 {
                     f_v_media.AddRange(findlist);
@@ -415,7 +463,7 @@ namespace AreaParty.util.config
             }
             foreach (string s in downloadlist)
             {
-                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchVideo(s, key);
                 if (findlist.Count > 0)
                 {
                     f_v_media.AddRange(findlist);
@@ -423,7 +471,7 @@ namespace AreaParty.util.config
             }
             foreach (string s in myvideolist)
             {            
-                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchVideo(s, key);
                 if (findlist.Count > 0)
                 {
                     f_v_media.AddRange(findlist);
@@ -431,7 +479,7 @@ namespace AreaParty.util.config
             }
             foreach (string s in audiolist)
             {
-                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchAudio(s, key);
                 if (findlist.Count > 0)
                 {
                     f_a_media.AddRange(findlist);
@@ -439,7 +487,7 @@ namespace AreaParty.util.config
             }
             foreach (string s in myaudiolist)
             {
-                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchAudio(s, key);
                 if (findlist.Count > 0)
                 {
                     f_a_media.AddRange(findlist);
@@ -447,7 +495,7 @@ namespace AreaParty.util.config
             }
             foreach (string s in imagelist)
             {
-                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchImage(s, key);
                 if (findlist.Count > 0)
                 {
                     f_i_media.AddRange(findlist);
@@ -455,7 +503,7 @@ namespace AreaParty.util.config
             }
             foreach (string s in myimagelist)
             {
-                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchMedia(s, key);
+                List<MediaMengMeng> findlist = util.config.MediaConfig.SearchImage(s, key);
                 if (findlist.Count > 0)
                 {
                     f_i_media.AddRange(findlist);
