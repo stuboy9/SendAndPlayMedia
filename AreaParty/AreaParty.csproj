@@ -240,6 +240,7 @@
     <Compile Include="protocol\GetPersonalInfoMsg.cs" />
     <Compile Include="protocol\GetUserInfoMsg.cs" />
     <Compile Include="protocol\GroupData.cs" />
+    <Compile Include="protocol\HolePunchMsg.cs" />
     <Compile Include="protocol\KeepAliveMsg.cs" />
     <Compile Include="protocol\LoginMsg.cs" />
     <Compile Include="protocol\LogoutMsg.cs" />

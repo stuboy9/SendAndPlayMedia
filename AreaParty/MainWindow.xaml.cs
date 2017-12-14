@@ -262,14 +262,16 @@ namespace AreaParty
             }
             else if(index == 2)
             {
-                pages.GamePage newPage = new pages.GamePage();
-                this.pTransitionControl_3.ShowPage(newPage);
-            }
-            else
-            { 
                 pages.SettingPage newPage = new pages.SettingPage();
-                this.pTransitionControl_4.ShowPage(newPage);
+                this.pTransitionControl_3.ShowPage(newPage);
+                //pages.GamePage newPage = new pages.GamePage();
+                //this.pTransitionControl_3.ShowPage(newPage);
             }
+            //else
+            //{ 
+            //    pages.SettingPage newPage = new pages.SettingPage();
+            //    this.pTransitionControl_4.ShowPage(newPage);
+            //}
         }
 
         private void MenuButton_Setting_Click(object sender, RoutedEventArgs e)

@@ -162,7 +162,7 @@
 
                     </Grid>
                 </TabItem>
-                <TabItem Header="娱乐游戏" Height="83" Margin="155,0,0,0" Width="74" Style="{DynamicResource TabItemStyle1}">
+                <!--<TabItem Header="娱乐游戏" Height="83" Margin="155,0,0,0" Width="74" Style="{DynamicResource TabItemStyle1}">
                     <TabItem.Background>
                         <ImageBrush ImageSource="styles/skin/ico/ico_Game.png"/>
                     </TabItem.Background>
@@ -178,13 +178,13 @@
                             <RowDefinition Height="338.833"/>
                             <RowDefinition Height="26.9999999999997"/>
                         </Grid.RowDefinitions>
-                        <!--详细-->
+                        --><!--详细--><!--
                         <Label Content="游戏管理" HorizontalAlignment="Left" Margin="0" Width="94.25" Height="36" FontSize="14.667" FontWeight="Bold" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
                         <pageTransitions:PageTransition Name="pTransitionControl_3" Margin="0" TransitionType="SlideAndFade" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
 
                     </Grid>
-                </TabItem>
-                <TabItem Header="设置管理" Height="83" Margin="230,0,0,0" Width="74" Style="{DynamicResource TabItemStyle1}">
+                </TabItem>-->
+                <TabItem Header="设置管理" Height="83" Margin="155,0,0,0" Width="74" Style="{DynamicResource TabItemStyle1}">
                     <TabItem.Background>
                         <ImageBrush ImageSource="styles/skin/ico/ico_Setting.png"/>
                     </TabItem.Background>
@@ -202,7 +202,7 @@
                         </Grid.RowDefinitions>
                         <!--详细-->
                         <Label Content="设置管理" HorizontalAlignment="Left" Margin="0" Width="94.25" Height="36" FontSize="14.667" FontWeight="Bold" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" />
-                        <pageTransitions:PageTransition Name="pTransitionControl_4" Margin="0" TransitionType="SlideAndFade" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
+                        <pageTransitions:PageTransition Name="pTransitionControl_3" Margin="0" TransitionType="SlideAndFade" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
 
                     </Grid>
                 </TabItem>

@@ -134,8 +134,10 @@ TV端设置步骤(建议插上鼠标键盘方便设置)：
     为了您可以在TV直接玩电脑上的游戏，需要您进行如下设置，您可以跳过此设置，稍后在设置选项自行设置。注意，此功能需要硬件支持，要求独立显卡GTX600以上，具体请查询英伟达官网。
             </TextBlock>
             <TextBlock  FontSize="17" FontFamily="宋体" TextBlock.LineHeight="23" FontStretch="Expanded" Margin="15,55,15,0" Padding="5,0,5,0" Grid.Row="1" TextWrapping="Wrap" xml:space="preserve">
-1.  打开Geforce Experience(如果没有安装此程序请上官网下载安装)，然后进行帐号注册或者使用第三方帐号登录。
-2.  选择上方设置按钮，然后选择SHIELD，在此界面，将GAMESTREAM选项打开即可。
+1.  打开Geforce Experience(如果没有安装此程序请上官网下载安装)，然后进行帐号注册或者使用第三方帐号登录；
+2.  选择上方设置按钮，然后选择SHIELD，在此界面，将GAMESTREAM选项打开；
+3.  打开手机上的“Areaparty”APP，选择“应用”->“电脑应用”，点击“游戏串流”，在电视上打开的游戏串流工具将自动为您搜索完成第2步的电脑；      
+4.  选择您的电脑，将弹出的配对码在电脑上输入，即可完成配对。
             </TextBlock>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
