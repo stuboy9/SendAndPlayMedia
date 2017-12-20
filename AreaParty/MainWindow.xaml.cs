@@ -301,5 +301,11 @@ namespace AreaParty
 
             
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            function.pcapp.PCApp.CLoseAll();
+            Environment.Exit(0);
+        }
     }
 }

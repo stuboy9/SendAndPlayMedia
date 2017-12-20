@@ -66,12 +66,12 @@ namespace AreaParty
             int i = 0;
             while (!isOpen)
             {
-                
+
                 function.pcapp.PCApp.CLoseAll();
                 isOpen = function.pcapp.PCApp.Open();
                 if (i == 2)
                 {
-                    if (MessageBox.Show("确定重置吗？", "重置", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("您的Areaparty在上次运行中发生异常，请点击确定重置软件相关参数。", "重置", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         function.pcapp.PCApp.CLoseAll();
                         //System.Windows.Application.Current.Shutdown();

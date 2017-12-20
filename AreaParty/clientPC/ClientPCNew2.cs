@@ -277,6 +277,8 @@ namespace client
             StreamReader sr;
             StreamWriter sw;
             NetworkStream clientStream;
+            //HolePunchRsp HolePunchRsp = new HolePunchRsp();
+            
             public ReceiveServerMsg(TcpClient tcpClient)
             {
                 this.tcpClient = tcpClient;
@@ -285,6 +287,7 @@ namespace client
             {
                 clientPClogger.Info("进入接收服务器消息程序");
                 clientStream = tcpClient.GetStream();//利用TcpClient对象GetStream方法得到网络流
+                //HolePunchReq holeReq = Serializer.Deserialize<HolePunchReq>(clientStream);
                 sw = new StreamWriter(clientStream);
                 sr = new StreamReader(clientStream);
                 while (isKeepAlive)
